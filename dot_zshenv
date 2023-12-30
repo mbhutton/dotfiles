@@ -1,0 +1,13 @@
+# Override ZDOTDIR as very first user controlled config
+ZDOTDIR="$HOME/.config/zsh"
+
+# Ensure that ZDOTDIR exists
+if [[ ! -d "$ZDOTDIR" ]]; then
+  echo "Creating missing ZDOTDIR: $ZDOTDIR"
+  mkdir -p "$ZDOTDIR"
+fi
+
+# Preserve the existing behaviour of reading .zshenv
+if [[ -f "$ZDOTDIR/.zshenv" ]]; then
+  source $ZDOTDIR/.zshenv
+fi

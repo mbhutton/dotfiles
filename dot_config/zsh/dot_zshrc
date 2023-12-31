@@ -1,3 +1,9 @@
 # Record shell history via atuin (in addition to usual history recording)
 eval "$(atuin init zsh)"
 
+# Source configuration files from zshrc.d in numeric order
+# .n=NUMERIC_GLOB_SORT, .N=NULL_GLOB (don't error if no matches)
+for rc_file in "$ZDOTDIR/zshrc.d/"*(.nN); do
+    # shellcheck disable=SC1090  # Can't follow non-constant source
+    source "$rc_file"
+done

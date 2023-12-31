@@ -1,0 +1,3 @@
+# Record shell history via atuin (in addition to usual history recording)
+eval "$(atuin init zsh)"
+

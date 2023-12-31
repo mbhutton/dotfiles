@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # Override ZDOTDIR as very first user controlled config
 ZDOTDIR="$HOME/.config/zsh"
 
@@ -9,5 +10,6 @@ fi
 
 # Preserve the existing behaviour of reading .zshenv
 if [[ -f "$ZDOTDIR/.zshenv" ]]; then
-  source $ZDOTDIR/.zshenv
+  # shellcheck disable=SC1091
+  source "$ZDOTDIR/.zshenv"
 fi

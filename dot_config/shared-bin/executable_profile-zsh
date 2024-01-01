@@ -1,0 +1,12 @@
+#!/bin/zsh
+# shellcheck shell=bash
+
+# Check that no arguments were passed
+if [[ "$#" -ne 0 ]]; then
+  echo "Unexpected arguments: $*"
+  echo "Syntax: $0 <no arguments>"
+  exit 1
+fi
+
+echo "Profiling startup speed of interactive zsh shell..."
+single-run-zsh-interactive -profile

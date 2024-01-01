@@ -1,0 +1,33 @@
+#!/bin/zsh
+# shellcheck shell=bash
+
+# Syntax: single-run-zsh-interactive [-profile]
+# -profile: Enable profiling of zsh startup using zprof
+
+if [[ "$1" == "-profile" ]]; then
+  export ZPROF=true
+  shift 1
+fi
+
+# Check that no other arguments were passed
+if [[ "$#" -ne 0 ]]; then
+  echo "Unexpected arguments: $*"
+  echo "Syntax: $0 [-profile]"
+  exit 1
+fi
+
+# Perform single run of zsh in interactive mode,
+# immediately calling exit to terminate the shell.
+# Redirect stderr to stdout to help filter out some messages
+# that are not relevant to measuring startup speed.
+# These messages seem specific to macOS (unconfirmed).
+zsh \
+ -i \
+ -c exit \
+ 2>&1 \
+ | grep -v 'Restored session: ' \
+ | grep -v 'Saving session...' \
+ | grep -v '...saving history...truncating history files...' \
+ | grep -v '...copying shared history...' \
+ | grep -v '...completed.'
+

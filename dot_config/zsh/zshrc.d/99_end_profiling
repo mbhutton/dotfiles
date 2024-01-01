@@ -1,0 +1,1 @@
+[[ "$ZPROF" = true ]] && zprof

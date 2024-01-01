@@ -1,5 +1,5 @@
 # Record shell history via atuin (in addition to usual history recording)
-eval "$(atuin init zsh)"
+eval "$(atuin init zsh --disable-up-arrow)"
 
 # Source configuration files from zshrc.d in numeric order
 # .n=NUMERIC_GLOB_SORT, .N=NULL_GLOB (don't error if no matches)

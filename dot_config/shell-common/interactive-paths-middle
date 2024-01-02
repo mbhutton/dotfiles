@@ -1,0 +1,6 @@
+# shellcheck shell=bash
+
+# PATH additions to perform mid way through setup of an interactive shell.
+
+# ~/.local/bin is required for pipx
+PATH="$PATH:$HOME/.local/bin"

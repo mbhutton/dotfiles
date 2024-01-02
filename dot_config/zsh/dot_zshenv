@@ -1,1 +1,4 @@
 # shellcheck shell=bash
+
+# Redundant in theory but required for some apps, including lazygit
+export XDG_CONFIG_HOME="$HOME/.config"

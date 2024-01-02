@@ -1,1 +1,5 @@
+# Source paths to ignore
+README.md
+
+# Target paths to ignore
 .config/lazygit/state.yml

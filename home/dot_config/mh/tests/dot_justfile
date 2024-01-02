@@ -1,0 +1,25 @@
+@audit: test lint
+
+test:
+  @echo Calling shell tests...
+  bats $HOME/.config/tests/test.bats
+
+
+
+lint:
+  @echo Linting ZSH config via shellcheck
+  # gather list of all zsh files (include test that non empty )
+  shellcheck --shell=bash --exclude=SC10919 --format=json "$HOME/.zshenv" "$HOME/.config/zsh/"**/*(.D)
+     shared-bin
+     shell-common
+    tests/lint.sh
+    test/bats (format)
+  # !! bad glob, missing top level ones
+  shfmt -i 2 -d ...
+
+
+# TODO: format *.md files
+
+lint_readme:
+  @echo Linting README.md files
+  markdownlint README.md

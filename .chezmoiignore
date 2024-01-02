@@ -1,5 +1,19 @@
-# Source paths to ignore
+# Source paths to ignore...
 README.md
 
-# Target paths to ignore
+# Target paths to ignore...
+
+# Volatile state:
 .config/lazygit/state.yml
+.cache
+.local/share                 # XDG_DATA_HOME
+.local/state                 # XDG_STATE_HOME
+
+# Configuration and state managed by other tools:
+{{ if eq .chezmoi.os "darwin" }}
+.CFUserTextEncoding          # Managed well enough by macOS
+{{ end }}
+.local/pipx                  # Managed by pipx
+.local/bin                   # Managed by pipx
+.npm                         # Managed by node.js
+.pyenv                       # Managed by pyenv

@@ -2,3 +2,7 @@ gui:
   theme:
     selectedLineBgColor:
       - cyan
+
+git:
+  log:
+    showGraph: always

@@ -12,3 +12,10 @@ alias gw := git_workflow
 # Regraft branches
 git_workflow:
   mh-git-workflow-rebase-dotfiles
+
+lint:
+  ./lints/lint_readme
+  ./lints/lint_zsh
+
+test:
+  # TODO

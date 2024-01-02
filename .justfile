@@ -19,3 +19,10 @@ alias gaok := git-absorb-from-ok
 
 git-absorb-from-ok:
   git absorb --base ok --and-rebase
+
+lint:
+  ./lints/lint_readme
+  ./lints/lint_zsh
+
+test:
+  # TODO

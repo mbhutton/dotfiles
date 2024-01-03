@@ -1,4 +1,16 @@
 # shellcheck shell=bash
 
-# Redundant in theory but required for some apps, including lazygit
+# Set XDG_*_HOME variables to their ideal default values according to the XDG spec:
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+#
+# This shouldn't be necessary because the XDG spec says that if these variables
+# are unset, they should default to the values below.
+# However some apps (such as lazygit) read the variables but don't default to
+# these default values, so set them explicitly.
+#
+# Setting these attempts to:
+# (a) reduce clutter in the home directory, and
+# (b) align macOS with Linux.
 export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"

@@ -1,8 +1,10 @@
 # shellcheck shell=bash
 
 # Source configuration files from zshrc.d in numeric order
-# .n=NUMERIC_GLOB_SORT, .N=NULL_GLOB (don't error if no matches)
 for rc_file in "$ZDOTDIR/zshrc.d/"*(.nN); do
+#   .=Plain files
+#   n=NUMERIC_GLOB_SORT
+#   N=NULL_GLOB (don't error if no matches)
     # shellcheck disable=SC1090  # Can't follow non-constant source
     source "$rc_file"
 done

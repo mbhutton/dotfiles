@@ -1,0 +1,13 @@
+# Development and productivity
+
+alt-tab              # Window switching
+font-hack-nerd-font  # Fonts with support for icons, used by 'lsd'
+gitx                 # Git UI with very legible commit graph
+iterm2               # Replacement for Terminal.app with more features
+karabiner-elements   # Keyboard customizer
+shortcat             # Easymotion-like macOS GUI navigation
+
+# Music apps
+
+sonic-pi
+supercollider

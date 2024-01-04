@@ -1,4 +1,4 @@
 # shellcheck shell=bash
 
 # shellcheck disable=SC2034  # Unused vars
-SHELL_COMMON="$HOME/.config/shell-common"
+SHELL_COMMON="$HOME/.config/mh/shell-common"

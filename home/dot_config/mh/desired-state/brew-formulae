@@ -1,0 +1,25 @@
+atool              # Tools for archive files (zip,tar etc) like 'als', 'aunpack'
+atuin              # Shell history backed by sqlite
+bats-core          # Testing for shell scripts and shell configuration
+broot              # Efficient directory navigation
+btop               # Modern 'top'
+chezmoi            # Dot files manager to bootstrap and manage dev environment
+choose-gui         # Note: clashes with useful 'choose' command from choose-rust
+cmake              # For C++ development with JUCE
+duf                # Modern 'df'
+dust               # Modern 'du'
+fd                 # Modern alternative to 'find'
+gh                 # GitHub CLI, with Copilot
+git-delta          # Modern diff, 'delta' command
+haskell-stack      # Haskell dev tools
+hledger            # Plain text accounting, inspired by ledger, in Haskell
+hyperfine          # Benchmarking
+just               # Simple task runner
+lazygit            # Efficient Git TUI
+mise               # Manage multiple versions of language toolchains (was 'rtx')
+parallel           # Run tasks in parallel. Used for updating multiple repos.
+pipx               # Install Python CLI tools. Note: use mise's python@latest.
+pygitup            # Python based git-up command for updating git repos
+shellcheck         # Static analysis of shell files. Note: validate zsh as bash.
+shfmt              # Formatter for shell files
+starship           # Terminal prompt

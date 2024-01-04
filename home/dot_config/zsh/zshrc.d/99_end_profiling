@@ -1,1 +1,1 @@
-[[ "$ZPROF" = true ]] && zprof
+[[ "$MH_PROFILE_ZSHRC" = true ]] && zprof

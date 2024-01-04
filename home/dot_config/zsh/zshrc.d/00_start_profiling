@@ -1,1 +1,1 @@
-[[ "$ZPROF" = true ]] && zmodload zsh/zprof
+[[ "$MH_PROFILE_ZSHRC" = true ]] && zmodload zsh/zprof

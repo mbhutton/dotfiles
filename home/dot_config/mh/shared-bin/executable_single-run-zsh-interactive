@@ -5,7 +5,7 @@
 # -profile: Enable profiling of zsh startup using zprof
 
 if [[ "$1" == "-profile" ]]; then
-  export ZPROF=true
+  export MH_PROFILE_ZSHRC=true
   shift 1
 fi
 

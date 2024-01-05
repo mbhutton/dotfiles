@@ -1,0 +1,19 @@
+# Maintenance note: split this file across a zprofile.d directory
+# if anything else needs to be added.
+
+# ---------------------------------------------------------
+# Activate homebrew.
+#
+# Do this here in .zprofile rather than in .zshenv intentionally:
+# For login shells, startup order includes .zshenv, /etc/zprofile, .zprofile.
+# MacOS makes changes to PATH within /etc/zprofile.
+# So activating homebrew here allows more control of its precedence in PATH.
+
+{{ if eq .chezmoi.os "darwin" -}}
+eval $(/opt/homebrew/bin/brew shellenv)
+{{ else if eq .chezmoi.os "linux" -}}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ else -}}
+echo "WARN: Can't activate homebrew for OS \"{{ .chezmoi.os }}\"" >&2
+{{ end }}
+# ---------------------------------------------------------

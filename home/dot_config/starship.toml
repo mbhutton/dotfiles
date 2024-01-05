@@ -1,3 +1,10 @@
+# Custom configuration...
+
+[hostname]
+ssh_only = false
+
+# bracketed-segments preset...
+
 [aws]
 format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
 

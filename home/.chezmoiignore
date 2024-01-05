@@ -11,4 +11,3 @@
 .local/pipx                  # Managed by pipx
 .local/bin                   # Managed by pipx
 .npm                         # Managed by node.js
-.pyenv                       # Managed by pyenv

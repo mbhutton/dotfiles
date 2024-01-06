@@ -18,4 +18,5 @@ fi
 
 # Perform single run of zsh in interactive mode,
 # immediately calling exit to terminate the shell.
-zsh -i -c exit
+# Include 'true' otherwise the shell exits with return code 1.
+zsh -i -c 'true; exit'

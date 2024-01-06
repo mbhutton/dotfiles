@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+# shellcheck shell=bash
+
+# Tests the chezmoi source configration against the local state,
+# displays differences if any, and applies changes on user confirmation.
+
+if chezmoi verify; then
+  echo "Already in sync, nothing to do"
+  exit 0
+fi
+
+function horizontal_line() {
+  for _ in {1..12}; do echo -n "__________"; done; echo
+}
+
+horizontal_line
+horizontal_line
+chezmoi diff
+horizontal_line
+chezmoi status
+horizontal_line
+echo 'Proceed? y/N'
+
+read -sqr answer
+
+if [[ "$answer" == "y" ]]; then
+  chezmoi apply
+else
+  echo "Cancelled by user"
+  exit 1
+fi

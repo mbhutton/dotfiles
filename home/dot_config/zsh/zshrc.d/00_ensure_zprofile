@@ -1,0 +1,10 @@
+# shellcheck shell=bash
+
+# Source .zprofile if not already done so,
+# as zsh is sometimes started as an interactive non-login shell.
+# This is allow interactive setup to depend on steps done in .zprofile.
+
+if [[ -z "$MH_PROCESSED_ZPROFILE" && -f "$ZDOTDIR/.zprofile" ]]; then
+  # shellcheck disable=SC1091
+  source "$ZDOTDIR/.zprofile"
+fi

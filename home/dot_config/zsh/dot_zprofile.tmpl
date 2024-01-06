@@ -2,6 +2,14 @@
 # if anything else needs to be added.
 
 # ---------------------------------------------------------
+# Prevent circular dependencies.
+
+if [[ -n "$MH_PROCESSED_ZPROFILE" ]]; then
+  echo "WARN: Already processed .zprofile, suggesting a circular dependency" >&2
+  return
+fi
+
+# ---------------------------------------------------------
 # Activate homebrew.
 #
 # Do this here in .zprofile rather than in .zshenv intentionally:
@@ -16,4 +24,10 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{ else -}}
 echo "WARN: Can't activate homebrew for OS \"{{ .chezmoi.os }}\"" >&2
 {{ end }}
+
+# ---------------------------------------------------------
+# Mark as processed.
+
+MH_PROCESSED_ZPROFILE=true
+
 # ---------------------------------------------------------

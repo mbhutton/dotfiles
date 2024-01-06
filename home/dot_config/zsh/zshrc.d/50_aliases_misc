@@ -1,0 +1,6 @@
+alias e="$EDITOR"
+alias ec=echo
+alias f=fd
+alias g=grep
+alias rz='exec zsh'  # Reload zsh config
+alias v="bat"

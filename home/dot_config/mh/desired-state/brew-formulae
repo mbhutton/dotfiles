@@ -1,5 +1,6 @@
 atool              # Tools for archive files (zip,tar etc) like 'als', 'aunpack'
 atuin              # Shell history backed by sqlite
+bat                # Modern 'cat'
 bats-core          # Testing for shell scripts and shell configuration
 broot              # Efficient directory navigation
 btop               # Modern 'top'

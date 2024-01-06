@@ -1,3 +1,8 @@
-alias g=git
-alias gd='git diff'
-alias gs='git status'
+# Git proper
+alias t=git
+alias td='git diff'
+alias ts='git status'
+
+# Git related tools
+alias lg=lazygit
+alias tg='tig'

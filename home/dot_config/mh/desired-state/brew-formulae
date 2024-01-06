@@ -10,6 +10,7 @@ cmake              # For C++ development with JUCE
 duf                # Modern 'df'
 dust               # Modern 'du'
 fd                 # Modern alternative to 'find'
+fzf                # Fuzzy finder
 gh                 # GitHub CLI, with Copilot
 git-delta          # Modern diff, 'delta' command
 haskell-stack      # Haskell dev tools
@@ -22,6 +23,7 @@ mise               # Manage multiple versions of language toolchains (was 'rtx')
 parallel           # Run tasks in parallel. Used for updating multiple repos.
 pipx               # Install Python CLI tools. Note: use mise's python@latest.
 pygitup            # Python based git-up command for updating git repos
+ripgrep            # Modern 'grep'
 shellcheck         # Static analysis of shell files. Note: validate zsh as bash.
 shfmt              # Formatter for shell files
 starship           # Terminal prompt

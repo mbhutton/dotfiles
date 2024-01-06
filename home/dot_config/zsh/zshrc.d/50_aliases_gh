@@ -1,0 +1,6 @@
+# Copilot related
+alias aie='gh copilot explain'           # AI explain
+alias ais='gh copilot suggest'           # AI suggest
+alias aisg='gh copilot suggest -t git'   # AI suggest (Git)
+alias aish='gh copilot suggest -t gh'    # AI suggest (gitHub CLI)
+alias aiss='gh copilot suggest -t shell' # AI suggest (Shell)

@@ -1,16 +1,6 @@
-# Use with 'just <target>', e.g. 'just d'
+# Use with 'just <target>', e.g. 'just test_and_apply'
 
-@default: unmanaged diff
+@default: test_and_apply
 
-alias a := apply
-alias d := diff
-alias u := unmanaged
-
-apply *files:
-  chezmoi apply {{files}}
-
-diff *files:
-  chezmoi diff {{files}}
-
-unmanaged:
-  chezmoi unmanaged
+test_and_apply:
+  mh-chezmoi-test-and-apply

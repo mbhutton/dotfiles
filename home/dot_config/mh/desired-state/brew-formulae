@@ -16,6 +16,7 @@ haskell-stack      # Haskell dev tools
 hledger            # Plain text accounting, inspired by ledger, in Haskell
 hyperfine          # Benchmarking
 just               # Simple task runner
+lazydocker         # Docker TUI
 lazygit            # Efficient Git TUI
 mise               # Manage multiple versions of language toolchains (was 'rtx')
 parallel           # Run tasks in parallel. Used for updating multiple repos.

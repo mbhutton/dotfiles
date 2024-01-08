@@ -1,8 +1,13 @@
 # Volatile state:
+{{ if eq .chezmoi.os "darwin" }}
+**/.DS_Store
+{{ end }}
+.bash_history
 .config/lazygit/state.yml
 .cache
 .local/share                 # XDG_DATA_HOME
 .local/state                 # XDG_STATE_HOME
+.Trash
 
 # Configuration and state managed by other tools:
 {{ if eq .chezmoi.os "darwin" }}

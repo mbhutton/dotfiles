@@ -1,0 +1,1 @@
+export LESSHISTFILE="${MH_SHARE_DIR:-$HOME/.local/share/mh}/.lesshistory"

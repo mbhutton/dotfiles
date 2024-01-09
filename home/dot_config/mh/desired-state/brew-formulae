@@ -3,6 +3,7 @@ atuin              # Shell history backed by sqlite
 bat                # Modern 'cat'
 bats-core          # Testing for shell scripts and shell configuration
 broot              # Efficient directory navigation
+bottom             # Modern 'top', 'btm' command
 btop               # Modern 'top'
 chezmoi            # Dot files manager to bootstrap and manage dev environment
 cmake              # For C++ development with JUCE
@@ -14,6 +15,9 @@ gh                 # GitHub CLI, with Copilot
 git-delta          # Modern diff, 'delta' command
 hledger            # Plain text accounting, inspired by ledger, in Haskell
 hyperfine          # Benchmarking
+jq                 # JSON processor
+lf                 # File manager
+lsd                # Modern 'ls'
 just               # Simple task runner
 lazydocker         # Docker TUI
 lazygit            # Efficient Git TUI
@@ -25,3 +29,5 @@ ripgrep            # Modern 'grep'
 shellcheck         # Static analysis of shell files. Note: validate zsh as bash.
 shfmt              # Formatter for shell files
 starship           # Terminal prompt
+tig                # Git TUI, called from my lazygit bindings
+tlrc               # Rust client for tldr (help pages for CLI tools)

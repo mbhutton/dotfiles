@@ -4,3 +4,4 @@ alias f=fd
 alias g=grep
 alias rz='exec zsh'  # Reload zsh config
 alias v="bat"
+alias npx='npx --no-install'  # Guard against accidental global installs

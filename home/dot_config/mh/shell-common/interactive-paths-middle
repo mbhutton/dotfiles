@@ -4,3 +4,8 @@
 
 # ~/.local/bin is required for pipx
 PATH="$PATH:$HOME/.local/bin"
+
+# Set up GOBIN, where go installs binaries
+export GOBIN="$HOME/.local/share/mh/go-bin"
+mkdir -p "$GOBIN"
+export PATH="$GOBIN:$PATH"

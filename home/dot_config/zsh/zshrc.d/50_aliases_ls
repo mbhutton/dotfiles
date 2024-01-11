@@ -1,0 +1,6 @@
+alias l=lsd
+alias l1='lsd --oneline'
+alias la='lsd -A --oneline'  # A=almost all, skipping . and ..
+alias ll='lsd -lA'
+alias llg='ll -g'            # Git status
+alias lt='lsd -la --tree'

@@ -1,0 +1,5 @@
+# shellcheck shell=bash
+
+# MH_SHARE_DIR is initially for putting state from third party tools
+MH_SHARE_DIR="$HOME/.local/share/mh"
+mkdir -p "$MH_SHARE_DIR"

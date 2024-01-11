@@ -23,7 +23,7 @@ eval $(/opt/homebrew/bin/brew shellenv)
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 {{ else -}}
 echo "WARN: Can't activate homebrew for OS \"{{ .chezmoi.os }}\"" >&2
-{{ end }}
+{{ end -}}
 
 # ---------------------------------------------------------
 # Mark as processed.

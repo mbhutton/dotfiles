@@ -1,0 +1,64 @@
+# shellcheck shell=bash
+
+# Functions for finding files and directories, always including hidden files.
+# The public aliases are:
+#   ff: find_hidden_file - find a file by name
+#   ffs: find_file_substring - find a file by substring
+#   ffd: find_dir - find a directory by name
+#   ffds: find_dir_substring - find a directory by substring
+
+# Shared helper function for the exposed functions below
+_function _find_hidden_file_object() {
+  # local function_display_name, object_type, substring_flag, file_name
+  function_display_name="$1"
+  object_type="$2"
+  substring_flag="$3"
+  file_name="$4"
+
+  if [[ $# -ne 4 || -z "$file_name" ]]; then
+    echo "Usage: $function_display_name <name>" >&2
+    # echo "(Found): $# $*" >&2
+    return 1
+  fi
+
+  if [ "$substring_flag" = "true" ]; then
+    file_name="*$file_name*"
+  fi
+
+  # Target types, with object_type removed then prepended to the front
+  # Maintenance note: The array handling logic doesn't seem quite right,
+  # but the fuction is working as needed.
+  target_types=("f" "d" "l")
+  target_types=("${target_types[@]/$object_type}")
+  target_types=("$object_type" "${target_types[@]}")
+
+  # Process all target_types in the array
+  for _type in "${target_types[@]}"; do
+    if [[ -n "$_type" ]]; then
+      echo "Finding for type $_type ... \n"
+      # The '|| true' is to prevent unwanted early exit
+      find .* * -type $_type -iname "$file_name" 2>/dev/null || true
+      echo
+    fi
+  done
+}
+
+function find_hidden_file() {
+  _find_hidden_file_object "find_hidden_file" "f" "false" "$1"
+}
+alias ff=find_hidden_file
+
+function find_file_substring() {
+  _find_hidden_file_object "find_file_substring" "f" "true" "$1"
+}
+alias ffs=find_file_substring
+
+function find_dir() {
+  _find_hidden_file_object "find_dir" "d" "false" "$1"
+}
+alias ffd=find_dir
+
+function find_dir_substring() {
+  _find_hidden_file_object "find_dir_substring" "d" "true" "$1"
+}
+alias ffds=find_dir_substring

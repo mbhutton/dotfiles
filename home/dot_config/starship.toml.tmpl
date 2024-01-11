@@ -7,12 +7,12 @@ ssh_only = false
 [custom.chezmoi_local]
 when = "! chezmoi verify"
 command = "chezmoi status | wc -l | awk '{print $1}'"
-format = '\[🏚️ [$symbol $output]($style)\]'
+format = '\[🏚️ A[$symbol $output]($style)\]'
 
 [custom.chezmoi_git]
-when = 'test -n "$(chezmoi git -- status -s)"'
-command = "chezmoi git -- status -s | wc -l | awk '{print $1}'"
-format = '\[🏘️ [$symbol $output]($style)\]'
+when = 'test -n "$(git -C {{ .chezmoi.sourceDir }} status -s)"'
+command = "git -C {{ .chezmoi.sourceDir }} status -s | wc -l | awk '{print $1}'"
+format = '\[🏘️ D[$symbol $output]($style)\]'
 
 # bracketed-segments preset...
 

@@ -1,0 +1,21 @@
+# shellcheck shell=bash
+
+function help_for {
+  if [[ $# -eq 0 ]]; then
+    echo "Usage: hl <command>"
+    return 1
+  fi
+  tldr "$1" || true
+  "$1" --help || true  # Relying on convention
+}
+alias hlp=help_for
+
+function version_for {
+  if [[ $# -eq 0 ]]; then
+    echo "Usage: vs <command>"
+    return 1
+  fi
+  "$1" --version  # Relying on convention
+}
+alias vs=version_for
+

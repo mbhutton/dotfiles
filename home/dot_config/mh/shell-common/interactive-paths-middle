@@ -2,8 +2,10 @@
 
 # PATH additions to perform mid way through setup of an interactive shell.
 
-# ~/.local/bin is required for pipx
-PATH="$PATH:$HOME/.local/bin"
+# Set up PIPX_BIN_DIR
+export PIPX_BIN_DIR="${MH_SHARE_DIR:-$HOME/.local/share/mh}/pipx-bin"
+mkdir -p "$PIPX_BIN_DIR"
+export PATH="$PIPX_BIN_DIR:$PATH"
 
 # Set up GOBIN, where go installs binaries
 export GOBIN="${MH_SHARE_DIR:-$HOME/.local/share/mh}/go-bin"

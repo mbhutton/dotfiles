@@ -63,6 +63,10 @@ customCommands:
   # Ctrl-8 to open repo in GitX (macOS) or tig
   - key: '<c-8>'
     context: 'global'
-    command: "mh-open-gitx-or-tig"
+{{- if eq .chezmoi.os "darwin" }}
+    command: 'open -a GitX .'
+{{- else }}
+    command: 'tig -C .'
+{{- end }}
     subprocess: true
     description: "Open repo in GitX (macOS) or tig"

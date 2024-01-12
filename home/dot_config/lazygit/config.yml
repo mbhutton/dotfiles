@@ -17,14 +17,16 @@ git:
 promptToReturnFromSubprocess: false
 
 customCommands:
-  - key: '<c-g>'  # Ctrl-g (think "go") to run 'just' within repo
+  # Ctrl-g (think "go") to run 'just' within repo
+  - key: '<c-g>'
     context: 'global'
     command: "just"
     subprocess: true
     description: "Run 'just' (default target)"
     stream: true
 
-  - key: '<c-f>'  # Ctrl-f (think "full screen") to show selected commit
+  # Ctrl-f (think "full screen") to show selected commit
+  - key: '<c-f>'
     context: 'commits'
     command: "git show {{.SelectedLocalCommit.Sha}}"
     subprocess: true

@@ -55,3 +55,9 @@ customCommands:
     subprocess: true
     description: "Open tig <selected>"
 
+  # Ctrl-8 to open repo in GitX (macOS) or tig
+  - key: '<c-8>'
+    context: 'global'
+    command: "mh-open-gitx-or-tig"
+    subprocess: true
+    description: "Open repo in GitX (macOS) or tig"

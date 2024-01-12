@@ -14,6 +14,11 @@ when = 'test -n "$(git -C {{ .chezmoi.sourceDir }} status -s)"'
 command = "git -C {{ .chezmoi.sourceDir }} status -s | wc -l | awk '{print $1}'"
 format = '\[🏘️ D[$symbol $output]($style)\]'
 
+[custom.chezmoi_git_origin_main]
+when = ''' test "$(git -C {{ .chezmoi.sourceDir }} rev-parse HEAD)" != "$(git -C {{ .chezmoi.sourceDir }} rev-parse origin/main)" '''
+command = "git -C {{ .chezmoi.sourceDir }} branch --show-current"
+format = '\[🏘️ M[$symbol $output]($style)\]'
+
 # bracketed-segments preset...
 
 [aws]

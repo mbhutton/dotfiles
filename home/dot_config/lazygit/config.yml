@@ -27,4 +27,3 @@ customCommands:
     command: "git show {{.SelectedLocalCommit.Sha}}"
     subprocess: true
     description: "Show selected commit"
-    stream: true

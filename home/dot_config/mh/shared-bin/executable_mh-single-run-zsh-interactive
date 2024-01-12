@@ -1,7 +1,7 @@
 #!/bin/zsh
 # shellcheck shell=bash
 
-# Syntax: single-run-zsh-interactive [-profile]
+# Syntax: mh-single-run-zsh-interactive [-profile]
 # -profile: Enable profiling of zsh startup using zprof
 
 if [[ "$1" == "-profile" ]]; then

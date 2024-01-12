@@ -5,4 +5,4 @@
 # Arguments are passed to hyperfine, e.g. --warmup 3
 
 echo "Benchmarking startup speed of interactive zsh shell..."
-hyperfine "$@" single-run-zsh-interactive
+hyperfine "$@" mh-single-run-zsh-interactive

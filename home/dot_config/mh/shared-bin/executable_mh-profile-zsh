@@ -9,4 +9,4 @@ if [[ "$#" -ne 0 ]]; then
 fi
 
 echo "Profiling startup speed of interactive zsh shell..."
-single-run-zsh-interactive -profile
+mh-single-run-zsh-interactive -profile

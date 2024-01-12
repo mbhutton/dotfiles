@@ -34,3 +34,24 @@ customCommands:
     command: "git show {{.SelectedLocalCommit.Sha}} ; read -sr -n 1 -p 'Press any key...'"
     subprocess: true
     description: "Show selected commit"
+
+  # Bindings for tig in increasingly narrow scope
+  #   Ctrl-4: all branches
+  #   Ctrl-5: HEAD branch
+  #   Ctrl-6: selected commit
+  - key: '<c-4>'
+    context: 'global'
+    command: "tig -C . --all"
+    subprocess: true
+    description: "Open tig --all"
+  - key: '<c-5>'
+    context: 'global'
+    command: "tig -C ."
+    subprocess: true
+    description: "Open tig HEAD"
+  - key: '<c-6>'
+    context: 'commits'
+    command: "tig -C . {{.SelectedLocalCommit.Sha}}"
+    subprocess: true
+    description: "Open tig <selected>"
+

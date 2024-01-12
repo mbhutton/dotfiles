@@ -1,0 +1,9 @@
+# shellcheck shell=bash
+
+# Set up this shell session with mh-chezmoi-helper
+# to assist detection of when shell needs reloading
+# following a 'chezmoi apply'.
+#
+# Dependency: must be after adding shared_bin to PATH (NN_path_shared_bin)
+
+eval "$(mh-chezmoi-helper shell_init)"

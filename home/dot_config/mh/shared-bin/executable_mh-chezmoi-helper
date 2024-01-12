@@ -1,0 +1,92 @@
+#!/usr/bin/env zsh
+# shellcheck shell=bash
+
+# Commands related to chezmoi for use in zsh, mainly to help detect when chezmoi
+# has been applied since zsh was last loaded.
+#
+# See show_syntax function below for usage.
+
+last_applied_path="${MH_SHARE_DIR:-$HOME/.local/share/mh}"/.chezmoi-last-applied
+
+function show_syntax {
+  echo "Syntax: $0 <command> [<args>]" >&2
+  echo "Commands:" >&2
+  echo " apply" >&2
+  echo " show_reload_status" >&2
+  echo " shell_init">&2
+}
+
+function fail {
+  echo "$*" >&2
+  exit 1
+}
+
+# Echoes last modified time of the given file in epoch seconds, else "0".
+function get_last_modified {
+  local file="$1"
+  if [[ ! -f "$file" ]]; then
+    echo "0"
+  fi
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    stat -f "%m" "$file"
+  elif [[ "$(uname -s)" == "Linux" ]]; then
+    stat -c %Y "$file"
+  else
+    echo "Unsupported OS: $(uname -s)" >&2
+    echo "0"
+  fi
+}
+
+# Updates last applied timestamp, then calls chezmoi apply
+function apply {
+  if [[ ! -f "$last_applied_path" ]]; then
+    mkdir -p "$(dirname "$last_applied_path")"
+  fi
+  touch "$last_applied_path"
+
+  chezmoi apply "$@"
+}
+
+# Echoes a status indicator if chezmoi has been applied since zsh was loaded,
+# and a terse error if shell not initialised properly.
+function show_reload_status {
+  local current_last_applied
+
+  if [[ -z "$MH_CHEZMOI_LOADED_VERSION" ]]; then
+      echo "[mh-chezmoi-helper shell_init required]" >&2
+  fi
+
+  current_last_applied="$(get_last_modified "$last_applied_path")"
+
+  if [[ "$current_last_applied" -gt "$MH_CHEZMOI_LOADED_VERSION" ]]; then
+      the_diff=$((current_last_applied - MH_CHEZMOI_LOADED_VERSION))
+      echo "[🏡♻️ R(${the_diff}s)]"
+  fi
+}
+
+# When evaluated, records the last chezmoi apply time in an environment variable.
+function shell_init {
+  local last_modified
+  last_modified="$(get_last_modified "$last_applied_path")"
+  echo "export MH_CHEZMOI_LOADED_VERSION=$last_modified"
+}
+
+command="$1"
+
+case "$command" in
+  apply)
+    shift
+    apply "$@"
+    ;;
+  show_reload_status)
+    show_reload_status
+    ;;
+  shell_init)
+    shell_init
+    ;;
+  *)
+    echo "Unknown command: $command" >&2
+    show_syntax
+    exit 1
+    ;;
+esac

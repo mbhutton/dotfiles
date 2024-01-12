@@ -11,7 +11,7 @@ git:
     colorArg: always
     pager: delta --light --paging=never
 
-  branchLogCmd: 'git log --color=always --decorate --oneline --graph {{branchName}}'
+  branchLogCmd: 'git log --color=always --decorate --oneline --graph {{ "{{branchName}}" }}'
   allBranchesLogCmd: 'git log --color=always --decorate --oneline --graph --all'
 
 os:
@@ -32,7 +32,7 @@ customCommands:
   - key: '<c-/>'
     context: 'commits'
     command: "mh-horizontal-line -n 2; \n
-      git show {{.SelectedLocalCommit.Sha}} ; \n
+      git show {{ "{{.SelectedLocalCommit.Sha}}" }} ; \n
       read -sr -n 1 -p 'Press any key...'"
     subprocess: true
     description: "Show selected commit"
@@ -53,7 +53,7 @@ customCommands:
     description: "Open tig HEAD"
   - key: '<c-6>'
     context: 'commits'
-    command: "tig -C . {{.SelectedLocalCommit.Sha}}"
+    command: "tig -C . {{ "{{.SelectedLocalCommit.Sha}}" }}"
     subprocess: true
     description: "Open tig <selected>"
 

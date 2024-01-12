@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Draw a horizontal line
+# Usage: mh-horizontal-line [-n <times>]
+
+function draw_line() {
+  for _ in {1..120}; do
+    echo -n "_"
+  done
+  echo
+}
+
+TIMES=1
+
+if [[ $# -gt 0 ]]; then
+  if [[ $# -eq 2 && "$1" == "-n" && $2 -gt 0 ]]; then
+    TIMES="$2"
+  else
+    echo "Usage: $0 [-n <times>]"
+    exit 1
+  fi
+fi
+
+for _ in $(seq 1 "$TIMES"); do
+  draw_line
+done

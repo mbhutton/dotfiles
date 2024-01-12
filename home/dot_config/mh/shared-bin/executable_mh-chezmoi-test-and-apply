@@ -9,16 +9,11 @@ if chezmoi verify; then
   exit 0
 fi
 
-function horizontal_line() {
-  for _ in {1..12}; do echo -n "__________"; done; echo
-}
-
-horizontal_line
-horizontal_line
+mh-horizontal-line -n 2
 chezmoi diff
-horizontal_line
+mh-horizontal-line
 chezmoi status
-horizontal_line
+mh-horizontal-line
 echo 'Proceed? y/N'
 
 read -sqr answer

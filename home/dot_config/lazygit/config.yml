@@ -31,7 +31,9 @@ customCommands:
   # Ctrl-slash (think "diagonal space") to show selected commit
   - key: '<c-/>'
     context: 'commits'
-    command: "git show {{.SelectedLocalCommit.Sha}} ; read -sr -n 1 -p 'Press any key...'"
+    command: "mh-horizontal-line -n 2; \n
+      git show {{.SelectedLocalCommit.Sha}} ; \n
+      read -sr -n 1 -p 'Press any key...'"
     subprocess: true
     description: "Show selected commit"
 

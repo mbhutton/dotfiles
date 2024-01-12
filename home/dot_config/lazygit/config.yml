@@ -14,6 +14,8 @@ git:
   branchLogCmd: 'git log --color=always --decorate --oneline --graph {{branchName}}'
   allBranchesLogCmd: 'git log --color=always --decorate --oneline --graph --all'
 
+promptToReturnFromSubprocess: false
+
 customCommands:
   - key: '<c-g>'  # Ctrl-g (think "go") to run 'just' within repo
     context: 'global'

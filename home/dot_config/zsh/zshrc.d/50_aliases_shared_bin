@@ -1,0 +1,5 @@
+# Aliases to scripts in shared-bin
+
+alias hl=mh-horizontal-line
+alias zb=mh-benchmark-zsh
+alias zp=mh-profile-zsh

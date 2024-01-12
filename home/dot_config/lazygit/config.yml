@@ -28,6 +28,6 @@ customCommands:
   # Ctrl-f (think "full screen") to show selected commit
   - key: '<c-f>'
     context: 'commits'
-    command: "git show {{.SelectedLocalCommit.Sha}}"
+    command: "git show {{.SelectedLocalCommit.Sha}} ; read -sr -n 1 -p 'Press any key...'"
     subprocess: true
     description: "Show selected commit"

@@ -28,8 +28,8 @@ customCommands:
     description: "Run 'just' (default target)"
     stream: true
 
-  # Ctrl-f (think "full screen") to show selected commit
-  - key: '<c-f>'
+  # Ctrl-slash (think "diagonal space") to show selected commit
+  - key: '<c-/>'
     context: 'commits'
     command: "git show {{.SelectedLocalCommit.Sha}} ; read -sr -n 1 -p 'Press any key...'"
     subprocess: true

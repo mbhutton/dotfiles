@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Rebase all local branches onto then given git ref
+# Usage: $0 <ref>
+
+# Flaw in design: needs to take into account any existing DAG relationships
+# between ALL branches above the target ref, and rebase in the correct
+# order to avoid creating needless newly diverging branches.
+
+# TODO: porcelain only
+
+function fail {
+  echo "$*" >&2
+  # Get simple name of current branch
+  final_branch="$(git branch --show-current)"
+  echo "Exiting on branch $final_branch" >&2
+  exit 1
+}
+
+[[ $# -eq 1 ]] || fail "Usage: $0 <ref>"
+ref="$1"
+
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 || fail "Not in a git repo"
+git rev-parse --verify "$ref" >/dev/null 2>&1 || fail "Git ref $ref not found"
+[[ -z "$(git status --porcelain)" ]] || fail "There are uncommitted changes"
+
+# Confirm with user using y/N prompt
+read -r -n 1 -s -p "Rebase all local branches onto $ref? [y/N] " response
+echo
+[[ "$response" = "y" ]] || fail "Cancelled by user"
+
+original_branch="$(git branch --show-current)"
+[[ -n "$original_branch" ]] || fail "Failed to get current branch"
+
+branches="$(git branch --format='%(refname:short)')"
+for branch in $branches; do
+  echo
+  git checkout "$branch" || fail "Failed to checkout branch $branch"
+  git rebase "$ref" || fail "Failed to rebase branch $branch onto $ref"
+done
+
+echo
+echo "Rebased all local branches onto $ref"
+echo "Switching back to original branch $original_branch ..."
+git checkout "$original_branch" || fail "Failed to checkout original branch $original_branch"
+echo "Now back on branch $(git branch --show-current)"

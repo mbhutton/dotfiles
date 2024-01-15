@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Installs core software, taking into account desired state
+
+if ! command -v rustup >/dev/null
+then
+    echo "Installing rustup..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+    | bash -s -- -y --no-modify-path
+
+else
+    echo "Updating rustup..."
+    rustup update
+fi

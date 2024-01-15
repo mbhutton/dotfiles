@@ -4,18 +4,17 @@
 [hostname]
 ssh_only = false
 
-[custom.chezmoi_local]
+[custom.chezmoi_needs_apply]
 when = "! chezmoi verify"
 command = "chezmoi status | wc -l | awk '{print $1}'"
 format = '\[🏚️ A[$symbol $output]($style)\]'
 
-[custom.chezmoi_git]
+[custom.chezmoi_git_dirty]
 when = 'test -n "$(git -C {{ .chezmoi.sourceDir }} status -s)"'
 command = "git -C {{ .chezmoi.sourceDir }} status -s | wc -l | awk '{print $1}'"
 format = '\[🏘️ D[$symbol $output]($style)\]'
 
-# Indicate when off expected Chezmoi branch
-[custom.chezmoi_git_origin_main]
+[custom.chezmoi_unexpected_branch]
 when = ''' test "$(git -C {{ .chezmoi.sourceDir }} rev-parse HEAD)" != \
   "$(git -C {{ .chezmoi.sourceDir }} rev-parse \
   {{ if eq .chezmoi.os "darwin" }}dev{{ else }}main{{ end }})" '''

@@ -1,0 +1,98 @@
+#!/bin/bash
+
+# Automates my current git rebasing workflow for this dotfiles repo.
+# Syntax: <this script> <no args>
+
+function fail {
+  echo "$1" >&2
+  final_branch="$(git branch --show-current)"
+  echo "Exiting on branch $final_branch" >&2
+  exit 1
+}
+
+function fail_if_dirty {
+  [[ -z "$(git status --porcelain)" ]] || fail "There are uncommitted changes"
+}
+
+function assert_git_repo {
+  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || fail "Not in a git repo"
+}
+
+function assert_ref_found {
+  git rev-parse --verify "$ref" >/dev/null 2>&1 || fail "Git ref $ref not found"
+}
+
+function assert_a_is_ancestor_of_b {
+  git merge-base --is-ancestor "$1" "$2" || fail "Ref $1 not an ancestor of $2"
+}
+
+function are_refs_equal {
+  [[ "$(git rev-parse "$1")" == "$(git rev-parse "$2")" ]]
+}
+
+function assert_refs_equal {
+  are_refs_equal "$@" || fail "Ref $1 != $2"
+}
+
+function check_out_or_fail_check_dirty {
+  echo "Checking out $1..."
+  git checkout "$1" || fail "Failed to checkout $1"
+  fail_if_dirty
+}
+
+function rebase_or_fail_check_dirty {
+  echo "Doing git rebase $* ..."
+  git rebase "$@" || fail "Failed: git rebase $*"
+  fail_if_dirty
+}
+
+function main {
+  assert_git_repo
+  git remote get-url origin | grep 'mbhutton/dotfiles' >/dev/null \
+  || fail "Not in the dotfiles repo which this script is currently for"
+  fail_if_dirty
+
+  for ref in origin/main main ok dev _dev4off off; do
+    assert_ref_found "$ref"
+  done
+
+  # Assert origin/main => main => ok => dev; and _dev4off => off
+  assert_a_is_ancestor_of_b origin/main main
+  assert_a_is_ancestor_of_b main ok
+  assert_a_is_ancestor_of_b ok dev
+  assert_a_is_ancestor_of_b _dev4off off
+
+  echo "Advancing main branch to ok tag..."
+  check_out_or_fail_check_dirty main
+  rebase_or_fail_check_dirty ok
+  assert_refs_equal ok main
+
+  assert_a_is_ancestor_of_b origin/main main  # Re-checking
+  if ! are_refs_equal origin/main main; then
+    echo "Pushing main branch to origin..."
+    git push origin main || fail "Failed to push main branch"
+  fi
+
+  assert_a_is_ancestor_of_b main dev  # Re-checking
+  assert_a_is_ancestor_of_b _dev4off off  # Re-checking
+
+  echo "Rebasing 'off' branch onto 'dev'..."
+  check_out_or_fail_check_dirty off
+  rebase_or_fail_check_dirty --onto dev _dev4off off
+  assert_a_is_ancestor_of_b dev off
+  git tag -f _dev4off dev || fail "Failed to tag dev branch as _dev4off"
+
+  # Assert main => ok => dev=_dev4off => off
+  assert_a_is_ancestor_of_b main ok
+  assert_a_is_ancestor_of_b ok dev
+  assert_refs_equal dev _dev4off
+  assert_a_is_ancestor_of_b _dev4off off
+
+  echo "Switching to dev branch as final step..."
+  check_out_or_fail_check_dirty dev
+
+  echo "OK: Done"
+}
+
+[[ $# -eq 0 ]] || fail "Usage: $0 (no args)"
+main

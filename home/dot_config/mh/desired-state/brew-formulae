@@ -13,7 +13,6 @@ fd                 # Modern alternative to 'find'
 fzf                # Fuzzy finder
 gh                 # GitHub CLI, with Copilot
 git-delta          # Modern diff, 'delta' command
-haskell-stack      # Haskell dev tools
 hledger            # Plain text accounting, inspired by ledger, in Haskell
 hyperfine          # Benchmarking
 just               # Simple task runner

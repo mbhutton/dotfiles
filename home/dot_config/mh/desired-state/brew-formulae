@@ -5,7 +5,6 @@ bats-core          # Testing for shell scripts and shell configuration
 broot              # Efficient directory navigation
 btop               # Modern 'top'
 chezmoi            # Dot files manager to bootstrap and manage dev environment
-choose-gui         # Note: clashes with useful 'choose' command from choose-rust
 cmake              # For C++ development with JUCE
 duf                # Modern 'df'
 dust               # Modern 'du'

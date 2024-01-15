@@ -19,7 +19,7 @@ when = ''' test "$(git -C {{ .chezmoi.sourceDir }} rev-parse HEAD)" != \
   "$(git -C {{ .chezmoi.sourceDir }} rev-parse \
   {{ if eq .chezmoi.os "darwin" }}dev{{ else }}main{{ end }})" '''
 command = "git -C {{ .chezmoi.sourceDir }} branch --show-current"
-format = '\[🏘️ M[$symbol $output]($style)\]'
+format = '\[🏘️ B[$symbol $output]($style)\]'
 
 # bracketed-segments preset...
 

@@ -1,18 +1,18 @@
 atool              # Tools for archive files (zip,tar etc) like 'als', 'aunpack'
 atuin              # Shell history backed by sqlite
 bat                # Modern 'cat'
-bats-core          # Testing for shell scripts and shell configuration
+bats-core,bats     # Testing for shell scripts and shell configuration
 broot              # Efficient directory navigation
 bottom             # Modern 'top', 'btm' command
 btop               # Modern 'top'
 chezmoi            # Dot files manager to bootstrap and manage dev environment
 cmake              # For C++ development with JUCE
 duf                # Modern 'df'
-dust               # Modern 'du'
+dust,du-dust       # Modern 'du'
 fd                 # Modern alternative to 'find'
 fzf                # Fuzzy finder
 gh                 # GitHub CLI, with Copilot
-git-delta          # Modern diff, 'delta' command
+git-delta,delta    # Modern diff, 'delta' command
 hledger            # Plain text accounting, inspired by ledger, in Haskell
 hyperfine          # Benchmarking
 jq                 # JSON processor

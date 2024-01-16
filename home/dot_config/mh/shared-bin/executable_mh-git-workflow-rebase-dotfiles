@@ -21,8 +21,12 @@ function assert_ref_found {
   git rev-parse --verify "$ref" >/dev/null 2>&1 || fail "Git ref $ref not found"
 }
 
+function is_a_ancestor_of_b {
+  git merge-base --is-ancestor "$1" "$2"
+}
+
 function assert_a_is_ancestor_of_b {
-  git merge-base --is-ancestor "$1" "$2" || fail "Ref $1 not an ancestor of $2"
+  is_a_ancestor_of_b "$@" || fail "Ref $1 not an ancestor of $2"
 }
 
 function are_refs_equal {

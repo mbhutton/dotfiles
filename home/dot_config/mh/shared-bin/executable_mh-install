@@ -22,3 +22,10 @@ fi
 
 echo "Updating rustup and Rust toolchains..."
 rustup update || fail "Failed to update rustup"
+
+echo "Installing (or updating) desired cargo binaries..."
+desired_cargo_binaries=$(cat ~/.config/mh/desired-state/cargo-binaries)
+for binary in "${desired_cargo_binaries[@]}"; do
+  cargo install "$binary" \
+  || fail "Failed to install or update cargo binary: $binary"
+done

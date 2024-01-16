@@ -2,8 +2,8 @@
 
 # Installs core software, taking into account desired state
 
-function fail() {
-  echo "$1" >&2
+function fail {
+  echo "$*" >&2
   exit 1
 }
 

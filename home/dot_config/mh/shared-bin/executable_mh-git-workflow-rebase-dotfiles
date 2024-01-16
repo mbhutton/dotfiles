@@ -50,6 +50,13 @@ function rebase_or_fail_check_dirty {
   fail_if_dirty
 }
 
+function update_base_tag_for_branch_or_fail {
+  local tag="$1"
+  local branch="$2"
+  echo "Updating tag $tag to point to branch $branch..."
+  git tag -f "$tag" "$branch" || fail "Failed to tag $branch as $tag"
+}
+
 function main {
   assert_git_repo
   git remote get-url origin | grep 'mbhutton/dotfiles' >/dev/null \
@@ -64,6 +71,13 @@ function main {
   assert_a_is_ancestor_of_b origin/main main
   assert_a_is_ancestor_of_b main ok
   assert_a_is_ancestor_of_b ok dev
+
+  if ! is_a_ancestor_of_b _dev4off off; then
+    if is_a_ancestor_of_b dev off; then
+      # This is the expected state following a merge conflict resolution
+      update_base_tag_for_branch_or_fail _dev4off dev
+    fi
+  fi
   assert_a_is_ancestor_of_b _dev4off off
 
   echo "Advancing main branch to ok tag..."
@@ -84,7 +98,7 @@ function main {
   check_out_or_fail_check_dirty off
   rebase_or_fail_check_dirty --onto dev _dev4off off
   assert_a_is_ancestor_of_b dev off
-  git tag -f _dev4off dev || fail "Failed to tag dev branch as _dev4off"
+  update_base_tag_for_branch_or_fail _dev4off dev
 
   # Assert main => ok => dev=_dev4off => off
   assert_a_is_ancestor_of_b main ok

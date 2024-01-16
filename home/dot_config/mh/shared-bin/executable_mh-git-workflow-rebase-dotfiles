@@ -4,9 +4,8 @@
 # Syntax: <this script> <no args>
 
 function fail {
+  echo >&2
   echo "$1" >&2
-  final_branch="$(git branch --show-current)"
-  echo "Exiting on branch $final_branch" >&2
   exit 1
 }
 

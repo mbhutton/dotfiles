@@ -5,7 +5,7 @@
 
 function fail {
   echo >&2
-  echo "$1" >&2
+  echo "$*" >&2
   exit 1
 }
 

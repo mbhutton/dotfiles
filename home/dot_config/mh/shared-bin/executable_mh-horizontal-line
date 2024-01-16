@@ -10,17 +10,17 @@ function draw_line() {
   echo
 }
 
-TIMES=1
+times=1
 
 if [[ $# -gt 0 ]]; then
   if [[ $# -eq 2 && "$1" == "-n" && $2 -gt 0 ]]; then
-    TIMES="$2"
+    times="$2"
   else
     echo "Usage: $0 [-n <times>]"
     exit 1
   fi
 fi
 
-for _ in $(seq 1 "$TIMES"); do
+for _ in $(seq 1 "$times"); do
   draw_line
 done

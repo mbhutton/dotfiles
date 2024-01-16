@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Automates my current git rebasing workflow for this dotfiles repo.
+# Note: it also pushes the main branch to origin if it has been advanced.
 # Syntax: <this script> <no args>
 
 function fail {

@@ -24,8 +24,11 @@ echo "Updating rustup and Rust toolchains..."
 rustup update || fail "Failed to update rustup"
 
 echo "Installing (or updating) desired cargo binaries..."
-desired_cargo_binaries=$(cat ~/.config/mh/desired-state/cargo-binaries)
-for binary in "${desired_cargo_binaries[@]}"; do
+cargo_binaries="${HOME}/.config/mh/desired-state/cargo-binaries"
+[[ -f "$cargo_binaries" ]] || fail "Desired cargo binaries file not found: $cargo_binaries"
+
+for binary in $(sed -e 's@#.*@@g' < "$cargo_binaries" | xargs); do
+  echo "Installing (or updating) cargo binary: $binary"
   cargo install "$binary" \
   || fail "Failed to install or update cargo binary: $binary"
 done

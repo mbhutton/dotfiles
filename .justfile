@@ -4,3 +4,6 @@
 
 test_and_apply:
   mh-chezmoi-test-and-apply
+
+git_workflow:
+  mh-git-workflow-rebase-dotfiles

@@ -4,6 +4,14 @@
 # Commands related to chezmoi for use in zsh, mainly to help detect when chezmoi
 # has been applied since zsh was last loaded.
 #
+# To use:
+# (1) wrap calls to chezmoi apply with:
+#       mh-chezmoi-helper apply
+# (2) from your starship.toml, call this with when=true:
+#       mh-chezmoi-helper starship_prompt
+# (3) add the following to your .zshrc:
+#       eval "$(mh-chezmoi-helper shell_init)"
+#
 # See show_syntax function below for usage.
 
 last_applied_path="${MH_SHARE_DIR:-$HOME/.local/share/mh}"/.chezmoi-last-applied

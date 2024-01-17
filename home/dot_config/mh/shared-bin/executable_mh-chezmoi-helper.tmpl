@@ -24,6 +24,10 @@ function show_syntax {
   echo " apply" >&2
   echo " starship_prompt" >&2
   echo " shell_init" >&2
+  echo " show_git_status" >&2
+  echo " show_needs_apply" >&2
+  echo " show_reload_status" >&2
+  echo " show_unexpected_branch" >&2
 }
 
 # Echoes last modified time of the given file in epoch seconds, else "0".
@@ -123,6 +127,18 @@ case "$command" in
     ;;
   shell_init)
     shell_init
+    ;;
+  show_git_status)
+    show_git_status
+    ;;
+  show_needs_apply)
+    show_needs_apply
+    ;;
+  show_reload_status)
+    show_reload_status
+    ;;
+  show_unexpected_branch)
+    show_unexpected_branch
     ;;
   *)
     echo "Unknown command: $command" >&2

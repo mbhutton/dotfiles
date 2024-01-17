@@ -4,11 +4,6 @@
 [hostname]
 ssh_only = false
 
-[custom.chezmoi_needs_apply]
-when = "! chezmoi verify"
-command = "chezmoi status | wc -l | awk '{print $1}'"
-format = '\[🏚️ A[$symbol $output]($style)\]'
-
 [custom.chezmoi_git_dirty]
 when = 'test -n "$(git -C {{ .chezmoi.sourceDir }} status -s)"'
 command = "git -C {{ .chezmoi.sourceDir }} status -s | wc -l | awk '{print $1}'"

@@ -16,7 +16,6 @@
 
 last_applied_path="${MH_SHARE_DIR:-$HOME/.local/share/mh}"/.chezmoi-last-applied
 source_dir="{{ .chezmoi.sourceDir }}"
-expected_branch="{{ if eq .chezmoi.os "darwin" }}dev{{ else }}main{{ end }}"
 
 function show_syntax {
   echo "Syntax: $0 <command> [<args>]" >&2
@@ -74,13 +73,10 @@ function show_git_status {
   fi
 }
 
+# Show if chezmoi repo is on a branch other than dev or main
 function show_unexpected_branch {
-  local head_commit
-  local expected_commit
-  head_commit="$(git -C "$source_dir" rev-parse --abbrev-ref HEAD)"
-  expected_commit="$(git -C "$source_dir" rev-parse --abbrev-ref "$expected_branch")"
-  if [[ "$head_commit" != "$expected_commit" ]]; then
-    current_branch="$(git -C "$source_dir" branch --show-current)"
+  current_branch="$(git -C "$source_dir" branch --show-current)"
+  if [[ "$current_branch" != "dev" && "$current_branch" != "main" ]]; then
     echo -n "[🏠 B(${current_branch})]"
   fi
 }

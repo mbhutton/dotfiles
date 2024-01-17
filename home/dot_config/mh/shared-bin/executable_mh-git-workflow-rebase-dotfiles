@@ -53,8 +53,12 @@ function rebase_or_fail_check_dirty {
 function update_base_tag_for_branch_or_fail {
   local tag="$1"
   local branch="$2"
-  echo "Updating tag $tag to point to branch $branch..."
-  git tag -f "$tag" "$branch" || fail "Failed to tag $branch as $tag"
+  if are_refs_equal "$tag" "$branch"; then
+    echo "Tag $tag already points to branch $branch"
+  else
+    echo "Updating tag $tag to point to branch $branch..."
+    git tag -f "$tag" "$branch" || fail "Failed to tag $branch as $tag"
+  fi
 }
 
 function main {
@@ -80,9 +84,13 @@ function main {
   fi
   assert_a_is_ancestor_of_b _dev4off off
 
-  echo "Advancing main branch to ok tag..."
   check_out_or_fail_check_dirty main
-  rebase_or_fail_check_dirty ok
+  if is_a_ancestor_of_b ok main ; then
+    echo "Main branch already contains ok tag"
+  else
+    echo "Advancing main branch to ok tag..."
+    rebase_or_fail_check_dirty ok
+  fi
   assert_refs_equal ok main
 
   assert_a_is_ancestor_of_b origin/main main  # Re-checking
@@ -94,9 +102,13 @@ function main {
   assert_a_is_ancestor_of_b main dev  # Re-checking
   assert_a_is_ancestor_of_b _dev4off off  # Re-checking
 
-  echo "Rebasing 'off' branch onto 'dev'..."
   check_out_or_fail_check_dirty off
-  rebase_or_fail_check_dirty --onto dev _dev4off off
+  if is_a_ancestor_of_b dev off; then
+    echo "Off branch already contains 'dev' branch"
+  else
+    echo "Rebasing 'off' branch onto 'dev' branch..."
+    rebase_or_fail_check_dirty --onto dev _dev4off off
+  fi
   assert_a_is_ancestor_of_b dev off
   update_base_tag_for_branch_or_fail _dev4off dev
 

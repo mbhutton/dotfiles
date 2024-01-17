@@ -54,8 +54,8 @@ function apply {
 
 function show_needs_apply {
   local num_changes
-  if ! chezmoi verify >/dev/null; then
-    num_changes="$(chezmoi status | wc -l | awk '{print $1}')"
+  num_changes="$(chezmoi status | wc -l | awk '{print $1}')"
+  if [[ "$num_changes" -gt 0 ]]; then
     echo -n "[🏚️ A(${num_changes})]"
   fi
 }

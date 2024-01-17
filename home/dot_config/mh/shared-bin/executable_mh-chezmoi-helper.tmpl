@@ -16,6 +16,7 @@
 
 last_applied_path="${MH_SHARE_DIR:-$HOME/.local/share/mh}"/.chezmoi-last-applied
 source_dir="{{ .chezmoi.sourceDir }}"
+expected_branch="{{ if eq .chezmoi.os "darwin" }}dev{{ else }}main{{ end }}"
 
 function show_syntax {
   echo "Syntax: $0 <command> [<args>]" >&2
@@ -67,6 +68,17 @@ function show_git_status {
   fi
 }
 
+function show_unexpected_branch {
+  local head_commit
+  local expected_commit
+  head_commit="$(git -C "$source_dir" rev-parse --abbrev-ref HEAD)"
+  expected_commit="$(git -C "$source_dir" rev-parse --abbrev-ref "$expected_branch")"
+  if [[ "$head_commit" != "$expected_commit" ]]; then
+    current_branch="$(git -C "$source_dir" branch --show-current)"
+    echo -n "[🏠 B(${current_branch})]"
+  fi
+}
+
 # Echoes a status indicator if chezmoi has been applied since zsh was loaded,
 # and a terse error if shell not initialised properly.
 function show_reload_status {
@@ -88,6 +100,7 @@ function show_reload_status {
 function starship_prompt {
   show_needs_apply
   show_git_status
+  show_unexpected_branch
   show_reload_status
 }
 

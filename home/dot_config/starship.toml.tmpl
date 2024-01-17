@@ -4,13 +4,6 @@
 [hostname]
 ssh_only = false
 
-[custom.chezmoi_unexpected_branch]
-when = ''' test "$(git -C {{ .chezmoi.sourceDir }} rev-parse HEAD)" != \
-  "$(git -C {{ .chezmoi.sourceDir }} rev-parse \
-  {{ if eq .chezmoi.os "darwin" }}dev{{ else }}main{{ end }})" '''
-command = "git -C {{ .chezmoi.sourceDir }} branch --show-current"
-format = '\[🏘️ B[$symbol $output]($style)\]'
-
 [custom.chezmoi_status]
 when = "true"
 command = "mh-chezmoi-helper starship_prompt"

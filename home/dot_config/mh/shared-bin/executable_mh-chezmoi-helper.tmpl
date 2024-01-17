@@ -24,11 +24,6 @@ function show_syntax {
   echo " shell_init" >&2
 }
 
-function fail {
-  echo "$*" >&2
-  exit 1
-}
-
 # Echoes last modified time of the given file in epoch seconds, else "0".
 function get_last_modified {
   local file="$1"

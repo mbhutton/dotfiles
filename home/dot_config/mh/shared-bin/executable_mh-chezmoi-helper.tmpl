@@ -56,14 +56,15 @@ function show_reload_status {
   local current_last_applied
 
   if [[ -z "$MH_CHEZMOI_LOADED_VERSION" ]]; then
-      echo "[mh-chezmoi-helper shell_init required]" >&2
+      echo "[mh-chezmoi-helper shell_init required]"
+      return
   fi
 
   current_last_applied="$(get_last_modified "$last_applied_path")"
 
   if [[ "$current_last_applied" -gt "$MH_CHEZMOI_LOADED_VERSION" ]]; then
       the_diff=$((current_last_applied - MH_CHEZMOI_LOADED_VERSION))
-      echo "[🏡♻️ R(${the_diff}s)]"
+      echo -n "[🏡♻️ R(${the_diff}s)]"
   fi
 }
 

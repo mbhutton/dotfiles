@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 # Activate mise, for dynamic switching of language toolchains.
 # Needs to be late in setup, to override system and homebrew toolchains.
 

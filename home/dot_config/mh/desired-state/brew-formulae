@@ -12,6 +12,7 @@ dust,du-dust       # Modern 'du'
 fd                 # Modern alternative to 'find'
 fzf                # Fuzzy finder
 gh                 # GitHub CLI, with Copilot
+git-absorb         # Git workflow tool: "git commit --fixup, but automatic"
 git-delta,delta    # Modern diff, 'delta' command
 hledger            # Plain text accounting, inspired by ledger, in Haskell
 hyperfine          # Benchmarking

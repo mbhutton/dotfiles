@@ -21,9 +21,9 @@ when = ''' test "$(git -C {{ .chezmoi.sourceDir }} rev-parse HEAD)" != \
 command = "git -C {{ .chezmoi.sourceDir }} branch --show-current"
 format = '\[🏘️ B[$symbol $output]($style)\]'
 
-[custom.chezmoi_requires_zsh_reload]
+[custom.chezmoi_status]
 when = "true"
-command = "mh-chezmoi-helper show_reload_status"
+command = "mh-chezmoi-helper starship_prompt"
 format = '[$symbol($output)]($style)'
 
 # bracketed-segments preset...

@@ -12,8 +12,8 @@ function show_syntax {
   echo "Syntax: $0 <command> [<args>]" >&2
   echo "Commands:" >&2
   echo " apply" >&2
-  echo " show_reload_status" >&2
-  echo " shell_init">&2
+  echo " starship_prompt" >&2
+  echo " shell_init" >&2
 }
 
 function fail {
@@ -64,6 +64,10 @@ function show_reload_status {
   fi
 }
 
+function starship_prompt {
+  show_reload_status
+}
+
 # When evaluated, records the last chezmoi apply time in an environment variable.
 function shell_init {
   local last_modified
@@ -78,8 +82,8 @@ case "$command" in
     shift
     apply "$@"
     ;;
-  show_reload_status)
-    show_reload_status
+  starship_prompt)
+    starship_prompt
     ;;
   shell_init)
     shell_init

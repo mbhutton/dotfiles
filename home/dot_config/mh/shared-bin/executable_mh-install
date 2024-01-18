@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091  # Don't follow sources
 
 # Installs core software, taking into account desired state
 
@@ -7,36 +8,11 @@ function fail {
   exit 1
 }
 
-function install_or_update_rustup {
+source_dir="$(dirname "${BASH_SOURCE[0]}")"
+impl_dir="${source_dir}/mh-install.d"
 
-  if ! command -v rustup >/dev/null; then
-      echo "Installing rustup..."
-      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
-      | bash -s -- -y --no-modify-path \
-      || fail "Failed to install rustup"
-  fi
-
-  if ! rustup toolchain list | grep nightly >/dev/null; then
-      echo "Adding rust nightly toolchain..."
-      rustup toolchain install nightly \
-      || fail "Failed to install rust nightly toolchain"
-  fi
-
-  echo "Updating rustup and Rust toolchains..."
-  rustup update || fail "Failed to update rustup"
-}
-
-function install_or_update_cargo {
-  echo "Installing (or updating) desired cargo binaries..."
-  cargo_binaries="${HOME}/.config/mh/desired-state/cargo-binaries"
-  [[ -f "$cargo_binaries" ]] || fail "Desired cargo binaries file not found: $cargo_binaries"
-
-  for binary in $(sed -e 's@#.*@@g' < "$cargo_binaries" | xargs); do
-    echo "Installing (or updating) cargo binary: $binary"
-    cargo install "$binary" \
-    || fail "Failed to install or update cargo binary: $binary"
-  done
-}
+source "${impl_dir}/impl-rustup.sh"
+source "${impl_dir}/impl-cargo-crates.sh"
 
 install_or_update_rustup
-install_or_update_cargo
+install_or_update_cargo_crates

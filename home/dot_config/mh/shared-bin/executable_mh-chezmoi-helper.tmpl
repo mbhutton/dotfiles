@@ -14,7 +14,9 @@
 #
 # See show_syntax function below for usage.
 
-last_applied_path="${MH_SHARE_DIR:-$HOME/.local/share/mh}"/.chezmoi-last-applied
+share_dir="${MH_SHARE_DIR:-$HOME/.local/share/mh}"
+last_applied_path="$share_dir"/.chezmoi-last-applied
+last_clean_applied_path="$share_dir"/.chezmoi-last-clean-applied
 source_dir="{{ .chezmoi.sourceDir }}"
 
 function show_syntax {
@@ -45,7 +47,8 @@ function get_last_modified {
   fi
 }
 
-# Updates last applied timestamp, then calls chezmoi apply
+# Wraps a call to chezmoi apply with updates to the last
+# applied time and last clean applied time.
 function apply {
   if [[ ! -f "$last_applied_path" ]]; then
     mkdir -p "$(dirname "$last_applied_path")"
@@ -53,6 +56,13 @@ function apply {
   touch "$last_applied_path"
 
   chezmoi apply "$@"
+  result_code=$?
+
+  if [[ "$result_code" -eq 0 ]]; then
+    # Store the HEAD ref in file contents, and current time via file mod time
+    git -C "$source_dir" rev-parse HEAD > "$last_clean_applied_path" || true
+  fi
+  return "$result_code"
 }
 
 # Show if chezmoi source and target are out of sync
@@ -108,9 +118,9 @@ function starship_prompt {
 
 # When evaluated, records the last chezmoi apply time in an environment variable.
 function shell_init {
-  local last_modified
-  last_modified="$(get_last_modified "$last_applied_path")"
-  echo "export MH_CHEZMOI_LOADED_VERSION=$last_modified"
+  local last_applied
+  last_applied="$(get_last_modified "$last_applied_path")"
+  echo "export MH_CHEZMOI_LOADED_VERSION=$last_applied"
 }
 
 command="$1"

@@ -2,7 +2,11 @@
 
 # Installs or updates cargo crate binaries
 
+# Dependencies: calls assert_rustup
+
 function install_or_update_cargo_crates {
+  assert_rustup
+
   echo "Installing (or updating) desired cargo binaries..."
   cargo_binaries="${HOME}/.config/mh/desired-state/cargo-binaries"
   [[ -f "$cargo_binaries" ]] || fail "Desired cargo binaries file not found: $cargo_binaries"

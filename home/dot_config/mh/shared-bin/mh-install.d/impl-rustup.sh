@@ -2,8 +2,15 @@
 
 # Installs or updates rustup and Rust toolchains
 
-function install_or_update_rustup {
+# For use by other mh-install.d scripts
+function assert_rustup {
+  if ! command -v rustup >/dev/null; then
+    fail "rustup not found. Suggested fix: \
+      install rustup with mh-install, and/or check your PATH."
+  fi
+}
 
+function install_or_update_rustup {
   if ! command -v rustup >/dev/null; then
       echo "Installing rustup..."
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \

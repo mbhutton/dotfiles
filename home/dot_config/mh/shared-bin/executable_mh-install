@@ -8,11 +8,16 @@ function fail {
   exit 1
 }
 
+function hl { mh-horizontal-line; }
+
 source_dir="$(dirname "${BASH_SOURCE[0]}")"
 impl_dir="${source_dir}/mh-install.d"
 
 source "${impl_dir}/impl-rustup.sh"
 source "${impl_dir}/impl-cargo-crates.sh"
 
+hl
 install_or_update_rustup
+hl
 install_or_update_cargo_crates
+hl

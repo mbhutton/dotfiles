@@ -63,10 +63,10 @@ function apply {
 
 # Show if chezmoi repo is dirty
 function show_git_status {
-  local num_changes
-  num_changes="$(git -C "$source_dir" status --porcelain | wc -l | awk '{print $1}')"
-  if [[ "$num_changes" -gt 0 ]]; then
-    echo -n "️D(${num_changes})"
+  local git_changes
+  git_changes="$(git -C "$source_dir" status --porcelain | wc -l | awk '{print $1}')"
+  if [[ "$git_changes" -gt 0 ]]; then
+    echo -n "️D(${git_changes})"
   fi
 }
 
@@ -81,10 +81,10 @@ function show_unexpected_branch {
 
 # Show if chezmoi source and target are out of sync
 function show_needs_apply {
-  local num_changes
-  num_changes="$(chezmoi status | wc -l | awk '{print $1}')"
-  if [[ "$num_changes" -gt 0 ]]; then
-    echo -n "️A(${num_changes})"
+  local chezmoi_changes
+  chezmoi_changes="$(chezmoi status | wc -l | awk '{print $1}')"
+  if [[ "$chezmoi_changes" -gt 0 ]]; then
+    echo -n "️A(${chezmoi_changes})"
   fi
 }
 

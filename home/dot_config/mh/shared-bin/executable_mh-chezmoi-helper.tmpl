@@ -81,7 +81,8 @@ function show_git_status {
 
 # Show if chezmoi repo is on a branch other than dev or main
 function show_unexpected_branch {
-  current_branch="$(git -C "$source_dir" branch --show-current)"
+  symbolic_ref="$(awk '{print $2}' "${source_dir}/.git/HEAD")" # e.g. "refs/heads/dev"
+  current_branch="${symbolic_ref##*/}" # e.g. "dev"
   if [[ "$current_branch" != "dev" && "$current_branch" != "main" ]]; then
     echo -n "B(${current_branch})"
   fi

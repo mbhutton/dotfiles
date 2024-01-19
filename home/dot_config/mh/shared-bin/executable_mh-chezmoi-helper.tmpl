@@ -61,40 +61,36 @@ function apply {
   return "$result_code"
 }
 
-# Show if chezmoi repo is dirty
-function show_git_status {
+function starship_prompt {
+  local prompt=""
+
+  # Show if chezmoi repo is dirty
   local git_changes
   git_changes="$(git -C "$source_dir" status --porcelain | wc -l | awk '{print $1}')"
   if [[ "$git_changes" -gt 0 ]]; then
-    echo -n "️D(${git_changes})"
+    prompt="️${prompt}D(${git_changes})"
   fi
-}
 
-# Show if chezmoi repo is on a branch other than dev or main
-function show_unexpected_branch {
+  # Show if chezmoi repo is on a branch other than dev or main
   symbolic_ref="$(awk '{print $2}' "${source_dir}/.git/HEAD")" # e.g. "refs/heads/dev"
   current_branch="${symbolic_ref##*/}" # e.g. "dev"
   if [[ "$current_branch" != "dev" && "$current_branch" != "main" ]]; then
-    echo -n "B(${current_branch})"
+    prompt="${prompt}B(${current_branch})"
   fi
-}
 
-# Show if chezmoi source and target are out of sync
-function show_needs_apply {
+  # Show if chezmoi source and target are out of sync
   local chezmoi_changes
   chezmoi_changes="$(chezmoi status | wc -l | awk '{print $1}')"
   if [[ "$chezmoi_changes" -gt 0 ]]; then
-    echo -n "️A(${chezmoi_changes})"
+    prompt="${prompt}️A(${chezmoi_changes})"
   fi
-}
 
-# Echoes a status indicator if chezmoi has been applied since zsh was loaded,
-# and a terse error if shell not initialised properly.
-function show_reload_status {
+  # Show a status indicator if chezmoi has been applied since zsh was loaded,
+  # and a terse error if shell not initialised properly.
   local current_last_applied
 
   if [[ -z "$MH_CHEZMOI_LOADED_VERSION" ]]; then
-      echo "[mh-chezmoi-helper shell_init required]"
+      prompt="${prompt}[mh-chezmoi-helper shell_init required]"
       return
   fi
 
@@ -109,25 +105,11 @@ function show_reload_status {
       else
         the_diff="$((seconds / 3600))h"
       fi
-      echo -n "R(${the_diff})"
+      prompt="${prompt}️R(${the_diff})"
   fi
-}
 
-function starship_prompt {
-  local needs_apply
-  local git_status
-  local unexpected_branch
-  local reload_status
-
-  needs_apply="$(show_needs_apply)"
-  git_status="$(show_git_status)"
-  unexpected_branch="$(show_unexpected_branch)"
-  reload_status="$(show_reload_status)"
-
-  combined="${needs_apply}${git_status}${unexpected_branch}${reload_status}"
-
-  if [[ -n "$combined" ]]; then
-    echo -n "[🏠${combined}]"
+  if [[ -n "$prompt" ]]; then
+    echo -n "[🏠${prompt}]"
   fi
 }
 

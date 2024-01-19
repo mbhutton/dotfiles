@@ -93,17 +93,17 @@ function starship_prompt {
 
   # Show a status indicator if chezmoi has been applied since zsh was loaded,
   # and a terse error if shell not initialised properly.
-  local current_last_applied
+  local last_applied
 
   if [[ -z "$MH_CHEZMOI_LOADED_VERSION" ]]; then
       prompt="${prompt}[mh-chezmoi-helper shell_init required]"
       return
   fi
 
-  current_last_applied="$(get_last_modified "$last_applied_path")"
+  last_applied="$(get_last_modified "$last_applied_path")"
 
-  if [[ "$current_last_applied" -gt "$MH_CHEZMOI_LOADED_VERSION" ]]; then
-      seconds=$((current_last_applied - MH_CHEZMOI_LOADED_VERSION))
+  if [[ "$last_applied" -gt "$MH_CHEZMOI_LOADED_VERSION" ]]; then
+      seconds=$((last_applied - MH_CHEZMOI_LOADED_VERSION))
       human_readable="$(seconds_to_human_readable "$seconds")"
       prompt="${prompt}️R(${human_readable})"
   fi
@@ -113,7 +113,7 @@ function starship_prompt {
   local skip_chezmoi_status=false
   last_clean_applied="$(get_last_modified "$last_clean_applied_path")"
   if [[ "$last_clean_applied" -gt 0 ]]; then
-    if [[ ! "$last_clean_applied" -lt "$current_last_applied" ]]; then
+    if [[ ! "$last_clean_applied" -lt "$last_applied" ]]; then
       # The last apply was clean. If current HEAD matches the SHA stored
       # in the last clean apply file, *and* the git repo is currently clean,
       # then assume chezmoi is clean.

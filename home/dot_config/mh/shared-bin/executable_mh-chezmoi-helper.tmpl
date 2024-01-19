@@ -100,8 +100,15 @@ function show_reload_status {
   current_last_applied="$(get_last_modified "$last_applied_path")"
 
   if [[ "$current_last_applied" -gt "$MH_CHEZMOI_LOADED_VERSION" ]]; then
-      the_diff=$((current_last_applied - MH_CHEZMOI_LOADED_VERSION))
-      echo -n "R(${the_diff}s)"
+      seconds=$((current_last_applied - MH_CHEZMOI_LOADED_VERSION))
+      if [[ "$seconds" -lt 60 ]]; then
+        the_diff="${seconds}s"
+      elif [[ "$seconds" -lt 3600 ]]; then
+        the_diff="$((seconds / 60))m"
+      else
+        the_diff="$((seconds / 3600))h"
+      fi
+      echo -n "R(${the_diff})"
   fi
 }
 

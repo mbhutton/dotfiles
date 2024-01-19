@@ -43,6 +43,18 @@ function get_last_modified {
   fi
 }
 
+function seconds_to_human_readable {
+  local seconds="$1"
+  if [[ "$seconds" -lt 60 ]]; then
+    human="${seconds}s"
+  elif [[ "$seconds" -lt 3600 ]]; then
+    human="$((seconds / 60))m"
+  else
+    human="$((seconds / 3600))h"
+  fi
+  echo -n "$human"
+}
+
 # Wraps a call to chezmoi apply with updates to the last
 # applied time and last clean applied time.
 function apply {
@@ -98,14 +110,8 @@ function starship_prompt {
 
   if [[ "$current_last_applied" -gt "$MH_CHEZMOI_LOADED_VERSION" ]]; then
       seconds=$((current_last_applied - MH_CHEZMOI_LOADED_VERSION))
-      if [[ "$seconds" -lt 60 ]]; then
-        the_diff="${seconds}s"
-      elif [[ "$seconds" -lt 3600 ]]; then
-        the_diff="$((seconds / 60))m"
-      else
-        the_diff="$((seconds / 3600))h"
-      fi
-      prompt="${prompt}️R(${the_diff})"
+      human_readable="$(seconds_to_human_readable "$seconds")"
+      prompt="${prompt}️R(${human_readable})"
   fi
 
   if [[ -n "$prompt" ]]; then

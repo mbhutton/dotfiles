@@ -25,10 +25,6 @@ function show_syntax {
   echo " apply" >&2
   echo " starship_prompt" >&2
   echo " shell_init" >&2
-  echo " show_git_status" >&2
-  echo " show_needs_apply" >&2
-  echo " show_reload_status" >&2
-  echo " show_unexpected_branch" >&2
 }
 
 # Echoes last modified time of the given file in epoch seconds, else "0".
@@ -70,7 +66,7 @@ function show_needs_apply {
   local num_changes
   num_changes="$(chezmoi status | wc -l | awk '{print $1}')"
   if [[ "$num_changes" -gt 0 ]]; then
-    echo -n "[🏚️ A(${num_changes})]"
+    echo -n "️A(${num_changes})"
   fi
 }
 
@@ -79,7 +75,7 @@ function show_git_status {
   local num_changes
   num_changes="$(git -C "$source_dir" status --porcelain | wc -l | awk '{print $1}')"
   if [[ "$num_changes" -gt 0 ]]; then
-    echo -n "[🏘️ D(${num_changes})]"
+    echo -n "️D(${num_changes})"
   fi
 }
 
@@ -87,7 +83,7 @@ function show_git_status {
 function show_unexpected_branch {
   current_branch="$(git -C "$source_dir" branch --show-current)"
   if [[ "$current_branch" != "dev" && "$current_branch" != "main" ]]; then
-    echo -n "[🏠 B(${current_branch})]"
+    echo -n "B(${current_branch})"
   fi
 }
 
@@ -105,15 +101,26 @@ function show_reload_status {
 
   if [[ "$current_last_applied" -gt "$MH_CHEZMOI_LOADED_VERSION" ]]; then
       the_diff=$((current_last_applied - MH_CHEZMOI_LOADED_VERSION))
-      echo -n "[🏡♻️ R(${the_diff}s)]"
+      echo -n "R(${the_diff}s)"
   fi
 }
 
 function starship_prompt {
-  show_needs_apply
-  show_git_status
-  show_unexpected_branch
-  show_reload_status
+  local needs_apply
+  local git_status
+  local unexpected_branch
+  local reload_status
+
+  needs_apply="$(show_needs_apply)"
+  git_status="$(show_git_status)"
+  unexpected_branch="$(show_unexpected_branch)"
+  reload_status="$(show_reload_status)"
+
+  combined="${needs_apply}${git_status}${unexpected_branch}${reload_status}"
+
+  if [[ -n "$combined" ]]; then
+    echo -n "[🏠${combined}]"
+  fi
 }
 
 # When evaluated, records the last chezmoi apply time in an environment variable.
@@ -135,18 +142,6 @@ case "$command" in
     ;;
   shell_init)
     shell_init
-    ;;
-  show_git_status)
-    show_git_status
-    ;;
-  show_needs_apply)
-    show_needs_apply
-    ;;
-  show_reload_status)
-    show_reload_status
-    ;;
-  show_unexpected_branch)
-    show_unexpected_branch
     ;;
   *)
     echo "Unknown command: $command" >&2

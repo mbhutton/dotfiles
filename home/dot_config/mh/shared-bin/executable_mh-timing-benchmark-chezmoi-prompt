@@ -1,0 +1,15 @@
+#!/bin/zsh
+# shellcheck shell=bash
+
+line() { mh-horizontal-line; }
+
+line
+starship timings
+
+line
+hyperfine 'starship timings' --warmup 5
+
+line
+hyperfine 'mh-chezmoi-prompt starship_prompt' --warmup 5
+
+line

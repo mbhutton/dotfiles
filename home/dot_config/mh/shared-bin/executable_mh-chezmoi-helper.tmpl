@@ -17,7 +17,7 @@
 share_dir="${MH_SHARE_DIR:-$HOME/.local/share/mh}"
 last_applied_path="$share_dir"/.chezmoi-last-applied
 last_clean_applied_path="$share_dir"/.chezmoi-last-clean-applied
-source_dir="{{ .chezmoi.sourceDir }}"
+source_dir="{{ .chezmoi.sourceDir }}/.." # sourceDir is 'home' dir in the repo
 
 function show_syntax {
   echo "Syntax: $0 <command> [<args>]" >&2

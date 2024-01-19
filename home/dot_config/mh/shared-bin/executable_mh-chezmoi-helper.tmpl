@@ -90,13 +90,6 @@ function starship_prompt {
     prompt="${prompt}B(${current_branch})"
   fi
 
-  # Show if chezmoi source and target are out of sync
-  local chezmoi_changes
-  chezmoi_changes="$(chezmoi status | wc -l | awk '{print $1}')"
-  if [[ "$chezmoi_changes" -gt 0 ]]; then
-    prompt="${prompt}️A(${chezmoi_changes})"
-  fi
-
   # Show a status indicator if chezmoi has been applied since zsh was loaded,
   # and a terse error if shell not initialised properly.
   local current_last_applied
@@ -112,6 +105,13 @@ function starship_prompt {
       seconds=$((current_last_applied - MH_CHEZMOI_LOADED_VERSION))
       human_readable="$(seconds_to_human_readable "$seconds")"
       prompt="${prompt}️R(${human_readable})"
+  fi
+
+  # Show if chezmoi source and target are out of sync
+  local chezmoi_changes
+  chezmoi_changes="$(chezmoi status | wc -l | awk '{print $1}')"
+  if [[ "$chezmoi_changes" -gt 0 ]]; then
+    prompt="${prompt}️A(${chezmoi_changes})"
   fi
 
   if [[ -n "$prompt" ]]; then

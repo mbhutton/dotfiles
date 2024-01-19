@@ -89,6 +89,7 @@ function starship_prompt {
   if [[ "$current_branch" != "dev" && "$current_branch" != "main" ]]; then
     prompt="${prompt}B(${current_branch})"
   fi
+  head_sha="$(cat "$source_dir/.git/refs/heads/$current_branch")"
 
   # Show a status indicator if chezmoi has been applied since zsh was loaded,
   # and a terse error if shell not initialised properly.
@@ -107,11 +108,31 @@ function starship_prompt {
       prompt="${prompt}️R(${human_readable})"
   fi
 
+  # Find out if chezmoi has been applied since the last clean apply
+  local last_clean_applied
+  local skip_chezmoi_status=false
+  last_clean_applied="$(get_last_modified "$last_clean_applied_path")"
+  if [[ "$last_clean_applied" -gt 0 ]]; then
+    if [[ ! "$last_clean_applied" -lt "$current_last_applied" ]]; then
+      # The last apply was clean. If current HEAD matches the SHA stored
+      # in the last clean apply file, *and* the git repo is currently clean,
+      # then assume chezmoi is clean.
+      # Caveat: this does not account for changes made on the target side.
+      if [[ "$head_sha" == "$(cat "$last_clean_applied_path")" ]]; then
+        if [[ "$git_changes" -eq 0 ]]; then
+          skip_chezmoi_status=true
+        fi
+      fi
+    fi
+  fi
+
   # Show if chezmoi source and target are out of sync
-  local chezmoi_changes
-  chezmoi_changes="$(chezmoi status | wc -l | awk '{print $1}')"
-  if [[ "$chezmoi_changes" -gt 0 ]]; then
-    prompt="${prompt}️A(${chezmoi_changes})"
+  if [[ "$skip_chezmoi_status" == false ]]; then
+    local chezmoi_changes
+    chezmoi_changes="$(chezmoi status | wc -l | awk '{print $1}')"
+    if [[ "$chezmoi_changes" -gt 0 ]]; then
+      prompt="${prompt}️A(${chezmoi_changes})"
+    fi
   fi
 
   if [[ -n "$prompt" ]]; then

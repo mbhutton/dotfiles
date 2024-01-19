@@ -13,11 +13,11 @@
 #
 # To use:
 # (1) wrap calls to chezmoi apply with:
-#       mh-chezmoi-helper apply
+#       mh-chezmoi-prompt chezmoi_apply
 # (2) from your starship.toml, call this with when=true:
-#       mh-chezmoi-helper starship_prompt
+#       mh-chezmoi-prompt starship_prompt
 # (3) add the following to your .zshrc:
-#       eval "$(mh-chezmoi-helper shell_init)"
+#       eval "$(mh-chezmoi-prompt shell_init)"
 #
 # See show_syntax function below for usage.
 
@@ -29,7 +29,7 @@ source_dir="{{ .chezmoi.sourceDir }}/.." # sourceDir is 'home' dir in the repo
 function show_syntax {
   echo "Syntax: $0 <command> [<args>]" >&2
   echo "Commands:" >&2
-  echo " apply" >&2
+  echo " chezmoi_apply" >&2
   echo " starship_prompt" >&2
   echo " shell_init" >&2
 }
@@ -64,7 +64,7 @@ function seconds_to_human_readable {
 
 # Wraps a call to chezmoi apply with updates to the last
 # applied time and last clean applied time.
-function apply {
+function chezmoi_apply {
   if [[ ! -f "$last_applied_path" ]]; then
     mkdir -p "$(dirname "$last_applied_path")"
   fi
@@ -103,7 +103,7 @@ function starship_prompt {
   local last_applied
 
   if [[ -z "$MH_CHEZMOI_LOADED_VERSION" ]]; then
-      prompt="${prompt}[mh-chezmoi-helper shell_init required]"
+      prompt="${prompt}[mh-chezmoi-prompt shell_init required]"
       return
   fi
 
@@ -157,9 +157,9 @@ function shell_init {
 command="$1"
 
 case "$command" in
-  apply)
+  chezmoi_apply)
     shift
-    apply "$@"
+    chezmoi_apply "$@"
     ;;
   starship_prompt)
     starship_prompt

@@ -6,7 +6,7 @@ ssh_only = false
 
 [custom.chezmoi_status]
 when = "true"
-command = "mh-chezmoi-helper starship_prompt"
+command = "mh-chezmoi-prompt starship_prompt"
 format = '[$symbol($output)]($style)'
 
 # bracketed-segments preset...

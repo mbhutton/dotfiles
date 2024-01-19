@@ -19,7 +19,7 @@ echo 'Proceed? y/N'
 read -sqr answer
 
 if [[ "$answer" == "y" ]]; then
-  mh-chezmoi-helper apply
+  mh-chezmoi-prompt chezmoi_apply
 else
   echo "Cancelled by user"
   exit 1

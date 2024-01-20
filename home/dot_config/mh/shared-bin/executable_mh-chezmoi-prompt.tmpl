@@ -8,7 +8,7 @@
 # - B: If chezmoi repo is on a branch other than dev or main
 # - R: If chezmoi has been applied since zsh was loaded
 #      (implying the need to re-load zsh)
-# - A: If chezmoi source and target are out of sync
+# - A: If chezmoi source has not been applied, implying need to chezmoi apply
 #      Caveat: doesn't account for changes made on target since last apply
 #
 # To use:
@@ -65,6 +65,7 @@ function seconds_to_human_readable {
 # Wraps a call to chezmoi apply with updates to the last
 # applied time and last clean applied time.
 function chezmoi_apply {
+  rm -f "$last_clean_applied_path"
   if [[ ! -f "$last_applied_path" ]]; then
     mkdir -p "$(dirname "$last_applied_path")"
   fi
@@ -115,20 +116,16 @@ function starship_prompt {
       prompt="${prompt}️R(${human_readable})"
   fi
 
-  # Find out if chezmoi has been applied since the last clean apply
-  local last_clean_applied
+  # Find out if we can skip chezmoi status check due to last apply being clean
   local skip_chezmoi_status=false
-  last_clean_applied="$(get_last_modified "$last_clean_applied_path")"
-  if [[ "$last_clean_applied" -gt 0 ]]; then
-    if [[ ! "$last_clean_applied" -lt "$last_applied" ]]; then
-      # The last apply was clean. If current HEAD matches the SHA stored
-      # in the last clean apply file, *and* the git repo is currently clean,
-      # then assume chezmoi is clean.
-      # Caveat: this does not account for changes made on the target side.
-      if [[ "$head_sha" == "$(cat "$last_clean_applied_path")" ]]; then
-        if [[ "$git_changes" -eq 0 ]]; then
-          skip_chezmoi_status=true
-        fi
+  if [[ -f "$last_clean_applied_path" ]]; then
+    # The last apply was clean. If current HEAD matches the SHA stored
+    # in the last clean apply file, *and* the git repo is currently clean,
+    # then assume chezmoi source is synced to the target.
+    # Caveat: this does not account for changes made on the target side.
+    if [[ "$head_sha" == "$(cat "$last_clean_applied_path")" ]]; then
+      if [[ "$git_changes" -eq 0 ]]; then
+        skip_chezmoi_status=true
       fi
     fi
   fi

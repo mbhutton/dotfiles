@@ -22,8 +22,10 @@ lsd                # Modern 'ls'
 just               # Simple task runner
 lazydocker         # Docker TUI
 lazygit            # Efficient Git TUI
+mdcat              # Like 'cat' for markdown
 mise               # Manage multiple versions of language toolchains (was 'rtx')
 neovim             # Modern 'vim'
+pandoc             # Universal markup converter
 parallel           # Run tasks in parallel. Used for updating multiple repos.
 pygitup            # Python based git-up command for updating git repos
 ripgrep            # Modern 'grep'. Note: required by LazyVim `opt.grepprg`

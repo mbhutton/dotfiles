@@ -1,0 +1,14 @@
+# TODO: add grep support to populate initial list
+# TODO: handle case of book without the role="main"
+
+function mhrd {
+  find ~/.rustup/toolchains/stable-*/share/doc/ \
+  | grep -Ev '/second-edition|2018-edition/' \
+  | fzf \
+  -m \
+  --preview='pandoc --to markdown {} \
+  | awk '\''/role="main"/{p=1}p'\'' \
+  | mdcat' \
+  | xargs -n 1 open
+}
+

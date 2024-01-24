@@ -1,0 +1,5 @@
+
+# Choose emacs style line editing explicitly,
+# as the EDITOR=vim setting can otherwise make zsh
+# use vi editing in some contexts, seen for example in Zellij
+bindkey -e

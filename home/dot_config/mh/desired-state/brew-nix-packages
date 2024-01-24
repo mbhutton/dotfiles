@@ -33,3 +33,4 @@ starship           # Terminal prompt
 tig                # Git TUI, called from my lazygit bindings
 tlrc               # Rust client for tldr (help pages for CLI tools)
 zellij             # Terminal multiplexer, tmux alternative
+zoxide             # Augments 'cd'

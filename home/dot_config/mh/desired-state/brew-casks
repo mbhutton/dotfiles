@@ -6,7 +6,6 @@ docker               # Docker Desktop
 gitx                 # Git UI with very legible commit graph
 iterm2               # Replacement for Terminal.app with more features
 karabiner-elements   # Keyboard customizer
-kitty                # Terminal emulator
 shortcat             # Easymotion-like macOS GUI navigation
 
 # Music apps

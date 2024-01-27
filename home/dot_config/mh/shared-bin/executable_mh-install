@@ -8,16 +8,81 @@ function fail {
   exit 1
 }
 
+function assert_function {
+  type -t "$1" >/dev/null 2>&1 || fail "Required function not found: $1"
+}
+
 function hl { mh-horizontal-line; }
+
+# Check preconditions
+[[ -n "$HOME" ]] || fail "HOME is not set"
+[[ -n "$USER" ]] || fail "USER is not set"
+for cmd in curl git zsh; do
+command -v "$cmd" >/dev/null || fail "$cmd is not installed or not in PATH"
+done
+[[ -n "$MH_CHEZMOI_LOADED_VERSION" ]] \
+|| fail "Zsh config not properly loaded. \
+(Env var MH_CHEZMOI_LOADED_VERSION not set.) \
+Suggestion: 'chezmoi init ...' if not already, and run this script inside 'zsh -i'"
 
 source_dir="$(dirname "${BASH_SOURCE[0]}")"
 impl_dir="${source_dir}/mh-install.d"
 
-source "${impl_dir}/impl-rustup.sh"
-source "${impl_dir}/impl-cargo-crates.sh"
+# Note: order is significant
+# TODO: make these switchable chezmoi style by moving these to a non-sorted desired list
+# TODO: generally make zsh config allow any of the tools here to be missing
+# Note: generally prefer to install via Homebrew or Nix where possible. Exceptions:
+# - APT: for prerequisites of Nix, or build dependencies of Mise (eg Ruby) which are hard to do via Nix Home Manager
+# - eget: for software that's to rapidly changing for Homebrew or Nix to keep up with
+# - uv-tool: for python packages
+impls=(
+  prezto            # Do first so that new shells can make use of partial installs
+  brew              # macOS only
+  # TODO: make this conditional on macOS guest ie hasMacAppStore
+  mas               # macOS only. Bootstrapped by brew
+  apt               # Linux only
+  nix-home-manager  # Linux only. Bootstraps Nix if required. Depends on APT
+  eget              # Bootstrapped by brew/home-manager
+  rustup
+  cargo-crates      # Bootstrapped by rustup. May depend on APT/Homebrew/Nix libraries.
+  mise              # Bootstrapped by brew/home-manager or eget or cargo
+  uv-tool           # Bootstrapped by brew/home-manager or cargo, may depend on mise's Python
+  macos             # macOS only
+)
 
 hl
-install_or_update_rustup
+echo "Checking functions for each of ${impls[*]}..."
+for impl in "${impls[@]}"; do
+  # shellcheck disable=SC1090
+  source "${impl_dir}/impl-${impl}.sh" || fail "Impl not found for $impl"
+  assert_function noun_for_"${impl}"
+  assert_function asserts_for_"${impl}"
+  assert_function install_or_update_"${impl}"
+  assert_function doctor_"${impl}"
+done
+
 hl
-install_or_update_cargo_crates
+echo "Updating or installing software 🚀..."
+for impl in "${impls[@]}"; do
+  # shellcheck disable=SC1090
+  hl
+  asserts_for_"${impl}" || fail "Failed pre-install checks for ${impl} 😢🎻"
+  echo "Updating/installing $(noun_for_"${impl}")..."
+  install_or_update_"${impl}"
+  echo -n
+  echo -n >&2
+done
+
 hl
+echo "The doctor will see you now 🩺..."
+for impl in "${impls[@]}"; do
+  # shellcheck disable=SC1090
+  hl
+  noun="$(noun_for_"${impl}")"
+  echo "Checking state of ${noun}..."
+  doctor_"${impl}"
+  echo -n
+  echo -n >&2
+done
+hl
+

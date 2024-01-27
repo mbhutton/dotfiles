@@ -1,0 +1,15 @@
+# Desired python packages to install using 'uv tool'
+# Read by impl-uv-tool.sh.
+# Comments, leading and trailing whitespace, and empty lines are stripped.
+
+git-up              # A nicer `git pull`
+
+# JSON CLI tooling from kellyjonbrazil
+jc                  # Convert unix commands output to JSON
+jellex              # Terminal UI for jello
+jello               # Filter JSON/JSONL data with Python syntax
+jtbl                # Display JSON/JSONL data in table format
+
+{{ if .mh.hasMacAppStore -}}
+things-cli          # CLI for Things.app
+{{ end -}}

@@ -1,0 +1,17 @@
+# Desired APT packages.
+# Read by impl-apt.sh.
+# Comments, leading and trailing whitespace, and empty lines are stripped.
+#
+# NOTE: Any packages added using this file will remain installed in the system until manually uninstalled.
+
+{{ if .mh.useRuby -}}
+# Required for building Ruby in Mise
+libffi-dev
+libyaml-dev
+{{ end -}}
+
+{{ if .mh.useCargoMise -}}
+build-essential
+libssl-dev
+pkg-config
+{{ end -}}

@@ -14,3 +14,7 @@ export UV_TOOL_BIN_DIR="${MH_SHARE_DIR:-$HOME/.local/share/mh}/uv-tool-bin"
 mkdir -p "$UV_TOOL_BIN_DIR"
 export PATH="$UV_TOOL_BIN_DIR:$PATH"
 export UV_PYTHON="$MH_SHARED_VENV_PYTHON"
+
+export EGET_BIN="${MH_SHARE_DIR:-$HOME/.local/share/mh}/eget-bin"
+mkdir -p "$EGET_BIN"
+export PATH="$EGET_BIN:$PATH"

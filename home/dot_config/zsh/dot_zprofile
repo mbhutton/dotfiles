@@ -22,7 +22,6 @@ fi
 if [[ "$(uname -s)" == "Darwin" ]]; then
   if [[ -f "/opt/homebrew/bin/brew" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
-    echo "Homebrew activated"
   else
     echo "WARN: Homebrew not set up. Suggestion: $ mh-install" >&2
   fi
@@ -40,7 +39,6 @@ elif [[ "$(uname -s)" == "Linux" && "$(uname -m)" == "aarch64" ]]; then
   # are present in my devcontainer config for x86, but are intended to be left dormant.
   if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
     source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-    echo "Nix Home Manager activated"
   else
     echo "WARN: Nix Home Manager not set up. Suggestion: $ mh-install" >&2
   fi

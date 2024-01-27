@@ -2,18 +2,50 @@
 
 # Installs or updates cargo crate binaries
 
-# Dependencies: calls assert_rustup
+CARGO_BINARIES_PATH="${HOME}/.config/mh/desired-state/cargo-binaries"
 
-function install_or_update_cargo_crates {
-  assert_rustup
+assert_function mh-parse-desired
 
-  echo "Installing (or updating) desired cargo binaries..."
-  cargo_binaries="${HOME}/.config/mh/desired-state/cargo-binaries"
-  [[ -f "$cargo_binaries" ]] || fail "Desired cargo binaries file not found: $cargo_binaries"
+CARGO_BINARIES_ARRAY=()
+if [[ -f "$CARGO_BINARIES_PATH" ]]; then
+  while IFS='' read -r line; do CARGO_BINARIES_ARRAY+=("$line"); done < <(mh-parse-desired < "$CARGO_BINARIES_PATH")
+fi
 
-  for binary in $(sed -e 's@#.*@@g' < "$cargo_binaries" | xargs); do
+function noun_for_cargo-crates {
+  echo "Cargo crates 🦀📦"
+}
+
+function asserts_for_cargo-crates {
+  [[ -f "$CARGO_BINARIES_PATH" ]] || fail "Desired cargo binaries file not found: $CARGO_BINARIES_PATH"
+  command -v cargo >/dev/null || fail "cargo not found on PATH"
+}
+
+function install_or_update_cargo-crates {
+  local binary
+
+  echo "Installing (or updating) desired cargo binaries..." ; echo
+
+  for binary in "${CARGO_BINARIES_ARRAY[@]}"; do
     echo "Installing (or updating) cargo binary: $binary"
     cargo install "$binary" \
     || fail "Failed to install or update cargo binary: $binary"
   done
+
+  # TODO: update *all*, not just desired (for other components too!)
+}
+
+function check_cargo-crates { # TODO this seems unused
+  local binary
+  for binary in "${CARGO_BINARIES_ARRAY[@]}"; do
+    echo "Checking cargo binary: $binary"
+    if ! cargo install --list | grep "$binary" >/dev/null; then
+      echo "Cargo binary not installed: $binary"
+      return 1
+    fi
+  done
+}
+
+function doctor_cargo-crates {
+  true
+  # TODO: check for unexpected cargo binaries using 'cargo install --list', ideally in a more parseable format
 }

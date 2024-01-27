@@ -1,2 +1,27 @@
+# Based on twpayne's dotfiles
+# Note: Be careful with ':=' (declaration) vs '=' (re-assingment) vs 'eq' (comparison)
+
+{{/* work around unreliable hostname on darwin */}}
+{{- $hostname := .chezmoi.hostname -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $hostname = output "scutil" "--get" "ComputerName" | trim -}}
+{{- end -}}
+
+{{- $personal := eq $hostname "Kea" -}}
+{{- $useNix := and (eq .chezmoi.os "linux") (eq .chezmoi.arch "arm64")  -}}
+
+{{- $useRustlings := $personal -}}
+{{- $useRuby := $personal -}}
+
+# Build mise from source until Nix updates mise to 2024.10.7 or later
+{{- $useCargoMise := $useNix -}}
+
 [diff]
     pager = "delta"
+
+[data.mh]
+    hostname = {{ $hostname | quote }}
+    personal = {{ $personal }}
+    useRustlings = {{ $useRustlings }}
+    useRuby = {{ $useRuby }}
+    useCargoMise = {{ $useCargoMise }}

@@ -1,0 +1,5 @@
+# Desired python packages to install using 'uv tool'
+# Read by impl-uv-tool.sh.
+# Comments, leading and trailing whitespace, and empty lines are stripped.
+
+git-up  # A nicer `git pull`

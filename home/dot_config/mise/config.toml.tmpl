@@ -1,0 +1,10 @@
+[tools]
+# TODO: make more of these opt-in only
+deno = "latest"
+go = "latest"
+java = "latest"
+node = "latest"
+python = "latest"
+{{ if .mh.useRuby -}}
+ruby = "latest"
+{{ end -}}

@@ -1,0 +1,12 @@
+# Desired cargo binaries.
+# Read by impl-cargo-crates.sh.
+# Comments, leading and trailing whitespace, and empty lines are stripped.
+
+{{ if .mh.useRustlings -}}
+rustlings
+{{ end -}}
+
+{{ if .mh.useCargoMise -}}
+mise
+{{ end -}}
+

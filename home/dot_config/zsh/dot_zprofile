@@ -27,6 +27,11 @@ elif [[ "$(uname -s)" == "Linux" && "$(uname -m)" != "aarch64" ]]; then
 fi
 
 # ---------------------------------------------------------
+# Prezto
+
+source_prezto_runcoms zprofile
+
+# ---------------------------------------------------------
 # Mark as processed.
 
 MH_PROCESSED_ZPROFILE=true

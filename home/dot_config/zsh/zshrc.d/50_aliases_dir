@@ -1,3 +1,2 @@
-alias b='cd -'
 alias h='cd $HOME'
 alias u='cd ..'

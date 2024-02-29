@@ -44,15 +44,16 @@ This function should only modify configuration layer settings."
      ;; git
      helm
      ;; lsp
-     ;; markdown
+     markdown
      multiple-cursors
-     ;; org
+     org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     ;; spell-checking
-     ;; syntax-checking
+     spell-checking
+     syntax-checking
      ;; version-control
+     themes-megapack
      treemacs)
 
 
@@ -220,11 +221,11 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-new-empty-buffer-major-mode 'text-mode
 
    ;; Default major mode of the scratch buffer (default `text-mode')
-   dotspacemacs-scratch-mode 'text-mode
+   dotspacemacs-scratch-mode 'org-mode
 
    ;; If non-nil, *scratch* buffer will be persistent. Things you write down in
    ;; *scratch* buffer will be saved and restored automatically.
-   dotspacemacs-scratch-buffer-persistent nil
+   dotspacemacs-scratch-buffer-persistent t
 
    ;; If non-nil, `kill-buffer' on *scratch* buffer
    ;; will bury it instead of killing.
@@ -257,7 +258,7 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 10.0
+                               :size 14.0
                                :weight normal
                                :width normal)
 
@@ -317,7 +318,7 @@ It should only modify the values of Spacemacs settings."
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
    ;; (default 'cache)
-   dotspacemacs-auto-save-file-location 'cache
+   dotspacemacs-auto-save-file-location 'original
 
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
@@ -566,14 +567,84 @@ dump."
 )
 
 
+
+;; TODO: de-dupe once clear when need to call this.
+;; TODO: point to recursive directories rather than files, for some hope of picking up new files
+;; Maintenance note: sync with orgmode config in LazyVim
+(setq org-directory "~/git/1-core/code-notes")
+(setq default-directory org-directory)
+(setq org-default-notes-file "~/git/1-core/code-notes/capture.org")
+(setq org-agenda-files (directory-files-recursively org-directory  "\\.org$"))
+(with-eval-after-load 'org
+  (setq org-directory "~/git/1-core/code-notes")
+  (setq org-default-notes-file "~/git/1-core/code-notes/capture.org")
+  (setq org-agenda-files (directory-files-recursively org-directory  "\\.org$")))
+
+
+
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-)
+  (global-tab-line-mode 1)
+
+  (setq global-auto-revert-mode 1)
+
+  (setq org-todo-keywords
+      '((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "MOVE(m)" "|" "DONE(d)" "CANCELLED(c)")
+        (sequence "REPORT(r)" "BUG(b)" "KNOWNCAUSE(k)" "|" "FIXED(f)")))
+
+  (setq org-tag-alist '(("@work" . ?w) ("@home" . ?h) ("laptop" . ?l)))
+
+
+;; ______________________________________________________________________________
+  ;; Use UUID style IDs for org link. Don't auto-create for org capture  DONE:DOOM 
+;; ______________________________________________________________________________
+  (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+
+
+  ;; ref: Tip from https://www.n16f.net/blog/org-mode-headline-tips/
+  (setq org-goto-interface 'outline-path-completion)
+  (setq org-outline-path-complete-in-steps nil)
+  ;; (setq org-goto-max-level 2)
+
+  ;; Single click in treemacs to open file or expand/collapse directory
+  ;; TODO not working. works when evaluated after loading treemacs. where to put it?
+  (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
+
+;; Auto-save on lose focus
+(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+
+(tab-line-mode t)
+
+(setq org-ellipsis "⤵")  ;; Don't use default '...' as I use that to mean "not exhaustive"
+(setq org-hide-leading-stars nil)
+(setq line-spacing 0.3)
+;; (setq pixel-scroll-precision-use-momentum t)
 
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(auto-yasnippet flycheck-pos-tip pos-tip git-link git-messenger git-modes git-timemachine gitignore-templates helm-c-yasnippet helm-company company helm-git-grep helm-ls-git mwim orgit-forge orgit forge yaml ghub closql emacsql treepy smeargle treemacs-magit magit magit-section git-commit with-editor transient unfill yasnippet-snippets yasnippet ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection string-edit-at-point spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc restart-emacs request rainbow-delimiters quickrun popwin persistent-scratch pcre2el password-generator paradox overseer org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-contrib org-cliplink open-junk-file nameless multi-line markdown-toc macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete htmlize holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-descbinds helm-comint helm-ag google-translate golden-ratio gnuplot gh-md flyspell-correct-helm flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-dictionary auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line)))
+
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)

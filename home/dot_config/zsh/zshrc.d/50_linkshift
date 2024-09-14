@@ -1,0 +1,2 @@
+command -v linkshift >/dev/null && eval "$(_LINKSHIFT_COMPLETE=zsh_source linkshift)"
+alias lsh=linkshift

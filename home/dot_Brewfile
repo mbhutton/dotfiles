@@ -5,8 +5,8 @@ brew "bat"                # Modern 'cat'
 brew "bats-core"          # Testing for shell scripts and shell configuration
 brew "broot"              # Efficient directory navigation
 brew "bottom"             # Modern 'top', 'btm' command
-brew "btop"               # Modern 'top'
-brew "chezmoi"            # Dot files manager to bootstrap and manage dev environment
+brew "btop"               # Modern 'top', defaulting to a process tree view
+brew "chezmoi"            # Dot files manager to bootstrap and manage dev environment, used for my dotfiles
 brew "duf"                # Modern 'df'
 brew "dust"               # Modern 'du'
 brew "fd"                 # Modern alternative to 'find'
@@ -17,9 +17,9 @@ brew "git-delta"          # Modern diff, 'delta' command
 brew "hledger"            # Plain text accounting, inspired by ledger, in Haskell
 brew "hyperfine"          # Benchmarking
 brew "jq"                 # JSON processor
-brew "lf"                 # File manager
+brew "lf"                 # File manager, like ranger
 brew "lsd"                # Modern 'ls'
-brew "just"               # Simple task runner
+brew "just"               # Simple task runner. Used within git projects, including dotfiles
 brew "lazydocker"         # Docker TUI
 brew "lazygit"            # Efficient Git TUI
 brew "mdcat"              # Show markdown documents on text terminals
@@ -29,7 +29,7 @@ brew "parallel"           # Run tasks in parallel. Used for updating multiple re
 brew "pipx"               # Install Python CLI tools. Note: use mise's python@latest.
 brew "pygitup"            # Python based git-up command for updating git repos
 brew "ripgrep"            # Modern 'grep'. Note: required by LazyVim `opt.grepprg`
-brew "ruff"               # Python linter and code formatter
+brew "ruff"               # Python linter/formatter. Python projects use venv version, but a CLI copy is useful
 brew "shellcheck"         # Static analysis of shell files. Note: validate zsh as bash.
 brew "shfmt"              # Formatter for shell files
 brew "starship"           # Terminal prompt

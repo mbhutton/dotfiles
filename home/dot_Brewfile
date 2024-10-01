@@ -57,3 +57,8 @@ cask "shortcat"             # Easymotion-like macOS GUI navigation
 
 cask "sonic-pi"
 cask "supercollider"
+
+# Casks: Fonts
+cast" font-comic-neue"      # For unserious prose
+cask "font-sf-pro"          # Apple system font
+cask "font-source-code-pro"

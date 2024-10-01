@@ -39,8 +39,7 @@ function get_last_modified {
   local file="$1"
   if [[ ! -f "$file" ]]; then
     echo "0"
-  fi
-  if [[ "$(uname -s)" == "Darwin" ]]; then
+  elif [[ "$(uname -s)" == "Darwin" ]]; then
     stat -f "%m" "$file"
   elif [[ "$(uname -s)" == "Linux" ]]; then
     stat -c %Y "$file"

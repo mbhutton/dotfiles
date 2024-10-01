@@ -22,6 +22,7 @@ brew "lsd"                # Modern 'ls'
 brew "just"               # Simple task runner
 brew "lazydocker"         # Docker TUI
 brew "lazygit"            # Efficient Git TUI
+brew "mdcat"              # Show markdown documents on text terminals
 brew "mise"               # Manage multiple versions of language toolchains (was 'rtx')
 brew "neovim"             # Modern 'vim'
 brew "parallel"           # Run tasks in parallel. Used for updating multiple repos.

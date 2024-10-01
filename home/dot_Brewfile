@@ -1,0 +1,42 @@
+brew "atool"              # Tools for archive files (zip,tar etc) like 'als', 'aunpack'
+brew "atuin"              # Shell history backed by sqlite
+brew "bat"                # Modern 'cat'
+brew "bats-core"          # Testing for shell scripts and shell configuration
+brew "broot"              # Efficient directory navigation
+brew "bottom"             # Modern 'top', 'btm' command
+brew "btop"               # Modern 'top'
+brew "chezmoi"            # Dot files manager to bootstrap and manage dev environment
+brew "cmake"              # For C++ development with JUCE
+brew "duf"                # Modern 'df'
+brew "dust"               # Modern 'du'
+brew "fd"                 # Modern alternative to 'find'
+brew "fzf"                # Fuzzy finder
+brew "gh"                 # GitHub CLI, with Copilot
+brew "git-absorb"         # Git workflow tool: "git commit --fixup, but automatic"
+brew "git-delta"          # Modern diff, 'delta' command
+brew "hledger"            # Plain text accounting, inspired by ledger, in Haskell
+brew "hyperfine"          # Benchmarking
+brew "jq"                 # JSON processor
+brew "lf"                 # File manager
+brew "lsd"                # Modern 'ls'
+brew "just"               # Simple task runner
+brew "lazydocker"         # Docker TUI
+brew "lazygit"            # Efficient Git TUI
+brew "mise"               # Manage multiple versions of language toolchains (was 'rtx')
+brew "neovim"             # Modern 'vim'
+brew "parallel"           # Run tasks in parallel. Used for updating multiple repos.
+brew "pipx"               # Install Python CLI tools. Note: use mise's python@latest.
+brew "pygitup"            # Python based git-up command for updating git repos
+brew "ripgrep"            # Modern 'grep'. Note: required by LazyVim `opt.grepprg`
+brew "ruff"               # Python linter and code formatter
+brew "shellcheck"         # Static analysis of shell files. Note: validate zsh as bash.
+brew "shfmt"              # Formatter for shell files
+brew "starship"           # Terminal prompt
+brew "stylua"             # Formatter for Lua code
+brew "tig"                # Git TUI, called from my lazygit bindings
+brew "tlrc"               # Rust client for tldr (help pages for CLI tools)
+brew "tree-sitter"        # Parser generator tool and kkmental parsing library
+brew "uv"                 # Python package and project manager
+brew "wget"               # Required by mason.nvim
+brew "zellij"             # Terminal multiplexer, tmux alternative
+brew "zoxide"             # Augments 'cd'

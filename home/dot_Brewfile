@@ -7,7 +7,6 @@ brew "broot"              # Efficient directory navigation
 brew "bottom"             # Modern 'top', 'btm' command
 brew "btop"               # Modern 'top'
 brew "chezmoi"            # Dot files manager to bootstrap and manage dev environment
-brew "cmake"              # For C++ development with JUCE
 brew "duf"                # Modern 'df'
 brew "dust"               # Modern 'du'
 brew "fd"                 # Modern alternative to 'find'

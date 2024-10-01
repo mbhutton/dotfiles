@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Workaround for choose-gui homebrew formula conflicting with choose-rust, both wanting to install a 'choose' binary.
+# choose-gui is installed in Homebrew but left unlinked.
+# This script is a wrapper that finds the choose-gui binary and executes it, or fails if not found.
+
+shopt -s nullglob # Prevent glob from expanding to itself if no matches are found
+matches=(/opt/homebrew/Cellar/choose-gui/*/bin/choose)
+if [ ${#matches[@]} -eq 1 ]; then
+  exec "${matches[0]}" "$@"
+elif [ ${#matches[@]} -gt 1 ]; then
+  echo "Error: multiple choose-gui versions found. Suggestion: manually inspect the choose-gui Homebrew cellar" >&2
+  exit 1
+else
+  echo "Error: choose-gui not found. Suggestion: brew install choose-gui. Note: macOS only." >&2
+  exit 1
+fi

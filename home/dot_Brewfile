@@ -1,3 +1,4 @@
+# Packages
 brew "atool"              # Tools for archive files (zip,tar etc) like 'als', 'aunpack'
 brew "atuin"              # Shell history backed by sqlite
 brew "bat"                # Modern 'cat'
@@ -40,3 +41,20 @@ brew "uv"                 # Python package and project manager
 brew "wget"               # Required by mason.nvim
 brew "zellij"             # Terminal multiplexer, tmux alternative
 brew "zoxide"             # Augments 'cd'
+
+# Casks: Development and productivity
+
+cask "alt-tab"              # Window switching
+cask "font-hack-nerd-font"  # Fonts with support for icons, used by 'lsd'
+cask "docker"               # Docker Desktop
+cask "gitx"                 # Git UI with very legible commit graph
+cask "iterm2"               # Replacement for Terminal.app with more features
+cask "karabiner-elements"   # Keyboard customizer
+cask "mactex"               # LaTeX. Notes: slow installer; alters /etc/paths.d
+cask "neovide"              # Neovim GUI
+cask "shortcat"             # Easymotion-like macOS GUI navigation
+
+# Casks: Music apps
+
+cask "sonic-pi"
+cask "supercollider"

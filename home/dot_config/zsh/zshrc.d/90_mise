@@ -3,4 +3,4 @@
 # Activate mise, for dynamic switching of language toolchains.
 # Needs to be late in setup, to override system and homebrew toolchains.
 
-eval "$(/usr/bin/env mise activate zsh)"
+command -v mise > /dev/null && eval "$(/usr/bin/env mise activate zsh)"

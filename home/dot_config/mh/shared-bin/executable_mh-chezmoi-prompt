@@ -17,7 +17,11 @@
 # (2) from your starship.toml, call this with when=true:
 #       mh-chezmoi-prompt starship_prompt
 # (3) add the following to your .zshrc:
-#       eval "$(mh-chezmoi-prompt shell_init)"
+#       if [[ -z $(/usr/bin/env zsh -c 'echo -n') ]]; then
+#         eval "$(mh-chezmoi-prompt shell_init)"
+#       else
+#         echo "mh-chezmoi-prompt not loaded, as non-interative shell prints unexpected output" >&2
+#       fi
 #
 # See show_syntax function below for usage.
 

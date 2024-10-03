@@ -20,11 +20,10 @@ fi
 # So activating homebrew here allows more control of its precedence in PATH.
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+  [[ -f "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 elif [[ "$(uname -s)" == "Linux" && "$(uname -m)" != "aarch64" ]]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
+  [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 # ---------------------------------------------------------

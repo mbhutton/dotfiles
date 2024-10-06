@@ -5,5 +5,7 @@
 test_and_apply:
   mh-chezmoi-test-and-apply
 
+alias gw := git_workflow
+
 git_workflow:
   mh-git-workflow-rebase-dotfiles

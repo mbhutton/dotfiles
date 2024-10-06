@@ -4,7 +4,7 @@ Matt Hutton's dotfiles, managed with [`chezmoi`](https://github.com/twpayne/chez
 
 Install them and install/upgrade the associated tools with:
 
-- `$ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply mbhutton`
+- `$ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply mbhutton --branch dev`
 - `$ zsh -i -c mh-install`
 - `$ exec zsh -i`
 

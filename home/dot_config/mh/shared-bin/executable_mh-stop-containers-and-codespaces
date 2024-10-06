@@ -1,0 +1,58 @@
+#!/usr/bin/env python3
+
+import subprocess
+import sys
+
+
+class StopError(Exception):
+    pass
+
+
+def stop_all_local_docker_containers():
+    try:
+        containers = (
+            subprocess.check_output(["docker", "ps", "--quiet"]).decode().split()
+        )
+        if containers:
+            print("Stopping all local Docker containers...")
+            for container in containers:
+                print(f"Stopping container {container}...")
+                subprocess.run(["docker", "stop", container], check=True)
+        else:
+            print("No local Docker containers running.")
+    except subprocess.CalledProcessError:
+        raise StopError(f"Failed to stop container {container}")
+
+
+def stop_all_github_codespaces():
+    try:
+        query = (
+            '.[] | select(.state != "Shutdown" and .state != "ShuttingDown") | .name'
+        )
+        codespaces = (
+            subprocess.check_output(
+                ["gh", "codespace", "list", "--json", "name,state", "--jq", query]
+            )
+            .decode()
+            .split()
+        )
+        if codespaces:
+            print("Stopping all GitHub codespaces...")
+            for codespace in codespaces:
+                print(f"Stopping codespace {codespace}...")
+                subprocess.run(
+                    ["gh", "codespace", "stop", "--codespace", codespace], check=True
+                )
+        else:
+            print("No GitHub codespaces running.")
+    except subprocess.CalledProcessError:
+        raise StopError(f"Failed to stop codespace {codespace}")
+
+
+if __name__ == "__main__":
+    try:
+        stop_all_local_docker_containers()
+        stop_all_github_codespaces()
+    except StopError as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)

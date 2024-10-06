@@ -18,9 +18,6 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    pkgs.hello
     pkgs.atool
     pkgs.atuin
     pkgs.bat
@@ -37,7 +34,6 @@
     pkgs.fzf
     pkgs.gh
     pkgs.delta
-    pkgs.hledger
     pkgs.hyperfine
     pkgs.just
     pkgs.lazydocker
@@ -45,15 +41,11 @@
     pkgs.lsd
     pkgs.mise
     pkgs.parallel
-    pkgs.pipx
-    pkgs.pyenv
-    pkgs.ranger
     pkgs.shellcheck
     pkgs.shfmt
     pkgs.starship
     pkgs.tig
     pkgs.uv
-    # pkgs.zsh
 
 
     # # It is sometimes useful to fine-tune packages, for example, by applying

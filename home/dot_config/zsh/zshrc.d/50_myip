@@ -1,1 +1,4 @@
 alias myip='curl ifconfig.co/'
+for name in whatismyipaddress ipaddresswhat mh-ip-what; do
+  alias $name='myip'
+done

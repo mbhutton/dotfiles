@@ -36,9 +36,8 @@ elif [[ "$(uname -s)" == "Linux" && "$(uname -m)" != "aarch64" ]]; then
   fi
 
 elif [[ "$(uname -s)" == "Linux" && "$(uname -m)" == "aarch64" ]]; then
-  if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" && -f "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
+  if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
     source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-    source "$HOME/.nix-profile/etc/profile.d/nix.sh"
     echo "Nix Home Manager activated"
   else
     echo "WARN: Nix Home Manager not set up. Suggestion: $ mh-install" >&2

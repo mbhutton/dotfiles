@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Automates my current git rebasing workflow for this dotfiles repo.
-# Note: it also pushes the main branch to origin if it has been advanced.
+# Automates the current git rebasing and backup workflow for this dotfiles repo.
+# Note: it also pushes the main branch to origin if it has been advanced,
+# and also backs up the 'bu-ok' branch to match the 'ok' tag.
 # Syntax: <this script> <no args>
 
 function fail {
@@ -61,6 +62,12 @@ function update_base_tag_for_branch_or_fail {
   fi
 }
 
+function bu_ok_tag {
+  git rev-parse --quiet --verify ok >/dev/null || fail "Tag 'ok' not found"
+  git branch -f bu-ok ok || fail "Failed to set bu-ok branch to ok tag"
+  git push -f -u origin bu-ok || fail "Failed to push bu-ok branch"
+}
+
 function main {
   assert_git_repo
   git remote get-url origin | grep 'mbhutton/dotfiles' >/dev/null \
@@ -75,6 +82,8 @@ function main {
   assert_a_is_ancestor_of_b origin/main main
   assert_a_is_ancestor_of_b main ok
   assert_a_is_ancestor_of_b ok dev
+
+  bu_ok_tag
 
   if ! is_a_ancestor_of_b _dev4off off; then
     if is_a_ancestor_of_b dev off; then

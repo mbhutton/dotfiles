@@ -23,14 +23,18 @@ just               # Simple task runner
 lazydocker         # Docker TUI
 lazygit            # Efficient Git TUI
 mise               # Manage multiple versions of language toolchains (was 'rtx')
+neovim             # Modern 'vim'
 parallel           # Run tasks in parallel. Used for updating multiple repos.
 pipx               # Install Python CLI tools. Note: use mise's python@latest.
 pygitup            # Python based git-up command for updating git repos
-ripgrep            # Modern 'grep'
+ripgrep            # Modern 'grep'. Note: required by LazyVim `opt.grepprg`
 shellcheck         # Static analysis of shell files. Note: validate zsh as bash.
 shfmt              # Formatter for shell files
 starship           # Terminal prompt
+stylua             # Formatter for Lua code
 tig                # Git TUI, called from my lazygit bindings
 tlrc               # Rust client for tldr (help pages for CLI tools)
+tree-sitter        # Parser generator tool and kkmental parsing library
+wget               # Required by mason.nvim
 zellij             # Terminal multiplexer, tmux alternative
 zoxide             # Augments 'cd'

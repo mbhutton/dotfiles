@@ -25,7 +25,6 @@ lazygit            # Efficient Git TUI
 mise               # Manage multiple versions of language toolchains (was 'rtx')
 neovim             # Modern 'vim'
 parallel           # Run tasks in parallel. Used for updating multiple repos.
-pipx               # Install Python CLI tools. Note: use mise's python@latest.
 pygitup            # Python based git-up command for updating git repos
 ripgrep            # Modern 'grep'. Note: required by LazyVim `opt.grepprg`
 ruff               # Python linter and code formatter

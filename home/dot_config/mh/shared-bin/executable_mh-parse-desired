@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Strips comments (following '#'), trims whitespace, and filters out empty lines.
+# Does not sort, as order is important for some config files.
+sed -e 's@#.*@@g' -e 's@^[[:space:]]*@@g' -e 's@[[:space:]]*$@@g' -e '/^$/d'

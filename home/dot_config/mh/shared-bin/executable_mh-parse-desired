@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Strips comments (following '#'), trims whitespace, and filters out empty lines
+sed -e 's@#.*@@g' -e 's@^[[:space:]]*@@g' -e 's@[[:space:]]*$@@g' -e '/^$/d'

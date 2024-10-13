@@ -1,0 +1,28 @@
+#!/bin/bash -x
+
+# TODO: fix this broken test
+
+function fail {
+  echo "$*" >&2
+  exit 1
+}
+
+read -r -d '' test_doc << EOF
+# This is a comment
+foo
+bar # Ignore trailing comment
+# Mid doc comment
+
+baz
+quux
+EOF
+
+# Test parse_brew_packages
+command -v mh-parse-desired >/dev/null || fail "mh-parse-desired not found"
+packages=$(mh-parse-desired <(echo "$test_doc"))
+expected_packages="foo baz baz quux"
+if [[ $packages == "$expected_packages" ]]; then
+  echo "mh-parse-desired passed"
+else
+  fail "mh-parse-desired failed: expected $expected_packages, got $packages"
+fi

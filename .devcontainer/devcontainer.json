@@ -6,6 +6,9 @@
 		"ghcr.io/devcontainers/features/nix:1": { // Required for my dev environment only on arm64. Dormant on x86.
 			"multiUser": true, // Single-user mode would be preferable, but can only get multi-user mode to work for now
 		},
+		"ghcr.io/devcontainers/features/sshd:1": { // Used for remote codespaces to support 'gh codespace ssh'.
+			"version": "latest"
+		},
 	},
 	"postCreateCommand": "sh -c \"$(curl -fsLS get.chezmoi.io)\" -- init --apply mbhutton --branch dev; zsh -i -c mh-install",
 }

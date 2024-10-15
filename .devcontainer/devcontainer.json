@@ -1,6 +1,6 @@
 {
-	"name": "Ubuntu",
-	"image": "mcr.microsoft.com/devcontainers/base:noble",  // Ubuntu 24.04 (Noble Numbat)
+	"name": "Debian",
+	"image": "mcr.microsoft.com/devcontainers/base:debian",  // Debian latest
 
 	"features": {
 		"ghcr.io/devcontainers/features/nix:1": { // Required for my dev environment only on arm64. Dormant on x86.

@@ -3,7 +3,7 @@
 	"image": "mcr.microsoft.com/devcontainers/base:debian",  // Debian latest
 
 	"features": {
-		"ghcr.io/devcontainers/features/nix:1": { // Required for my dev environment only on arm64. Dormant on x86.
+		"ghcr.io/devcontainers/features/nix:1": { // Required for my dev environment only on arm64. Dormant on x86_64.
 			"multiUser": true, // Single-user mode would be preferable, but can only get multi-user mode to work for now
 		},
 		"ghcr.io/devcontainers/features/sshd:1": { // Used for remote codespaces to support 'gh codespace ssh'.

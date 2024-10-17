@@ -9,10 +9,11 @@ brew "atool"              # Tools for archive files (zip,tar etc) like 'als', 'a
 brew "atuin"              # Shell history backed by sqlite
 brew "bat"                # Modern 'cat'
 brew "bats-core" if false # Testing for shell scripts and shell configuration
-brew "bottom" if false    # Modern 'top', 'btm' command
+brew "bottom"             # Modern 'top', 'btm' command
 brew "broot"              # Efficient directory navigation
 brew "chezmoi"            # Dot files manager to bootstrap and manage dev environment, used for my dotfiles
-brew "choose-rust" if false # Human-friendly and fast alternative to cut and (sometimes) awk
+brew "choose-rust"        # Human-friendly and fast alternative to cut and (sometimes) awk. 'choose' command
+brew "dua-cli"            # Disk usage analyzer: 'dua' binary. Alt: 'yazi' then ',S'
 brew "duf"                # Modern 'df'
 brew "dust"               # Modern 'du'
 brew "fd"                 # Modern alternative to 'find'
@@ -27,7 +28,6 @@ brew "just"               # Simple task runner. Used within git projects, includ
 brew "lazydocker"         # Docker TUI
 brew "lazygit"            # Efficient Git TUI
 brew "lsd"                # Modern 'ls'
-brew "mas" if OS.mac?     # Manage macOS App Store apps
 brew "mdcat" if false     # Show markdown documents on text terminals
 brew "mise"               # Manage multiple versions of language toolchains (was 'rtx')
 brew "neovim"             # Modern 'vim'
@@ -42,30 +42,38 @@ brew "starship"           # Terminal prompt
 brew "stylua" if false    # Formatter for Lua code
 brew "tig"                # Git TUI, called from my lazygit bindings
 brew "tlrc" if false      # Rust client for tldr (help pages for CLI tools)
-brew "tree-sitter"        # Parser generator tool and incremental parsing library
 brew "tmux"               # Terminal multiplexer
+brew "tree-sitter"        # Parser generator tool and incremental parsing library
 brew "uv"                 # Python package and project manager
 brew "wget"               # Required by mason.nvim
 brew "yazi"               # Terminal file manager
 brew "yt-dlp"             # Watch offline
 brew "zoxide"             # Augments 'cd'
 
-# ______________________________________________________________________________
-# Packages required for building Ruby in mise on macOS
-# ______________________________________________________________________________
-
-USE_MISE_RUBY = true
-if USE_MISE_RUBY and OS.mac?
-  brew "coreutils"
-  brew "gmp"
-  brew "libyaml"
-  brew "openssl@3"
-  brew "zlib"
-end
+{{ if eq .chezmoi.os "darwin" -}}
 
 # ______________________________________________________________________________
 # MacOS specific...
 # ______________________________________________________________________________
+
+{{ if .mh.useRuby -}}
+# ______________________________________________________________________________
+# Packages for building Ruby in mise on macOS. (Linux uses APT packages instead)
+# ______________________________________________________________________________
+brew "coreutils"
+brew "gmp"
+brew "libyaml"
+brew "openssl@3"
+brew "zlib"
+{{ end -}}
+
+{{ if eq .mh.hostname "Kea" -}}
+
+# If not virtual machine
+tap "cirruslabs/cli"
+brew "tart"
+
+brew "mas" if OS.mac?                 # Manage macOS App Store apps. TODO: not on virtual machines (at least yet)
 
 # Casks: Development and productivity
 
@@ -120,3 +128,8 @@ cask "font-source-code-pro" if OS.mac?
 # - It conflicts with 'choose-rust', hence leaving it unlinked.
 # - Call it using the 'mh-choose-gui' wrapper defined in this repo.
 brew "choose-gui", link: false if OS.mac?
+
+{{ end }}
+{{ end }}
+
+# _______ (macOS specific section ends) ________________________________________

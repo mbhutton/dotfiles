@@ -1,12 +1,19 @@
-# Packages
+# Brewfile describing packages and casks to install.
+# Temporarily unwanted packages are disabled with `if false` rather than commenting to allow easy sorting.
+
+# ______________________________________________________________________________
+# General packages
+# ______________________________________________________________________________
+
 brew "atool"              # Tools for archive files (zip,tar etc) like 'als', 'aunpack'
 brew "atuin"              # Shell history backed by sqlite
 brew "bat"                # Modern 'cat'
-brew "bats-core"          # Testing for shell scripts and shell configuration
+brew "bats-core" if false # Testing for shell scripts and shell configuration
+brew "bottom" if false    # Modern 'top', 'btm' command
 brew "broot"              # Efficient directory navigation
-brew "bottom"             # Modern 'top', 'btm' command
-brew "btop"               # Modern 'top', defaulting to a process tree view
+brew "btop" if false      # Modern 'top', defaulting to a process tree view
 brew "chezmoi"            # Dot files manager to bootstrap and manage dev environment, used for my dotfiles
+brew "choose-rust" if false # Human-friendly and fast alternative to cut and (sometimes) awk
 brew "duf"                # Modern 'df'
 brew "dust"               # Modern 'du'
 brew "fd"                 # Modern alternative to 'find'
@@ -14,52 +21,103 @@ brew "fzf"                # Fuzzy finder
 brew "gh"                 # GitHub CLI, with Copilot
 brew "git-absorb"         # Git workflow tool: "git commit --fixup, but automatic"
 brew "git-delta"          # Modern diff, 'delta' command
-brew "hledger"            # Plain text accounting, inspired by ledger, in Haskell
+brew "hledger" if false   # Plain text accounting, inspired by ledger, in Haskell
 brew "hyperfine"          # Benchmarking
 brew "jq"                 # JSON processor
-brew "lf"                 # File manager, like ranger
-brew "lsd"                # Modern 'ls'
 brew "just"               # Simple task runner. Used within git projects, including dotfiles
 brew "lazydocker"         # Docker TUI
 brew "lazygit"            # Efficient Git TUI
-brew "mdcat"              # Show markdown documents on text terminals
+brew "lsd"                # Modern 'ls'
+brew "mas" if OS.mac?     # Manage macOS App Store apps
+brew "mdcat" if false     # Show markdown documents on text terminals
 brew "mise"               # Manage multiple versions of language toolchains (was 'rtx')
 brew "neovim"             # Modern 'vim'
-brew "parallel"           # Run tasks in parallel. Used for updating multiple repos.
-brew "pipx"               # Install Python CLI tools. Note: use mise's python@latest.
-brew "pygitup"            # Python based git-up command for updating git repos
+brew "pandoc"             # Format converter. Used in linkshift
+brew "parallel" if false  # Run tasks in parallel. Used for updating multiple repos.
 brew "ripgrep"            # Modern 'grep'. Note: required by LazyVim `opt.grepprg`
-brew "ruff"               # Python linter/formatter. Python projects use venv version, but a CLI copy is useful
+brew "ruff" if false      # Python linter/formatter. Python projects use venv version, but a CLI copy is useful
+brew "sd" if false        # Intuitive find & replace for CLI
 brew "shellcheck"         # Static analysis of shell files. Note: validate zsh as bash.
-brew "shfmt"              # Formatter for shell files
+brew "shfmt" if false     # Formatter for shell files
 brew "starship"           # Terminal prompt
-brew "stylua"             # Formatter for Lua code
+brew "stylua" if false    # Formatter for Lua code
 brew "tig"                # Git TUI, called from my lazygit bindings
-brew "tlrc"               # Rust client for tldr (help pages for CLI tools)
-brew "tree-sitter"        # Parser generator tool and kkmental parsing library
+brew "tlrc" if false      # Rust client for tldr (help pages for CLI tools)
+brew "tree-sitter"        # Parser generator tool and incremental parsing library
+brew "tmux"               # Terminal multiplexer
 brew "uv"                 # Python package and project manager
 brew "wget"               # Required by mason.nvim
-brew "zellij"             # Terminal multiplexer, tmux alternative
+brew "yazi"               # Terminal file manager
+brew "yt-dlp"             # Watch offline
 brew "zoxide"             # Augments 'cd'
+
+# ______________________________________________________________________________
+# Packages required for building Ruby in mise on macOS
+# ______________________________________________________________________________
+
+USE_MISE_RUBY = true
+if USE_MISE_RUBY and OS.mac?
+  brew "coreutils"
+  brew "gmp"
+  brew "libyaml"
+  brew "openssl@3"
+  brew "zlib"
+end
+
+# ______________________________________________________________________________
+# MacOS specific...
+# ______________________________________________________________________________
 
 # Casks: Development and productivity
 
-cask "alt-tab"              # Window switching
-cask "font-hack-nerd-font"  # Fonts with support for icons, used by 'lsd'
-cask "docker"               # Docker Desktop
-cask "gitx"                 # Git UI with very legible commit graph
-cask "iterm2"               # Replacement for Terminal.app with more features
-cask "karabiner-elements"   # Keyboard customizer
-cask "mactex"               # LaTeX. Notes: slow installer; alters /etc/paths.d
-cask "neovide"              # Neovim GUI
-cask "shortcat"             # Easymotion-like macOS GUI navigation
+cask "alt-tab" if OS.mac?             # Window switching
+cask "docker" if OS.mac?              # Docker Desktop
+cask "gitx" if OS.mac?                # Git UI with very legible commit graph
+cask "iterm2" if OS.mac?              # Replacement for Terminal.app with more features
+cask "karabiner-elements" if OS.mac?  # Keyboard customizer
+cask "mactex" if OS.mac?              # LaTeX. Notes: slow installer; alters /etc/paths.d
+cask "neovide" if false and OS.mac?   # Neovim GUI
+cask "shortcat" if OS.mac?            # Easymotion-like macOS GUI navigation
 
 # Casks: Music apps
 
-cask "sonic-pi"
-cask "supercollider"
+# cask "sonic-pi"
+# cask "supercollider"
+
+# Emacs
+# Packages via taps
+tap "homebrew/services" if OS.mac?      # To manage the emacs-plus service
+tap "d12frosted/emacs-plus" if OS.mac?
+brew "emacs-plus@29", args: ["--with-native-comp", "--with-elrumo1-icon"] if OS.mac?
+
+# Emacs dependencies which `brew bundle cleanup --global --force` otherwise tries to uninstall.
+# These need to be listed explicitly as a workaround for
+#   https://github.com/Homebrew/homebrew-bundle/issues/1246
+# If the above issue gets abandoned, consider generating a separate Brewfile
+# containing all formulae listed via 'brew deps emacs-plus@foo' (where foo is the required version)
+brew "coreutils" if OS.mac? # Listed as a build dependency for emacs-plus, but actually required at runtime during session recovery
+brew "gnutls" if OS.mac?
+brew "jansson" if OS.mac?
+brew "jpeg" if OS.mac?
+brew "libevent" if OS.mac?
+brew "libgccjit" if OS.mac?
+brew "libnghttp2" if OS.mac?
+brew "librsvg" if OS.mac?
+brew "libtasn1" if OS.mac?
+brew "nettle" if OS.mac?
+brew "p11-kit" if OS.mac?
+brew "unbound" if OS.mac?
+brew "zlib" if OS.mac?
 
 # Casks: Fonts
-cast" font-comic-neue"      # For unserious prose
-cask "font-sf-pro"          # Apple system font
-cask "font-source-code-pro"
+cask "font-comic-neue" if OS.mac?      # For unserious prose
+cask "font-hack-nerd-font" if OS.mac?  # Fonts with support for icons, used by 'lsd'
+cask "font-sf-pro" if OS.mac?          # Apple system font
+cask "font-source-code-pro" if OS.mac?
+
+# 'choose-gui'
+# - It currently generates garbage output in the terminal.
+# - It works fairly well in the background with Shortcuts.app, which is why it's installed here.
+# - It conflicts with 'choose-rust', hence leaving it unlinked.
+# - Call it using the 'mh-choose-gui' wrapper defined in this repo.
+brew "choose-gui", link: false if OS.mac?

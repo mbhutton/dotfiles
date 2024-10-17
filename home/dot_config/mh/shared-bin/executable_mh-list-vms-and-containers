@@ -1,0 +1,25 @@
+#!/bin/bash
+
+function fail {
+  echo "$*" >&2
+  exit 1
+}
+
+function hl {
+  mh-horizontal-line
+}
+
+# TODO: Audit, make it more complete, and improve output. And test! And make it allow to have tools missing
+hl
+echo Docker:
+docker ps -a |grep -Ev '^CONTAINER'
+hl
+echo Codespaces:
+gh codespace list | cat
+hl
+echo UTM VMs:
+/Applications/UTM.app/Contents/MacOS/utmctl list | grep -Ev 'UUID';
+hl
+echo Tart VMs:
+tart list | grep -E '^local'
+hl

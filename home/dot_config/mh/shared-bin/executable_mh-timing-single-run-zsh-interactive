@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 # shellcheck shell=bash
 
 # Syntax: mh-timing-single-run-zsh-interactive [-profile]

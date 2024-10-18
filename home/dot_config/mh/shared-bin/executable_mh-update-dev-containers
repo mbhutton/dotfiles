@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Updates well known base images and dev containers
+
+function fail {
+  echo "$*" >&2; exit 1
+}
+
+function draw_line { mh-horizontal-line; }
+
+DESIRED_BASE_IMAGES=(
+  ubuntu
+  debian
+  mcr.microsoft.com/devcontainers/base:debian
+)
+
+AMD="amd64"
+ARM="arm64"
+DESIRED_PLAY_ARCHS=(
+  "$AMD"
+  "$ARM"
+)
+if [[ "$(uname -m)" == "aarch64" || "$(uname -m)" == "arm64" ]]; then
+  PREFERRED_ARCH="$ARM"
+else
+  PREFERRED_ARCH="$AMD"
+fi
+
+PLAY_SOURCE_DIR="$HOME/.local/share/chezmoi"
+PLAY_CONTAINER_NAME="play"
+
+[[ -d "$PLAY_SOURCE_DIR" ]] || fail "Source directory for '$PLAY_CONTAINER_NAME' container not found at: $PLAY_SOURCE_DIR"
+command -v docker >/dev/null || fail "docker is not installed or not in PATH"
+
+draw_line
+echo "Updating well known base images..."
+for base in "${DESIRED_BASE_IMAGES[@]}"; do
+  echo
+  echo "Pulling base image: $base"
+  DOCKER_CLI_HINTS=false docker pull --quiet --platform "linux/$PREFERRED_ARCH" "$base" || fail "Failed to pull base image: $base"
+done
+
+draw_line
+echo "Updating dev containers..."
+for arch in "${DESIRED_PLAY_ARCHS[@]}"; do
+  draw_line
+  tag="$PLAY_CONTAINER_NAME"
+  if [[ "$arch" != "$PREFERRED_ARCH" ]]; then
+    tag="$tag-$arch"
+  fi
+  platform="linux/$arch"
+  echo "Building dev container '$tag' for platform '$platform'..."
+  docker build \
+    --platform "$platform" \
+    --tag "$tag" \
+    --file "$PLAY_SOURCE_DIR"/.devcontainer/Dockerfile \
+    --build-arg CACHEBUST="$(date +%s)" \
+    "$PLAY_SOURCE_DIR" \
+  || fail "Failed to build dev container: '$tag' for platform '$platform'"
+  # Mainly to remove the previous image
+  docker image prune --force || fail "Failed to prune images"
+done
+
+draw_line
+echo "Done ✨🐳✨"

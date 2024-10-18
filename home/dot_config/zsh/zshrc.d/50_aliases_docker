@@ -1,2 +1,16 @@
 alias dk=docker
 alias ldk=lazydocker
+
+# Docker run emphemeral container, either 'i' (isolated) or 'c' (cwd)
+alias dkri='docker run -it --rm --pull never'
+alias dkrc='dkri -v "$(pwd)":/cwd -w /cwd'
+alias play='dkri play'
+alias play-py-noargs='dkri play zsh -i -c "mise exec python -- python"'
+
+function destroy_play {
+  for image_to_remove in play play-amd64; do
+    docker rmi --force "$image_to_remove"
+  done
+  docker system prune --force
+}
+

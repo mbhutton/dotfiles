@@ -7,23 +7,22 @@ function noun_for_brew {
 }
 
 function asserts_for_brew {
-  if [[ "$(uname -s)" == "Linux" && "$(uname -m)" != "x86_64" ]]; then
-    echo "Linux Homebrew is only supported on x86_64 Linux"
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    echo "Homebrew is only supported on macOS"
     return
   fi
 }
 
 function install_or_update_brew {
-  if [[ "$(uname -s)" == "Linux" && "$(uname -m)" != "x86_64" ]]; then
-    echo "Linux Homebrew is only supported on x86_64 Linux"
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    echo "Homebrew is only supported on macOS"
     return
   fi
 
-  if ! command -v brew >/dev/null && [[ ! -f "/opt/homebrew/bin/brew" && ! -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+  if ! command -v brew >/dev/null && [[ ! -f "/opt/homebrew/bin/brew" ]]; then
     echo "Installing Homebrew..."
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || fail "Failed to install Homebrew"
     [[ -f "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
-    [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     command -v brew >/dev/null || fail "Homebrew not found after installation"
   else
     command -v brew >/dev/null || fail "Homebrew appears to be in a partially installed state"
@@ -36,18 +35,11 @@ function install_or_update_brew {
   brew bundle install --quiet --cleanup --global || fail "Failed to install Homebrew packages using Brewfile"
   brew upgrade || fail "Failed to upgrade Homebrew packages"
   [[ -z "$(brew outdated)" ]] || fail "Brew reported outdated packages after upgrading"
-
-
-  if [[ -d "/home/linuxbrew/.linuxbrew/Cellar/coreutils/9.5.reinstall" && ! -d "/home/linuxbrew/.linuxbrew/Cellar/coreutils/9.5" ]]; then
-    mv "/home/linuxbrew/.linuxbrew/Cellar/coreutils/9.5.reinstall" "/home/linuxbrew/.linuxbrew/Cellar/coreutils/9.5"
-    brew unlink coreutils
-    brew link coreutils
-  fi
 }
 
 function doctor_brew {
-  if [[ "$(uname -s)" == "Linux" && "$(uname -m)" != "x86_64" ]]; then
-    echo "Linux Homebrew is only supported on x86_64 Linux"
+  if [[ "$(uname -s)" != "Darwin" ]]; then
+    echo "Homebrew is only supported on macOS"
     return
   fi
   command -v brew >/dev/null 2>&1

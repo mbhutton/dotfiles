@@ -12,7 +12,7 @@ function asserts_for_nix-home-manager {
 
 function install_or_update_nix-home-manager {
   echo "install_or_update_nix-home-manager"
-  if [[ "$(uname -s)" == "Linux" && "$(uname -m)" == "aarch64" ]]; then
+  if [[ "$(uname -s)" == "Linux" ]]; then
     command -v nix-channel >/dev/null 2>&1 || fail "nix-channel command not found. if a devcontainer, add the nix feature."
 
     # TODO make idempotent, and only do this when installing for first time

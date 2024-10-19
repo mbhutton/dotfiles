@@ -52,9 +52,6 @@ brew "yazi"               # Terminal file manager
 brew "yt-dlp"             # Watch offline
 brew "zoxide"             # Augments 'cd'
 
-{{ if .mh.isMacOS -}}
-# MacOS specific section starts
-
 {{ if .mh.useRuby -}}
 # Packages for building Ruby in mise on macOS. (Linux uses APT packages instead)
 brew "coreutils"
@@ -133,6 +130,3 @@ cask "font-source-code-pro"
 # - It conflicts with 'choose-rust', hence leaving it unlinked.
 # - Call it using the 'mh-choose-gui' wrapper defined in this repo.
 brew "choose-gui", link: false
-
-# MacOS specific section ends
-{{ end }}

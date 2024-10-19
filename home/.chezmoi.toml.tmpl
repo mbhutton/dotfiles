@@ -6,7 +6,6 @@
 
 {{- $isMacOS := eq .chezmoi.os "darwin" -}}
 {{- $isLinux := eq .chezmoi.os "linux" -}}
-{{- $isArm64 := eq .chezmoi.arch "arm64" -}}
 
 {{/* work around unreliable hostname on darwin */}}
 {{- $hostname := .chezmoi.hostname -}}
@@ -20,7 +19,7 @@
 
 
 {{- $isMainPersonal := eq $hostname "Kea" -}}
-{{- $useNix := and $isLinux $isArm64  -}}
+{{- $useNix := $isLinux -}}
 
 [diff]
     pager = "delta"
@@ -30,8 +29,6 @@
     hostname = {{ $hostname | quote }}
     isMacOS = {{ $isMacOS }}
     isLinux = {{ $isLinux }}
-    isArm64 = {{ $isArm64 }}
-    # TODO: add amd64 equivalent
     isMacVM = {{ $isMacVM }}
     isMacHost = {{ $isMacHost }}
 

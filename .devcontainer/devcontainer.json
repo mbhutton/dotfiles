@@ -1,11 +1,12 @@
 {
-	"image": "mcr.microsoft.com/devcontainers/base:debian",  // Debian latest
-
 	"name": "Dotfiles",
-	"features": {
-		"ghcr.io/devcontainers/features/sshd:1": { // Used for remote codespaces to support 'gh codespace ssh'. TODO: make this codespaces only
-			"version": "latest"
-		},
+	"build" : {
+		"dockerfile": "Dockerfile",
+		"context": "..",
 	},
-	"postCreateCommand": "bash -c \"$(curl -fsLS https://raw.githubusercontent.com/mbhutton/dotfiles/refs/heads/dev/install-for-linux.sh)\" | tee \"$HOME/install-dev-environment.log\"",
+	"features": {
+		// "ghcr.io/devcontainers/features/sshd:1": { // Used for remote codespaces to support 'gh codespace ssh'. TODO: make this codespaces only
+		// 	"version": "latest"
+		// },
+	},
 }

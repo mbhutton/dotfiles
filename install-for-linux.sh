@@ -29,9 +29,10 @@ draw_line
 echo "Installing and upgrading prequisites via APT"
 sudo apt update || fail "Failed to update apt"
 sudo apt install -y curl git zsh || fail "Failed to install prequisites via APT"
-sudo apt upgrade -y || fail "Failed to upgrade packages via APT"
+sudo apt upgrade -y || fail "Failed to upgrade packages via APT"  # TODO: consider removing this
 
 draw_line
+# TODO: move this all to mh-install
 echo "Installing Nix in single user mode, with /nix owned by current user ($USER)"
 sudo mkdir /nix || fail "Failed to create /nix directory"
 sudo chown "$USER:$USER" /nix || fail "Failed to change ownership of /nix directory"
@@ -52,11 +53,10 @@ if [[ -f "bin/chezmoi" ]]; then
   rm "bin/chezmoi" || fail "Failed to remove temporary chezmoi binary"
   [[ -z "$(ls -A bin)" ]] && (rmdir "bin" || fail "Failed to remove bin directory")
 fi
+# TODO: maybe also remove the nix 'result' file, or see if possible to not create it in the first place
 
 draw_line
 echo "Installation complete 🥳"
-
-#echo "exec-ing into Zsh shell to apply changes..."
-#exec zsh -i
+echo
 echo "To apply changes in current environment, run:"
 echo "$ exec zsh -i"

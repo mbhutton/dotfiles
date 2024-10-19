@@ -28,15 +28,15 @@ impl_dir="${source_dir}/mh-install.d"
 # TODO: make these switchable chezmoi style by moving these to a non-sorted desired list
 # TODO: generally make zsh config allow any of the tools here to be missing
 impls=(
-  prezto
-  rustup
+  prezto            # Do first so that new shells can make use of partial installs
+  brew              # macOS only
+  mas               # macOS only. Bootstrapped by brew
   apt               # Linux only
-  brew
-  nix-home-manager  # Requires Nix
+  nix-home-manager  # Linux only. Bootstraps Nix if required
+  rustup
   cargo-crates      # Bootstrapped by rustup. May depend on APT/Homebrew/Nix libraries.
-  mas               # Bootstrapped by brew
   mise              # Bootstrapped by brew/home-manager or cargo
-  uv-tool           # Bootstrapped by brew/home-manager or cargo
+  uv-tool           # Bootstrapped by brew/home-manager or cargo, may depend on mise's Python
   foo
 )
 

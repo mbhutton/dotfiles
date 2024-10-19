@@ -5,8 +5,8 @@
 		"context": "..",
 	},
 	"features": {
-		// "ghcr.io/devcontainers/features/sshd:1": { // Used for remote codespaces to support 'gh codespace ssh'. TODO: make this codespaces only
-		// 	"version": "latest"
-		// },
+		"ghcr.io/devcontainers/features/sshd:1": { // Support 'gh codespace ssh' in remote containers
+			"version": "latest"
+		},
 	},
 }

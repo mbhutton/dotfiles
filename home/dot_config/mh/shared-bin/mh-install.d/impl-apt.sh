@@ -19,23 +19,18 @@ function asserts_for_apt {
 }
 
 function install_or_update_apt {
-  local _SUDO=
   if [[ "$(uname -o)" == "GNU/Linux" ]] && command -v apt >/dev/null; then
-    if command -v sudo >/dev/null && sudo -n echo 2>/dev/null; then
-        _SUDO=sudo
-    fi
-
-    echo "Updating APT package cache..."
-    $_SUDO apt update || fail "Failed to update apt cache"
+    echo "Updating APT package cache... (sudo)"
+    sudo apt update || fail "Failed to update apt cache"
 
     local package
     for package in "${APT_PACKAGES_ARRAY[@]}"; do
-      echo "Installing (if necessary) APT package: $package"
-      $_SUDO apt install -y "$package" || fail "Failed to install or update APT package: $package"
+      echo "Installing (if necessary) APT package: $package (sudo)"
+      sudo apt install -y "$package" || fail "Failed to install or update APT package: $package"
     done
 
-    echo "Upgrading APT packages..."
-    $_SUDO apt upgrade -y || fail "Failed to upgrade packages"
+    echo "Upgrading APT packages... (sudo)"
+    sudo apt upgrade -y || fail "Failed to upgrade packages"
   fi
 }
 

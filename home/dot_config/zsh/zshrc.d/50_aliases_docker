@@ -1,2 +1,9 @@
 alias dk=docker
 alias ldk=lazydocker
+
+# Docker run emphemeral container, either 'i' (isolated) or 'c' (cwd)
+alias dkri='docker run -it --rm --pull never'
+alias dkrc='dkri -v "$(pwd)":/cwd -w /cwd'
+alias play-py-noargs='dkri play zsh -i -c "mise exec python -- python"'
+# TODO:fix:Note: Currently need to remember that play entry point is zsh -i -c, ie need to quote command, but not for debian/ubuntu
+#   - chaning to use zsh -i as cmd but not entrypoint?

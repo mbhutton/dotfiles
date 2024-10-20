@@ -13,3 +13,5 @@ alias v="bat"
 alias npx='npx --no-install'  # Guard against accidental global installs
 
 alias vim=nvim
+
+alias ezi='exec zsh -i'  # Start a new zsh session. Think "exec zsh interactive"

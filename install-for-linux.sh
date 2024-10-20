@@ -22,13 +22,16 @@ draw_line
 echo "Checking prerequisites"
 [[ "$(uname -s)" == "Linux" ]] || fail "This script targets Linux only"
 [[ -n "$USER" ]] || fail "USER is not set"
-[[ -n "$SHELL" ]] || fail "SHELL is not set"
 [[ -n "$HOME" ]] || fail "HOME is not set"
 
 draw_line
 echo "Installing and upgrading prequisites via APT"
 sudo apt update || fail "Failed to update apt"
 sudo apt install -y curl git zsh || fail "Failed to install prequisites via APT"
+
+draw_line
+echo "Ensuring that shell is Zsh"
+sudo chsh -s "$(which zsh)" "$USER" || fail "Failed to set shell to Zsh"
 
 draw_line
 echo "Installing dotfiles (dev branch) using Chezmoi"

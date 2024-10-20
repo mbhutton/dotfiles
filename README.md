@@ -10,7 +10,7 @@ but feel free to use them as a reference or starting point for your own dotfiles
 ## Bootstrap on Linux
 
 - Prerequisites: `bash`, `curl`, `sudo`
-- Run: `$ bash -c "$(curl -fsLS https://raw.githubusercontent.com/mbhutton/dotfiles/refs/heads/dev/install-for-linux.sh)"`
+- Run: `$ bash -c "$(curl -fsLS https://raw.githubusercontent.com/mbhutton/dotfiles/refs/heads/dev/bootstrap/install-for-linux.sh)"`
 
 ## Bootstrap on macOS
 

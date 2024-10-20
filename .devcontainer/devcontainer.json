@@ -9,4 +9,5 @@
 			"version": "latest"
 		},
 	},
+	"postCreateCommand": "bash $HOME/.mh-bootstrap/refresh-for-new-container.sh --devcontainer",
 }

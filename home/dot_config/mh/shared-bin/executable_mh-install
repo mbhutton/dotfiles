@@ -18,7 +18,7 @@ function hl { mh-horizontal-line; }
 [[ -n "$HOME" ]] || fail "HOME is not set"
 [[ -n "$USER" ]] || fail "USER is not set"
 for cmd in curl git zsh; do
-  command -v "$cmd" >/dev/null || fail "$cmd is not installed or not in PATH"
+command -v "$cmd" >/dev/null || fail "$cmd is not installed or not in PATH"
 done
 
 source_dir="$(dirname "${BASH_SOURCE[0]}")"

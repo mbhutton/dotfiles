@@ -2,13 +2,14 @@
 FROM mcr.microsoft.com/devcontainers/base:debian
 USER vscode
 WORKDIR /home/vscode
-COPY install-for-linux.sh .
 ENV USER=vscode
-RUN bash install-for-linux.sh
-RUN rm install-for-linux.sh
 CMD ["/usr/bin/zsh"]
 
+RUN mkdir .mh-bootstrap
+COPY bootstrap/install-for-linux.sh .mh-bootstrap
+RUN bash .mh-bootstrap/install-for-linux.sh
+
 # Allow rebuilding the image to just update dependencies, rather than re-installing everything
-ARG CACHEBUST
-RUN ["/usr/bin/zsh", "-i", "-c", "chezmoi update --init --force"]
-RUN ["/usr/bin/zsh", "-i", "-c", "mh-install"]
+ARG CACHEBUST=default
+COPY bootstrap/refresh-for-new-container.sh .mh-bootstrap
+RUN bash .mh-bootstrap/refresh-for-new-container.sh --cachebust "${CACHEBUST}"

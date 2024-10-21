@@ -4,6 +4,7 @@
 {{ end }}
 .bash_history
 .config/lazygit/state.yml
+.config/nushell/history.txt
 .config/zsh/.zcompcache
 .config/zsh/.zcompdump
 .config/zsh/.zprezto

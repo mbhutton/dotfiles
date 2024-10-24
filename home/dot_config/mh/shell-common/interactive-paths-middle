@@ -2,12 +2,15 @@
 
 # PATH additions to perform mid way through setup of an interactive shell.
 
-# Set up PIPX_BIN_DIR
-export PIPX_BIN_DIR="${MH_SHARE_DIR:-$HOME/.local/share/mh}/pipx-bin"
-mkdir -p "$PIPX_BIN_DIR"
-export PATH="$PIPX_BIN_DIR:$PATH"
+export MH_SHARED_VENV_PYTHON="${XDG_DATA_HOME}/mise/installs/python/latest/bin/python3"
 
 # Set up GOBIN, where go installs binaries
 export GOBIN="${MH_SHARE_DIR:-$HOME/.local/share/mh}/go-bin"
 mkdir -p "$GOBIN"
 export PATH="$GOBIN:$PATH"
+
+# Add uv tool's binary directory
+export UV_TOOL_BIN_DIR="${MH_SHARE_DIR:-$HOME/.local/share/mh}/uv-tool-bin"
+mkdir -p "$UV_TOOL_BIN_DIR"
+export PATH="$UV_TOOL_BIN_DIR:$PATH"
+export UV_PYTHON="$MH_SHARED_VENV_PYTHON"

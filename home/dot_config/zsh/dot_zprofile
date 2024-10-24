@@ -12,7 +12,7 @@ if [[ -n "$MH_PROCESSED_ZPROFILE" ]]; then
 fi
 
 # ---------------------------------------------------------
-# Activate Homebrew (macOS and x86 Linux), or Nix Home Manager (Linux arm64).
+# Activate Homebrew (macOS only), or Nix Home Manager (Linux).
 #
 # Do this here in .zprofile rather than in .zshenv intentionally:
 # For login shells, startup order includes .zshenv, /etc/zprofile, .zprofile.
@@ -26,23 +26,15 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     echo "WARN: Homebrew not set up. Suggestion: $ mh-install" >&2
   fi
 
-elif [[ "$(uname -s)" == "Linux" && "$(uname -m)" != "aarch64" ]]; then
-  if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    echo "Homebrew activated"
-  else
-    echo "WARN: Linux Homebrew not set up. Suggestion: $ mh-install" >&2
-  fi
-
-elif [[ "$(uname -s)" == "Linux" && "$(uname -m)" == "aarch64" ]]; then
-  # Note: Keep this OS-specific activation, as both Nix *and* these files
-  # are present in my devcontainer config for x86, but are intended to be left dormant.
+elif [[ "$(uname -s)" == "Linux" ]]; then
   if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
     source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
   else
     echo "WARN: Nix Home Manager not set up. Suggestion: $ mh-install" >&2
   fi
 
+else
+  echo "WARN: Unsupported OS for this dev environment: \"$(uname -s)\"" >&2
 fi
 
 # ---------------------------------------------------------

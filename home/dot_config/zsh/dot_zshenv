@@ -1,5 +1,6 @@
 # shellcheck shell=bash
 
+# ---------------------------------------------------------
 # Set XDG_*_HOME variables to their ideal default values according to the XDG spec:
 # https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 #
@@ -16,7 +17,31 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 # Ensure that they exist
 mkdir -p "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME"
+
+# ---------------------------------------------------------
 # Prezto
+
+function source_prezto_runcoms {
+  if [[ -z "${ZDOTDIR}" ]]; then
+    echo "ZDOTDIR is not set" >&2
+    return 1
+  fi
+  if [[ ! -d "${ZDOTDIR}/.zprezto" ]]; then
+    echo "Prezto directory not found at ${ZDOTDIR}/.zprezto"
+  fi
+
+  local filename
+  local filepath
+  filename="$1"
+  filepath="${ZDOTDIR}/.zprezto/runcoms/$filename"
+  if [[ -f "$filepath" ]]; then
+    # shellcheck disable=SC1090 # Can't follow source
+    source "$filepath"
+  else
+    echo "File not found: $filepath" >&2
+    return 1
+  fi
+}
 
 source_prezto_runcoms zshenv
 

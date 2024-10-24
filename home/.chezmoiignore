@@ -2,23 +2,36 @@
 {{ if eq .chezmoi.os "darwin" }}
 **/.DS_Store
 {{ end }}
+.bash_sessions
 .bash_history
+.Brewfile.lock.json          # Note: name is misleading: https://github.com/Homebrew/homebrew-bundle/issues/1188
 .config/lazygit/state.yml
 .config/nushell/history.txt
 .config/zsh/.zcompcache
 .config/zsh/.zcompdump
-.config/zsh/.zprezto
 .config/zsh/.zsh_history
 .config/zsh/.zsh_sessions
 .cache
+.dropbox
+.irb_history                 # Ruby REPL history
+.lesshst                     # 'less' history
 .local/share                 # XDG_DATA_HOME
 .local/state                 # XDG_STATE_HOME
+.python_history
+.sentry*                     # Assumed to be sentry.io, for unknown app. Folder is "~/.sentry " (note trailing space)
 .Trash
+.viminfo
+
+# Configuration managed by these dotfiles:
+.config/zsh/.zprezto
 
 # Configuration and state managed by other tools:
 {{ if eq .chezmoi.os "darwin" }}
 .CFUserTextEncoding          # Managed well enough by macOS
+.userchain                   # Managed by SampleTank
 {{ end }}
-.local/pipx                  # Managed by pipx
-.local/bin                   # Managed by pipx
+.cargo                       # Managed by Rust toolchain
+.config/crossnote            # Related to Markdown Preview Enhanced VS Code extension
+.config/jgit                 # Let JetBrains manage this Java Git config
+.gk                          # Managed by Git Lens VS Code extension (gk for GitKraken)
 .npm                         # Managed by node.js

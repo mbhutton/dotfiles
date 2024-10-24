@@ -1,0 +1,11 @@
+[tools]
+deno = "latest"
+go = "latest"
+{{ if .mh.useJava -}}
+java = "latest"
+{{ end -}}
+node = "latest"
+python = "latest"
+{{ if .mh.useRuby -}}
+ruby = "latest"
+{{ end -}}

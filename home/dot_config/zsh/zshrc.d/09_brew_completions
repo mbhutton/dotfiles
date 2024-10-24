@@ -1,0 +1,6 @@
+# Dependency chain: brew_completions, prezto_zshrc, init_completions
+
+if command -v brew &>/dev/null
+then
+  fpath=("$(brew --prefix)"/share/zsh/site-functions $fpath)
+fi

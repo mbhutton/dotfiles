@@ -1,6 +1,26 @@
 # shellcheck shell=bash
 
-export EDITOR=vim
-export VISUAL=vim
+# Use most modern available vi compatible editor
+if command -v nvim &>/dev/null; then
+  export EDITOR=nvim
+  export VISUAL=nvim
+elif command -v vim &>/dev/null; then
+  export EDITOR=vim
+  export VISUAL=vim
+elif command -v vi &>/dev/null; then
+  export EDITOR=vi
+  export VISUAL=vi
+else
+  echo "No vi compatible editor found."
+fi
 
 export PAGER='less -R'  # chezmoi diff is garbled without the -R
+
+# BROWSER is used by prezto
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  export BROWSER='open'
+elif command -v xdg-open &>/dev/null; then
+  export BROWSER='xdg-open'
+else
+  export BROWSER='echo No browser configured. Arguments: '
+fi

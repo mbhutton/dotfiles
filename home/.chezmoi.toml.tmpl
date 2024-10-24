@@ -1,2 +1,49 @@
+# Based on twpayne's dotfiles.
+# Note: Be careful with ':=' (declaration) vs '=' (re-assingment) vs 'eq' (comparison).
+# In templates:
+# - Prefer to use explicit toggles such as 'useRuby', to centralise policy choices here.
+# - Use positive checks ($isMacOS) rather than negative (not $isLinux)
+
+{{- $isMacOS := eq .chezmoi.os "darwin" -}}
+{{- $isLinux := eq .chezmoi.os "linux" -}}
+
+{{/* work around unreliable hostname on darwin */}}
+{{- $hostname := .chezmoi.hostname -}}
+{{- if $isMacOS -}}
+{{-   $hostname = output "scutil" "--get" "ComputerName" | trim -}}
+{{- end -}}
+
+{{- $vmDetectCmd := "system_profiler SPHardwareDataType | grep 'Chip:' | grep -q 'Virtual' && echo 'in_VM' || true" -}}
+{{- $isMacVM := and $isMacOS (eq "in_VM" (output "bash" "-c" $vmDetectCmd | trim)) -}}
+{{- $isMacHost := and $isMacOS (not $isMacVM) -}}
+
+
+{{- $isMainPersonal := eq $hostname "Kea" -}}
+{{- $useNix := $isLinux -}}
+
 [diff]
     pager = "delta"
+
+[data.mh]
+    # Facts
+    hostname = {{ $hostname | quote }}
+    isMacOS = {{ $isMacOS }}
+    isLinux = {{ $isLinux }}
+    isMacVM = {{ $isMacVM }}
+    isMacHost = {{ $isMacHost }}
+
+    # Categories
+    isMainPersonal = {{ $isMainPersonal }}
+
+    # Toggles
+    useEmacs = {{ $isMacHost }}
+    useGitX = {{ $isMacOS }}
+    useJava = {{ false }}
+    useRuby = {{ true }}
+    useRustlings = {{ $isMainPersonal }}
+    useVSCodeInLazyGit = {{ $isMacHost }}
+
+    # Temporary workarounds
+    # Build mise from source until Nix updates mise to 2024.10.7 or later. TODO: track this
+    # See https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/misc/mise/default.nix#L20
+    useCargoMise = {{ $useNix }}

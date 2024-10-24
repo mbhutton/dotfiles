@@ -14,7 +14,7 @@ git:
   branchLogCmd: 'git log --color=always --decorate --oneline --graph {{ "{{branchName}}" }}'
   allBranchesLogCmd: 'git log --color=always --decorate --oneline --graph --all'
 
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if .mh.useVSCodeInLazyGit -}}
 os:
   editPreset: 'vscode'
 
@@ -63,7 +63,7 @@ customCommands:
   # Ctrl-8 to open repo in GitX (macOS) or tig
   - key: '<c-8>'
     context: 'global'
-{{- if eq .chezmoi.os "darwin" }}
+{{- if .mh.useGitX }}
     command: 'open -a GitX .'
 {{- else }}
     command: 'tig -C .'

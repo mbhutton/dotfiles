@@ -1,0 +1,6 @@
+# Dependency chain: brew_completions, prezto_zshrc, init_completions
+# Dependency: should be generally before most aliases and functions,
+#   to take precedence over prezto's aliases and functions
+
+# Either init prezto (which will init completions) or init completions directly
+source_prezto_runcoms zshrc

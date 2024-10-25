@@ -13,3 +13,4 @@ alias npx='npx --no-install'  # Guard against accidental global installs
 alias rz='exec zsh -i'  # (R)eload (Z)sh
 alias v="bat"
 alias vim=nvim
+alias yy=yazi

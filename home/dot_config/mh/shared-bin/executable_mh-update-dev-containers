@@ -62,4 +62,15 @@ for arch in "${DESIRED_PLAY_ARCHS[@]}"; do
 done
 
 draw_line
+if docker-container-exists dot; then
+  echo "Updating 'dot' container..."
+  docker start dot \
+  && docker exec -it dot \
+    zsh -i -c 'cz update && mh-install' \
+    || fail "Failed to update 'dot' container"
+else
+  echo "Skipping 'dot' container update (container not found)"
+fi
+
+draw_line
 echo "Done ✨🐳✨"

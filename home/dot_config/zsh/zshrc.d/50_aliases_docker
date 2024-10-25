@@ -14,3 +14,35 @@ function destroy_play {
   docker system prune --force
 }
 
+function does_dot_exist {
+  # TODO: support any container name (single arg), but validate sane name
+  # TODO: use grep as suggested by shellcheck
+  # TODO: also add something like is_running function
+  # TODO: put status messages in colour eg when starting the container
+  [[ -n "$(docker ps -a --format '{{.Names}}' | grep -E '^dot$')" ]]
+}
+
+function dots { # 'dot start'
+  if does_dot_exist; then
+    # echo "Starting 'dot' if not already running..."
+    docker start dot >/dev/null # Returns 0 if already running
+  else
+    echo "Container 'dot' not found. Suggestion: Open VS Code, re-open as container, rename container to 'dot'."
+    return 1
+  fi
+}
+
+function dote { # 'dot exec'
+  dots || return 1  # Ensure started
+  # echo "Attaching to 'dot'..."
+  if [[ $# -eq 0 ]]; then
+    docker exec -it dot zsh
+  else
+    docker exec -it dot "$@"
+  fi
+}
+
+function doth { # 'dot halt'
+  # echo "Stopping 'dot' if running"
+  ! does_dot_exist || docker stop dot >/dev/null
+}

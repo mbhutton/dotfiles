@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Return zero if a local image with the given *name* exists,
+# non-zero otherwise, including failures.
+
+function fail {
+  echo "$*" >&2
+  exit 1
+}
+
+[[ $# -eq 1 ]] || fail "Usage: $0 <image-name>"
+[[ "$1" =~ ^[a-zA-Z0-9][a-zA-Z0-9_.-]+$ ]] || fail "Invalid image name: $1"
+command -v docker >/dev/null || fail "docker is not installed or not in PATH"
+# Note: don't use docker's --filter, as wildcard/regex/substring matching is inconsistent across commands and undocumented
+docker image ls --format '{{.Repository}}' | grep -qE '^'"${1}"'$'

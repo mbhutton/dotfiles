@@ -1,7 +1,14 @@
 alias e='$EDITOR'  # Note: single quote to allow setting EDITOR later
 alias ec=echo
 alias f=fd
-alias g=grep
+
+# Grep aliases...
+# Note: prezto's existing grep alias includes nocorrect and color=auto
+alias g="${aliases[grep]:-grep} -i"  # (g)rep, case insensitive by default
+alias gs="${aliases[grep]:-grep}"  # (s)ensitive
+alias ge="${aliases[grep]:-grep} -i -E"  # (e)xtended, for regex
+alias gse="${aliases[grep]:-grep} -E"  # (s)ensitive (e)xtended
+
 alias npx='npx --no-install'  # Guard against accidental global installs
 alias rz='exec zsh -i'  # (R)eload (Z)sh
 alias v="bat"

@@ -1,5 +1,4 @@
 alias e='$EDITOR'  # Note: single quote to allow setting EDITOR later
-alias ec=echo
 alias f=fd
 
 # Grep aliases...

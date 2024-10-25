@@ -1,5 +1,7 @@
 # shellcheck shell=bash
 
+alias e='$EDITOR'  # Note: single quote to allow changing EDITOR later
+
 # Use most modern available vi compatible editor
 if command -v nvim &>/dev/null; then
   export EDITOR=nvim

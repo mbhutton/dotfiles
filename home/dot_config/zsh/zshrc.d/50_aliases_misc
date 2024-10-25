@@ -1,5 +1,4 @@
 alias byebye='sudo shutdown -h now'
-alias e='$EDITOR'  # Note: single quote to allow setting EDITOR later
 alias f=fd
 
 # Grep aliases...

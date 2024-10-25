@@ -1,0 +1,51 @@
+# shellcheck shell=bash
+
+# TODO: add completion, just in zsh, via a switch and eval
+# TODO: merge this and mh-wrap-nu into a single command
+
+# (nu)shell (f)ilter
+function nf {
+  prepend=
+  failed=
+  case $1 in
+    j|js|json)
+      prepend='from json'
+      ;;
+    n|nuon)
+      prepend='from nuon'
+      ;;
+    o|json-objects|jsonl)
+      prepend='from json --objects'
+      ;;
+    -|noop)
+      ;;
+    *)
+      echo "Error: Unknown input type: '$1'. Should be one of: j|js|json, n|nuon, o|json-objects|jsonl, -|noop" >&2
+      failed="yes" # 'return 1' wouldn't exit the function
+      ;;
+  esac
+
+  append=
+  case $2 in
+    j|js|json)
+      append='to json'
+      ;;
+    n|nuon)
+      append='to nuon'
+      ;;
+    t|text)
+      append='to text'
+      ;;
+    -|noop)
+      ;;
+    *)
+      echo "Error: Unknown output type: '$2'. Should be one of: j|js|json, n|nuon, t|text, -|noop" >&2
+      failed="yes" # 'return 1' wouldn't exit the function
+      ;;
+  esac
+  if [[ -n "$failed" ]]; then
+    return 1
+  fi
+  shift 2 # Note: array slicing '@' seems to be off by one, so use shift
+  mh-wrap-nu "$prepend" "$append" "${@}"
+}

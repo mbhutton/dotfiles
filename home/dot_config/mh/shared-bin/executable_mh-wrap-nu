@@ -1,0 +1,34 @@
+#!/bin/bash
+
+USAGE="Usage: wrap-nu <prepend_command> <append_command> [<nu_commands...>]"
+# - prepend_command/append_command: nu command(s) to pipe before/after nu_commands
+#     (both are mandatory and either/both can be empty)
+
+function fail {
+  echo "$*" >&2
+  echo "$USAGE" >&2
+  exit 1
+}
+
+command -v nu >/dev/null 2>&1 || fail "nu (Nushell) not found on PATH"
+[[ $# -ge 2 ]] || fail "At least 2 arguments required, $# provided"
+
+# Note: nushell accepts a leading pipe, but not a trailing pipe. By design?
+# TODO: add a test for this behaviour of leading pipe: nu -c '|echo foo' => foo
+#
+prepend=""
+append=""
+middle=""
+if [[ -n "$1" ]]; then
+  prepend="| $1"
+fi
+if [[ -n "$2" ]]; then
+  append="| $2"
+fi
+shift 2
+if [[ -n "$*" ]]; then
+  middle="| $*"
+fi
+nu_command="${prepend}${middle}${append}"
+
+nu --no-config-file --no-history --stdin --commands "$nu_command"

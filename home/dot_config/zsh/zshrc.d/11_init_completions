@@ -1,0 +1,13 @@
+# shellcheck shell=bash
+
+# Dependency chain: brew_completions, prezto_zshrc, init_completions
+
+# Note: it's not clear why the 'compinit' call is needed here when also
+# using prezto's completion module, as that module also
+# calls compinit, with the homebrew functions already in fpath.
+# But without this extra compinit call below, homebrew's completions don't work.
+# Due to that, and to handle the case where the prezto completion module is not
+# loaded, always also call compinit here.
+
+autoload -Uz compinit
+compinit

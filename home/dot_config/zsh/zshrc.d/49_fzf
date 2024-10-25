@@ -1,0 +1,3 @@
+# shellcheck shell=bash
+
+command -v fzf > /dev/null && eval "$(fzf --zsh)"

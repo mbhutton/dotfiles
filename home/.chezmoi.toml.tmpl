@@ -42,8 +42,3 @@
     useRuby = {{ true }}
     useRustlings = {{ $isMainPersonal }}
     useVSCodeInLazyGit = {{ $isMacHost }}
-
-    # Temporary workarounds
-    # Build mise from source until Nix updates mise to 2024.10.7 or later. TODO: track this
-    # See https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/misc/mise/default.nix#L20
-    useCargoMise = {{ $useNix }}

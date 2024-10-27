@@ -68,10 +68,13 @@ tap "cirruslabs/cli"
 brew "cirruslabs/cli/tart"            # Manage macOS/Linux VMs. Note: full name required to avoid old brew core 'tart'.
 cask "docker"                         # Docker Desktop. Does not work in macOS guest VM
 cask "karabiner-elements"             # Keyboard customizer. Avoid having nested keyboard mappings between host/VM. TODO:configure for tart/UTM windows
-brew "mas"                            # Manage macOS App Store apps. App Store not yet usable on guest machines.
 # MacOS host section ends
 {{ end }}
 
+{{ if .mh.hasMacAppStore }}
+# Packages requiring macOS App Store
+brew "mas"                            # Manage macOS App Store apps. App Store not yet usable on guest machines.
+{{ end }}
 
 # Casks: Development and productivity
 cask "alt-tab"                        # Window switching

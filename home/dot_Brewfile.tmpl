@@ -52,7 +52,7 @@ brew "yazi"               # Terminal file manager
 brew "yt-dlp"             # Watch offline
 brew "zoxide"             # Augments 'cd'
 
-{{ if .mh.useRuby -}}
+{{ if .mh.useRuby }}
 # Packages for building Ruby in mise on macOS. (Linux uses APT packages instead)
 brew "coreutils"
 brew "gmp"
@@ -60,7 +60,7 @@ brew "libyaml"
 brew "openssl@3"
 brew "zlib"
 # Ruby building section ends
-{{ end -}}
+{{ end }}
 
 {{ if .mh.isMacHost }}
 # MacOS host section starts (packages to skip on virtual machines)
@@ -70,10 +70,10 @@ cask "docker"                         # Docker Desktop. Does not work in macOS g
 cask "karabiner-elements"             # Keyboard customizer. Avoid having nested keyboard mappings between host/VM. TODO:configure for tart/UTM windows
 brew "mas"                            # Manage macOS App Store apps. App Store not yet usable on guest machines.
 # MacOS host section ends
-{{ end -}}
+{{ end }}
+
 
 # Casks: Development and productivity
-
 cask "alt-tab"                        # Window switching
 {{ if .mh.useGitX -}}
 cask "gitx"                           # Git UI with very legible commit graph
@@ -81,7 +81,7 @@ cask "gitx"                           # Git UI with very legible commit graph
 cask "iterm2"                         # Replacement for Terminal.app with more features
 cask "shortcat"                       # Easymotion-like macOS GUI navigation
 
-{{ if .mh.useEmacs -}}
+{{ if .mh.useEmacs }}
 # Emacs section starts
 tap "homebrew/services"                 # To manage the emacs-plus service
 tap "d12frosted/emacs-plus"
@@ -112,7 +112,7 @@ cask "mactex"    # LaTeX. Notes: slow installer; alters /etc/paths.d. TODO: repl
 cask "font-comic-neue"                 # For unserious prose
 cask "font-sf-pro"                     # Apple system font
 # Emacs section ends
-{{ end -}}
+{{ end }}
 
 # Other Fonts
 cask "font-hack-nerd-font"             # Fonts with support for icons, used by 'lsd'

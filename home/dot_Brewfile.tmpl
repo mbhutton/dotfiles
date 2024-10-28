@@ -54,10 +54,15 @@ brew "zoxide"             # Augments 'cd'
 
 {{ if .mh.useRuby }}
 # Packages for building Ruby in mise on macOS. (Linux uses APT packages instead)
+brew "autoconf"
+brew "ca-certificates"
 brew "coreutils"
 brew "gmp"
 brew "libyaml"
+brew "m4"
 brew "openssl@3"
+brew "pkg-config"
+brew "readline"
 brew "zlib"
 # Ruby building section ends
 {{ end }}

@@ -4,6 +4,11 @@
 #
 # NOTE: Any packages added using this file will remain installed in the system until manually uninstalled.
 
+# Common packages
+procps              # free, kill, pgrep, ps, etc
+vim                 # Simpler than Neovim. Installed here rather than Nix because commonly APT installed already
+xz-utils            # Required by Nix Home Manager setup
+
 {{ if .mh.useRuby }}
 # Required for building Ruby in Mise
 build-essential

@@ -20,6 +20,10 @@ function hl { mh-horizontal-line; }
 for cmd in curl git zsh; do
 command -v "$cmd" >/dev/null || fail "$cmd is not installed or not in PATH"
 done
+[[ -n "$MH_CHEZMOI_LOADED_VERSION" ]] \
+|| fail "Zsh config not properly loaded. \
+(Env var MH_CHEZMOI_LOADED_VERSION not set.) \
+Suggestion: 'chezmoi init ...' if not already, and run this script inside 'zsh -i'"
 
 source_dir="$(dirname "${BASH_SOURCE[0]}")"
 impl_dir="${source_dir}/mh-install.d"

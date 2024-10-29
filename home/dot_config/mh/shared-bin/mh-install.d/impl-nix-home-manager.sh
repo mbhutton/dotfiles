@@ -7,14 +7,10 @@ function noun_for_nix-home-manager {
 }
 
 function asserts_for_nix-home-manager {
-  echo "asserts_for_nix-home-manager"
+  [[ "$(uname -s)" == "Linux" ]] || fail "This Nix Home Manager component supported only on Linux"
 }
 
 function install_or_update_nix-home-manager {
-  if [[ "$(uname -s)" != "Linux" ]]; then
-    return 0
-  fi
-
   if [[ ! -d /nix ]]; then
     echo "Installing Nix in single user mode, with /nix owned by current user ($USER) (sudo)"
     sudo mkdir /nix || fail "Failed to create /nix directory"

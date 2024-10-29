@@ -7,12 +7,12 @@
 [[ "$(uname -s)" == "Darwin" ]] || exit 0
 
 IDE_LIST=(
-  "com.microsoft.VSCode"
-  "com.jetbrains.pycharm"
-  "com.jetbrains.pycharm.ce"
-  "com.jetbrains.intellij"
-  "com.jetbrains.intellij.ce"
   "com.jetbrains.cwm.guest"
+  "com.jetbrains.intellij.ce"
+  "com.jetbrains.intellij"
+  "com.jetbrains.pycharm.ce"
+  "com.jetbrains.pycharm"
+  "com.microsoft.VSCode"
 )
 
 for IDE in "${IDE_LIST[@]}"; do

@@ -19,11 +19,14 @@
 .local/state                 # XDG_STATE_HOME
 .python_history
 .sentry*                     # Assumed to be sentry.io, for unknown app. Folder is "~/.sentry " (note trailing space)
+.sqlite_history
 .Trash
 .viminfo
 
-# Configuration managed by these dotfiles:
-.config/zsh/.zprezto
+# Configuration managed by these dotfiles and/or Chezmoi
+.config/zsh/.zprezto         # Managed as an mh-install component
+.config/chezmoi/chezmoi.toml # Populated by chezmoi init
+.config/chezmoi/chezmoistate.boltdb
 
 # Configuration and state managed by other tools:
 {{ if eq .chezmoi.os "darwin" }}
@@ -31,7 +34,26 @@
 .userchain                   # Managed by SampleTank
 {{ end }}
 .cargo                       # Managed by Rust toolchain
+.config/broot/launcher
 .config/crossnote            # Related to Markdown Preview Enhanced VS Code extension
 .config/jgit                 # Let JetBrains manage this Java Git config
+.config/karabiner/assets
+.config/karabiner/automatic_backups
 .gk                          # Managed by Git Lens VS Code extension (gk for GitKraken)
 .npm                         # Managed by node.js
+.rustup                      # Managed by Rust toolchain
+.tart
+.vscode-server
+
+# macOS document and media folders
+{{ if eq .chezmoi.os "darwin" }}
+Desktop
+Documents
+Downloads
+Dropbox
+MAUD
+Movies
+Music
+Pictures
+Public
+{{ end }}

@@ -1,0 +1,2 @@
+This file exists to make 'chezmoi unmanaged' only list unmanaged children,
+as known children are listed in the .chezmoiignore file.

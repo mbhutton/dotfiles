@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# tart-exec: SSH into a running Tart VM with default credentials
+#
+# Usage: tart-exec <VM name> [command [args...]]
+
+DEFAULT_USER=admin
+DEFAULT_PASSWORD=admin
+
+function fail {
+  echo "$*" >&2
+  exit 1
+}
+
+function tart-exec {
+  # Check arguments
+  [[ $# -ge 1 ]] || fail "At least one argument is required: <VM name>"
+  local VM_NAME="$1"
+  shift 1
+  [[ "${VM_NAME}" =~ ^[a-zA-Z0-9_]+$ ]] || fail "VM_NAME must be alphanumeric and underscores only" # Tart may allow more
+
+  # Check prerequisites
+  [[ "$(uname -s)" == "Darwin" ]] || fail "This script is only supported on macOS"
+  for required in nu sshpass tart; do
+    command -v $required >/dev/null || fail "$required is not installed"
+  done
+
+  # Check if VM is running
+  [[ -n "$(tart list --source local --format json | nu --stdin -c "from json | where Name == ${VM_NAME} and Running == true | to text")" ]]\
+    || fail "VM ${VM_NAME} is not running"
+
+  # SSH into VM, passing through any arguments
+  sshpass -p "${DEFAULT_PASSWORD}" ssh -o "StrictHostKeyChecking no" "${DEFAULT_USER}"@"$(tart ip "${VM_NAME}")" "$@"
+}
+
+tart-exec "$@"

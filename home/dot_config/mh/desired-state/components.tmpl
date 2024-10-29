@@ -1,0 +1,26 @@
+# Note: order is significant
+#
+# Note: generally prefer to install via Homebrew or Nix where possible. Exceptions:
+# - APT: for prerequisites of Nix, or build dependencies of Mise (eg Ruby) which are hard to do via Nix Home Manager
+# - eget: for software that's to rapidly changing for Homebrew or Nix to keep up with
+# - uv-tool: for python packages
+
+prezto            # Do first so that new shells can make use of partial installs
+{{ if .mh.isMacOS }}
+brew
+{{ if .mh.hasMacAppStore }}
+mas               # Bootstrapped by brew
+{{ end }}
+{{ end }}
+{{ if .mh.isLinux }}
+apt
+nix-home-manager  # Bootstraps Nix if required. Depends on APT
+{{ end }}
+eget              # Bootstrapped by brew/home-manager
+rustup
+cargo-crates      # Bootstrapped by rustup. May depend on APT/Homebrew/Nix libraries.
+mise              # Bootstrapped by brew/home-manager or eget or cargo
+uv-tool           # Bootstrapped by brew/home-manager or cargo, may depend on mise's Python
+{{ if .mh.isMacOS }}
+macos
+{{ end }}

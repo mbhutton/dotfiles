@@ -28,33 +28,21 @@ Suggestion: 'chezmoi init ...' if not already, and run this script inside 'zsh -
 source_dir="$(dirname "${BASH_SOURCE[0]}")"
 impl_dir="${source_dir}/mh-install.d"
 
-# Note: order is significant
-# TODO: make these switchable chezmoi style by moving these to a non-sorted desired list
-# TODO: generally make zsh config allow any of the tools here to be missing
-# Note: generally prefer to install via Homebrew or Nix where possible. Exceptions:
-# - APT: for prerequisites of Nix, or build dependencies of Mise (eg Ruby) which are hard to do via Nix Home Manager
-# - eget: for software that's to rapidly changing for Homebrew or Nix to keep up with
-# - uv-tool: for python packages
-impls=(
-  prezto            # Do first so that new shells can make use of partial installs
-  brew              # macOS only
-  # TODO: make this conditional on macOS guest ie hasMacAppStore
-  mas               # macOS only. Bootstrapped by brew
-  apt               # Linux only
-  nix-home-manager  # Linux only. Bootstraps Nix if required. Depends on APT
-  eget              # Bootstrapped by brew/home-manager
-  rustup
-  cargo-crates      # Bootstrapped by rustup. May depend on APT/Homebrew/Nix libraries.
-  mise              # Bootstrapped by brew/home-manager or eget or cargo
-  uv-tool           # Bootstrapped by brew/home-manager or cargo, may depend on mise's Python
-  macos             # macOS only
-)
+# Load array of desired components
+assert_function mh-parse-desired
+COMPONENTS_PATH="${HOME}/.config/mh/desired-state/components"
+[[ -f "$COMPONENTS_PATH" ]] || fail "Desired components file not found: $COMPONENTS_PATH"
+COMPONENTS_ARRAY=()
+if [[ -f "$COMPONENTS_PATH" ]]; then
+  while IFS='' read -r line; do COMPONENTS_ARRAY+=("$line"); done < <(mh-parse-desired < "$COMPONENTS_PATH")
+fi
 
 hl
-echo "Checking functions for each of ${impls[*]}..."
-for impl in "${impls[@]}"; do
+echo "Checking functions for each of ${COMPONENTS_ARRAY[*]}..."
+# TODO rename all 'impl' to 'component'
+for impl in "${COMPONENTS_ARRAY[@]}"; do
   # shellcheck disable=SC1090
-  source "${impl_dir}/impl-${impl}.sh" || fail "Impl not found for $impl"
+  source "${impl_dir}/impl-${impl}.sh" || fail "Implementation not found for component '$impl'"
   assert_function noun_for_"${impl}"
   assert_function asserts_for_"${impl}"
   assert_function install_or_update_"${impl}"
@@ -63,7 +51,7 @@ done
 
 hl
 echo "Updating or installing software 🚀..."
-for impl in "${impls[@]}"; do
+for impl in "${COMPONENTS_ARRAY[@]}"; do
   # shellcheck disable=SC1090
   hl
   asserts_for_"${impl}" || fail "Failed pre-install checks for ${impl} 😢🎻"
@@ -75,7 +63,7 @@ done
 
 hl
 echo "The doctor will see you now 🩺..."
-for impl in "${impls[@]}"; do
+for impl in "${COMPONENTS_ARRAY[@]}"; do
   # shellcheck disable=SC1090
   hl
   noun="$(noun_for_"${impl}")"

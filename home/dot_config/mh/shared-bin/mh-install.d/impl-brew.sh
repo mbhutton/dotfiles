@@ -7,18 +7,10 @@ function noun_for_brew {
 }
 
 function asserts_for_brew {
-  if [[ "$(uname -s)" != "Darwin" ]]; then
-    echo "Homebrew is only supported on macOS"
-    return
-  fi
+  [[ "$(uname -s)" == "Darwin" ]] || fail "This Homebrew component supported only on macOS"
 }
 
 function install_or_update_brew {
-  if [[ "$(uname -s)" != "Darwin" ]]; then
-    echo "Homebrew is only supported on macOS"
-    return
-  fi
-
   if ! command -v brew >/dev/null && [[ ! -f "/opt/homebrew/bin/brew" ]]; then
     echo "Installing Homebrew..."
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || fail "Failed to install Homebrew"
@@ -38,10 +30,6 @@ function install_or_update_brew {
 }
 
 function doctor_brew {
-  if [[ "$(uname -s)" != "Darwin" ]]; then
-    echo "Homebrew is only supported on macOS"
-    return
-  fi
   if ! command -v brew >/dev/null 2>&1; then
     echo "Brew command not found" >&2
     return 0

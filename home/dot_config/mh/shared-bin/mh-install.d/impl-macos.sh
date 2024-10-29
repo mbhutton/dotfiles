@@ -7,7 +7,7 @@ function noun_for_macos {
 }
 
 function asserts_for_macos {
-  true # No-op
+  [[ "$(uname -s)" == "Darwin" ]] || fail "This macOS component supported only on macOS"
 }
 
 function install_or_update_macos {
@@ -15,10 +15,6 @@ function install_or_update_macos {
 }
 
 function doctor_macos {
-  if [[ "$(uname -s)" != "Darwin" ]]; then
-    return
-  fi
-
   available_updates="$(softwareupdate --list 2>&1 \
     | grep -v 'Software Update Tool' \
     | grep -v 'Finding available software' \

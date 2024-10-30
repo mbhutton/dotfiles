@@ -1,0 +1,40 @@
+# shellcheck shell=bash
+
+# TODO: add a 'remove' options
+# TODO: fix log command to allow returning to fzf
+# TODO: edit commands: add and remove some
+# TODO: easily follow a command when it's the only running/finished command
+
+alias q='pueue'
+alias qa='pueue add'
+alias qc='pueue clean'
+
+
+# From: https://github.com/Nukesor/pueue/wiki/Advanced-usage#interactive-fuzzy-finder
+qf() {
+  set -f
+  local PUEUE_TASKS="pueue status --json | jq -c '.tasks' | jq -r '.[] | \"\(.id | tostring | (\" \" * (2 - length)) + .) | \(.group) | \(.path[-15:]) | \(.status) | \(.command[-15:]) | \(.start[:19])\"'"
+  local header="| (k)ill | (d)elete:remove | (w)ipe:clean successful | pa(u)se | s:start | (f)resh:restart | (r)eload"
+
+local bind="\
+ctrl-k:execute-silent(echo {} | cut -d'|' -f1 | xargs pueue kill > /dev/null)+reload^$PUEUE_TASKS^,\
+ctrl-d:execute-silent(echo {} | cut -d'|' -f1 | xargs pueue remove > /dev/null)+reload^$PUEUE_TASKS^,\
+ctrl-w:execute-silent(pueue clean --successful-only > /dev/null)+reload^$PUEUE_TASKS^,\
+ctrl-u:execute-silent(echo {} | cut -d'|' -f1 | xargs pueue pause > /dev/null)+reload^$PUEUE_TASKS^,\
+ctrl-s:execute-silent(echo {} | cut -d'|' -f1 | xargs pueue start > /dev/null)+reload^$PUEUE_TASKS^,\
+ctrl-f:execute-silent(echo {} | cut -d'|' -f1 | xargs pueue restart -ik > /dev/null)+reload^$PUEUE_TASKS^,\
+ctrl-r:reload^$PUEUE_TASKS^\
+"
+
+  echo $PUEUE_TASKS | sh | fzf --header "${header}" -m \
+    --preview="echo {} | cut -d'|' -f1 | xargs pueue log | bat -l log --style=rule,numbers --color=always -r ':200'" \
+    --bind="$bind"
+  set +f
+}
+
+function is_pueued_running {
+  pueue status >/dev/null 2>&1 && return 0 # Only succeeds if pueued is running
+
+  # ps aux | jc --ps | jq '.[] | select(.command | test("^[^ ]+pueued")) | .command'
+  # pueue status # Fails quickly if pueued is not running, with known message, then can confirm using ps
+}

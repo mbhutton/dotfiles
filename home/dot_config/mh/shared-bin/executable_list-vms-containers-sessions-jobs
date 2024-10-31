@@ -29,4 +29,13 @@ fi
 hl
 echo Tart VMs:
 tart list | grep -E '^local'
+
+hl
+echo Tmux sessions:
+pgrep -x tmux >/dev/null && tmux ls
+
+hl
+echo Pueue jobs:
+pgrep -x pueued >/dev/null && [[ -n "$(pueue status --json | jq '.tasks[]')" ]] && pueue status
+
 hl

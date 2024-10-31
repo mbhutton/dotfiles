@@ -13,12 +13,19 @@ function hl {
 hl
 echo Docker:
 docker ps -a |grep -Ev '^CONTAINER'
+
 hl
 echo Codespaces:
 gh codespace list | cat
+
 hl
 echo UTM VMs:
-/Applications/UTM.app/Contents/MacOS/utmctl list | grep -Ev 'UUID';
+# Only call AppleScript if UTM has any VMs on disk (to lessen the need to open the app), as seldom used
+UTM_VM_DIR="$HOME/Library/Containers/com.utmapp.UTM/Data/Documents"
+if [[ -d "$UTM_VM_DIR" && -n "$(find "$UTM_VM_DIR" -name '*.utm')" ]]; then
+  /Applications/UTM.app/Contents/MacOS/utmctl list | grep -Ev 'UUID';
+fi
+
 hl
 echo Tart VMs:
 tart list | grep -E '^local'

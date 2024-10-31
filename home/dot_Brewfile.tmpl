@@ -28,7 +28,6 @@ brew "hledger"            # Plain text accounting, inspired by ledger, in Haskel
 brew "hyperfine"          # Benchmarking
 brew "jq"                 # Command-line JSON processor. Used by yazi
 brew "just"               # Simple task runner. Used within git projects, including dotfiles
-brew "lazydocker"         # Docker TUI
 brew "lazygit"            # Efficient Git TUI
 brew "lsd"                # Modern 'ls'
 brew "mdcat"              # Show markdown documents on text terminals
@@ -71,6 +70,8 @@ brew "zlib"
 
 {{ if .mh.isMacHost }}
 # MacOS host section starts (packages to skip on virtual machines)
+brew "dive" if false                  # Inspect Docker image layers (Workaround required for local images: https://github.com/wagoodman/dive/issues/360)
+brew "lazydocker"                     # Docker TUI
 tap "cirruslabs/cli"
 brew "cirruslabs/cli/tart"            # Manage macOS/Linux VMs. Note: full name required to avoid old brew core 'tart'.
 cask "docker"                         # Docker Desktop. Does not work in macOS guest VM

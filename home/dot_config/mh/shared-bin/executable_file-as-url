@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+
+"""Converts the given single file path to a file URL."""
+
+# pylint: disable=C0103
+
+import pathlib
+import sys
+
+if len(sys.argv) != 2:
+    print("Usage: <file-as-url> <path>", file=sys.stderr)
+    sys.exit(1)
+
+given_string = sys.argv[1]
+raw_path = pathlib.Path(given_string)
+
+if not raw_path.exists():
+    print(f"Error: file '{given_string}' does not exist", file=sys.stderr)
+    sys.exit(1)
+
+url = raw_path.absolute().as_uri()
+print(url)

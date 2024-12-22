@@ -11,5 +11,7 @@ jello               # Filter JSON/JSONL data with Python syntax
 jtbl                # Display JSON/JSONL data in table format
 
 {{ if .mh.hasMacAppStore -}}
+{{ if .mh.useThings }}
 things-cli          # CLI for Things.app
+{{ end }}
 {{ end -}}

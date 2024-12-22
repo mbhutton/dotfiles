@@ -27,7 +27,8 @@ function source_prezto_runcoms {
     return 1
   fi
   if [[ ! -d "${ZDOTDIR}/.zprezto" ]]; then
-    echo "Prezto directory not found at ${ZDOTDIR}/.zprezto"
+    echo "Prezto directory not found at ${ZDOTDIR}/.zprezto, so not sourcing $1" >&2
+    return 0
   fi
 
   local filename

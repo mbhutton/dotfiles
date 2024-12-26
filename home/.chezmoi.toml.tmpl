@@ -19,6 +19,7 @@
 
 
 {{- $isMainPersonal := eq $hostname "Kea" -}}
+{{- $isKork := eq $hostname "Weka" -}}
 {{- $useNix := $isLinux -}}
 
 [diff]
@@ -35,11 +36,12 @@
 
     # Categories
     isMainPersonal = {{ $isMainPersonal }}
+    isKork = {{ $isKork }}
 
     # Toggles
     useEmacs = {{ $isMacHost }}
     useGitX = {{ $isMacOS }}
-    useJava = {{ false }}
+    useJava = {{ $isKork }}
     useRuby = {{ true }}
     useRustlings = {{ $isMainPersonal }}
     useThings = {{ $isMainPersonal }}

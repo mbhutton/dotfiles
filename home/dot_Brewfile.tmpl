@@ -51,8 +51,14 @@ brew "tmux"               # Terminal multiplexer
 brew "uv"                 # Python package and project manager
 brew "wget"               # Required by mason.nvim
 brew "yazi"               # Terminal file manager
-brew "yt-dlp"             # Watch offline
 brew "zoxide"             # Augments 'cd'
+
+{{ if .mh.useYtDlp }}
+# Packages related to yt-dlp
+brew "ffmpeg"             # Used by yt-dlp. Note: large number of dependencies
+brew "yt-dlp"             # Watch offline
+# yt-dlp related packages end
+{{ end }}
 
 {{ if .mh.useRuby }}
 # Packages for building Ruby in mise on macOS. (Linux uses APT packages instead)

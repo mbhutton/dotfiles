@@ -106,6 +106,8 @@ tap "homebrew/services"                 # To manage the emacs-plus service
 tap "d12frosted/emacs-plus"
 brew "d12frosted/emacs-plus/emacs-plus@29", args: ["with-native-comp", "with-elrumo1-icon"]
 
+brew "cmake"                          # Required on first use of vterm
+
 # Emacs dependencies which `brew bundle cleanup --global --force` otherwise tries to uninstall.
 # These need to be listed explicitly as a workaround for
 #   https://github.com/Homebrew/homebrew-bundle/issues/1246

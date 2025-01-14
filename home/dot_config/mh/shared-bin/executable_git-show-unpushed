@@ -1,0 +1,42 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# Git command to show changes which aren't reflected in any remote.
+# Output is empty when there are no such changes that could be pushed.
+#
+# Checks for:
+#  - Uncommitted changes (via git status)
+#  - Local branches which have no upstream branch set
+#  - Tracked local branches which have unpushed changes
+#  - Local tags which are out of sync with the remote
+#  - Stashes
+#
+# Author: matt
+# Caveats: Output format may change without notice, so talk with Matt
+#          before depending on the output of this script.
+#          Developed against git 2.4.1
+
+fail() {
+  echo "$*" >&2
+  exit 1
+}
+
+git rev-parse --show-toplevel >/dev/null || fail "Current directory $(pwd) is not in a git repo"
+repo_name="$(basename $(git rev-parse --show-toplevel))"
+
+# Syntax: log_if_non_empty <log prefix> <command output>
+log_if_non_empty() {
+  [[ -z "$2" ]] || echo "LOCAL to $repo_name: ${1}:
+${2}
+____________________"
+}
+
+log_if_non_empty "Local status" "$(git status -s)"
+for remote_branch in $(git remote); do
+  log_if_non_empty "Dry push for ${remote_branch}" \
+    "$(git push --dry-run --tags "$remote_branch" : 2>&1 | grep -v '^Everything up-to-date')"
+done
+log_if_non_empty "Non-tracking local branches" \
+    "$(git for-each-ref --format='%(refname:short) %(upstream)' refs/heads | awk '$2 !~/^refs\/remotes/')"
+log_if_non_empty "Stash list" "$(git stash list)"

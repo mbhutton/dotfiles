@@ -1,0 +1,9 @@
+_default:
+  @just --list
+
+update:
+  mise x node@latest -- npm update --save
+
+doctor:
+  mise x node@latest -- npm outdated
+  mise x node@latest -- npm audit

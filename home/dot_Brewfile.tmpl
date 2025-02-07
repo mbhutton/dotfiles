@@ -103,6 +103,10 @@ cask "iterm2"                         # Replacement for Terminal.app with more f
 cask "keycastr"                       # Keystroke visualiser to record UI interactions
 cask "shortcat"                       # Easymotion-like macOS GUI navigation
 
+{{ if .mh.isKork }}
+cask "rubymine"                       # Ruby/Rails IDE
+{{ end }}
+
 {{ if .mh.useEmacs }}
 # Emacs section starts
 tap "homebrew/services"                 # To manage the emacs-plus service

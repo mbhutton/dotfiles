@@ -137,6 +137,10 @@ cask "font-sf-pro"                     # Apple system font
 # Emacs section ends
 {{ end }}
 
+{{ if .mh.useNetNewsWire }}
+cask "netnewswire"                     # AppleScript-able RSS client
+{{ end }}
+
 # Other Fonts
 cask "font-hack-nerd-font"             # Fonts with support for icons, used by 'lsd'
 cask "font-source-code-pro"

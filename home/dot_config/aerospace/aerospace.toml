@@ -154,6 +154,7 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-s = 'mode service'
     alt-shift-i = 'mode hyper'
 
+    alt-w = 'close'
     alt-shift-w = 'close-all-windows-but-current'
 
 ################################################################################

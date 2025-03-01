@@ -111,7 +111,7 @@ cask "rubymine"                       # Ruby/Rails IDE
 # Emacs section starts
 tap "homebrew/services"                 # To manage the emacs-plus service
 tap "d12frosted/emacs-plus"
-brew "d12frosted/emacs-plus/emacs-plus@29", args: ["with-native-comp", "with-elrumo1-icon"]
+brew "d12frosted/emacs-plus/emacs-plus@30", args: ["with-elrumo1-icon"]
 
 brew "cmake"                          # Required on first use of vterm
 brew "poppler"                        # Used by epdfinfo which is used by pdf-tools in Emacs
@@ -123,7 +123,6 @@ brew "poppler"                        # Used by epdfinfo which is used by pdf-to
 # containing all formulae listed via 'brew deps emacs-plus@foo' (where foo is the required version)
 brew "coreutils" # Listed as a build dependency for emacs-plus, but actually required at runtime during session recovery
 brew "gnutls"
-brew "jansson"
 brew "jpeg"
 brew "libevent"
 brew "libgccjit"

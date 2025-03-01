@@ -152,6 +152,8 @@ automatically-unhide-macos-hidden-apps = false
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-s = 'mode service'
 
+    alt-shift-w = 'close-all-windows-but-current'
+
 ################################################################################
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes

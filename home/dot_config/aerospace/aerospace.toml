@@ -152,6 +152,7 @@ automatically-unhide-macos-hidden-apps = false
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-s = 'mode service'
+    alt-shift-i = 'mode hyper'
 
     alt-shift-w = 'close-all-windows-but-current'
 
@@ -160,6 +161,8 @@ automatically-unhide-macos-hidden-apps = false
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
     esc = ['reload-config', 'mode main']
+    alt-shift-i = 'mode hyper'
+
     r = ['flatten-workspace-tree', 'mode main'] # reset layout
     f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
     backspace = ['close-all-windows-but-current', 'mode main']
@@ -175,6 +178,12 @@ automatically-unhide-macos-hidden-apps = false
     down = 'volume down'
     up = 'volume up'
     shift-down = ['volume set 0', 'mode main']
+
+################################################################################
+# 'hyper' binding mode declaration.
+[mode.hyper.binding]
+    esc = 'mode main'
+    alt-shift-s = 'mode service'
 
 ################################################################################
 # Application to workspace associations

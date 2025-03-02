@@ -162,6 +162,9 @@ automatically-unhide-macos-hidden-apps = false
     # TODO:how to know if hidden window underneath. Consider menu bar item, or fail/prompt if any are floating/fullscreen
     # alt-shift-w = 'close-all-windows-but-current'
 
+    # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2 TODO:monitor this issue
+    #??? = ['layout sticky tiling', 'mode main']
+
 ################################################################################
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -171,8 +174,6 @@ automatically-unhide-macos-hidden-apps = false
 
     r = ['flatten-workspace-tree', 'mode main'] # reset layout
 
-    # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
-    #s = ['layout sticky tiling', 'mode main']
 
     alt-shift-h = ['join-with left', 'mode main']
     alt-shift-j = ['join-with down', 'mode main']

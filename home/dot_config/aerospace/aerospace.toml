@@ -168,7 +168,7 @@ automatically-unhide-macos-hidden-apps = false
 # 'hyper' binding mode declaration.
 # This mode aims to provide faster and more ergonomic equivalents of bindings
 # in other modes, typically with less modifiers, such as without the 'alt' key.
-# TODO:align to this goal
+# TODO:align to this goal; expand definition to cover special and derived bindings, and automate the derivation, and recheck for now
 [mode.hyper.binding]
     esc = 'mode main'
     #######################################################

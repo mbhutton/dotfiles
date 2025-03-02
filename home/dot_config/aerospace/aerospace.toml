@@ -157,8 +157,8 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-s = 'mode service'
     alt-shift-i = 'mode hyper'
 
-    alt-w = 'close'
     alt-shift-w = 'close-all-windows-but-current'
+    # alt-w = 'close' # TODO:rebind to avoid clash
 
 ################################################################################
 # 'service' binding mode declaration.
@@ -233,8 +233,8 @@ automatically-unhide-macos-hidden-apps = false
     shift-tab = 'workspace-back-and-forth'
     # shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-    w = 'close'
     shift-w = 'close-all-windows-but-current'
+    # w = 'close' TODO:rebind to avoid clash
 
     alt-h = ['join-with left', 'mode main']
     alt-j = ['join-with down', 'mode main']

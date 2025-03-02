@@ -162,7 +162,7 @@ automatically-unhide-macos-hidden-apps = false
     # alt-shift-w = 'close-all-windows-but-current'
 
     # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2 TODO:monitor this issue
-    #??? = ['layout sticky tiling', 'mode main']
+    #??? = 'layout sticky tiling'
 
 ################################################################################
 # 'hyper' binding mode declaration.

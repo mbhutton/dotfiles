@@ -101,8 +101,11 @@ automatically-unhide-macos-hidden-apps = false
     # '''
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
+    # All windows in workspace
     alt-slash = 'layout tiles horizontal vertical'
     alt-comma = 'layout accordion horizontal vertical'
+    # Focused window in workspace
+    alt-period = 'fullscreen'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
     alt-h = 'focus left'
@@ -120,7 +123,6 @@ automatically-unhide-macos-hidden-apps = false
     alt-minus = 'resize smart -50'
     alt-equal = 'resize smart +50'
     alt-shift-equal = 'balance-sizes' # shift-equal ~~ plus
-    alt-shift-f = 'fullscreen'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
     alt-1 = 'workspace 1'
@@ -192,6 +194,7 @@ automatically-unhide-macos-hidden-apps = false
 
     slash = 'layout tiles horizontal vertical'
     comma = 'layout accordion horizontal vertical'
+    period = 'fullscreen'
 
     h = 'focus left'
     j = 'focus down'
@@ -205,7 +208,6 @@ automatically-unhide-macos-hidden-apps = false
     minus = 'resize smart -50'
     equal = 'resize smart +50'
     shift-equal = 'balance-sizes' # shift-equal ~~ plus
-    shift-f = 'fullscreen'
 
     1 = 'workspace 1'
     2 = 'workspace 2'

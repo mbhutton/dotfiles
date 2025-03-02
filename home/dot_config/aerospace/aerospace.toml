@@ -273,6 +273,7 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.googlecode.iterm2'
     run = 'move-node-to-workspace 4'
 
+# iPhone mirroring
 [[on-window-detected]]
     if.app-id = 'com.apple.ScreenContinuity'
     run = 'move-node-to-workspace 5'

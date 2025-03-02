@@ -165,22 +165,6 @@ automatically-unhide-macos-hidden-apps = false
     #??? = ['layout sticky tiling', 'mode main']
 
 ################################################################################
-# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
-    esc = ['reload-config', 'mode main']
-
-    r = ['flatten-workspace-tree', 'mode main'] # reset layout
-
-
-    alt-shift-h = ['join-with left', 'mode main']
-    alt-shift-j = ['join-with down', 'mode main']
-    alt-shift-k = ['join-with up', 'mode main']
-    alt-shift-l = ['join-with right', 'mode main']
-
-    down = 'volume down'
-    up = 'volume up'
-    shift-down = ['volume set 0', 'mode main']
-
-################################################################################
 # 'hyper' binding mode declaration.
 # This mode aims to provide faster and more ergonomic equivalents of bindings
 # in other modes, typically with less modifiers, such as without the 'alt' key.

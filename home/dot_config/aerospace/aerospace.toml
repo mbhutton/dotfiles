@@ -170,7 +170,10 @@ automatically-unhide-macos-hidden-apps = false
 # in other modes, typically with less modifiers, such as without the 'alt' key.
 # TODO:align to this goal; expand definition to cover special and derived bindings, and automate the derivation, and recheck for now
 [mode.hyper.binding]
-    esc = 'mode main'
+    #######################################################
+    # Special bindings: Only in this hyper mode
+    esc = ['reload-config', 'mode main']
+
     #######################################################
     # Derived bindings: Manually derived from main mode.
     # "alt-foo = 'bar'" in main mode ==> "foo = 'bar'" in hyper mode

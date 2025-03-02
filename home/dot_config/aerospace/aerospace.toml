@@ -236,12 +236,12 @@ automatically-unhide-macos-hidden-apps = false
     # w = 'close' TODO:rebind to avoid clash
     # shift-w = 'close-all-windows-but-current'
 
-    alt-h = 'join-with left'
-    alt-j = 'join-with down'
-    alt-k = 'join-with up'
-    alt-l = 'join-with right'
+    ctrl-h = 'join-with left'
+    ctrl-j = 'join-with down'
+    ctrl-k = 'join-with up'
+    ctrl-l = 'join-with right'
 
-    alt-r = 'flatten-workspace-tree' # reset layout
+    ctrl-r = 'flatten-workspace-tree' # reset layout
 
     down = 'volume down'
     up = 'volume up'

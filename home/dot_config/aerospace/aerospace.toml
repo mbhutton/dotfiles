@@ -192,6 +192,9 @@ automatically-unhide-macos-hidden-apps = false
 [mode.hyper.binding]
     esc = 'mode main'
     alt-shift-s = 'mode service'
+    #######################################################
+    # Derived bindings: Manually derived from main mode.
+    # "alt-foo = 'bar'" in main mode ==> "foo = 'bar'" in hyper mode
 
     slash = 'layout tiles horizontal vertical'
     comma = 'layout accordion horizontal vertical'

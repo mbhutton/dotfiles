@@ -215,10 +215,6 @@ automatically-unhide-macos-hidden-apps = false
     shift-0 = 'move-node-to-workspace 0'
 
     shift-tab = 'workspace-back-and-forth'
-    # shift-tab = 'move-workspace-to-monitor --wrap-around next'
-
-    # w = 'close' TODO:rebind to avoid clash
-    # shift-w = 'close-all-windows-but-current'
 
     ctrl-h = 'join-with left'
     ctrl-j = 'join-with down'

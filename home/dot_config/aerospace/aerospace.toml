@@ -156,6 +156,7 @@ automatically-unhide-macos-hidden-apps = false
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-i = 'mode hyper'
+    alt-shift-m = 'mode meet'
 
     # alt-w = 'close' # TODO:rebind to avoid clash
     # TODO:how to know if hidden window underneath. Consider menu bar item, or fail/prompt if any are floating/fullscreen
@@ -163,6 +164,22 @@ automatically-unhide-macos-hidden-apps = false
 
     # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2 TODO:monitor this issue
     #??? = 'layout sticky tiling'
+
+################################################################################
+# 'meet' binding mode declaration.
+#
+# Contains one-shot bindings to move window to workspace N and go meet it there.
+[mode.meet.binding]
+    1 = ['move-node-to-workspace 1', 'workspace 1', 'mode main']
+    2 = ['move-node-to-workspace 2', 'workspace 2', 'mode main']
+    3 = ['move-node-to-workspace 3', 'workspace 3', 'mode main']
+    4 = ['move-node-to-workspace 4', 'workspace 4', 'mode main']
+    5 = ['move-node-to-workspace 5', 'workspace 5', 'mode main']
+    6 = ['move-node-to-workspace 6', 'workspace 6', 'mode main']
+    7 = ['move-node-to-workspace 7', 'workspace 7', 'mode main']
+    8 = ['move-node-to-workspace 8', 'workspace 8', 'mode main']
+    9 = ['move-node-to-workspace 9', 'workspace 9', 'mode main']
+    0 = ['move-node-to-workspace 0', 'workspace 0', 'mode main']
 
 ################################################################################
 # 'hyper' binding mode declaration.

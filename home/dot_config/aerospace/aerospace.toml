@@ -170,6 +170,7 @@ automatically-unhide-macos-hidden-apps = false
 #
 # Contains one-shot bindings to move window to workspace N and go meet it there.
 [mode.meet.binding]
+    esc = 'mode main'
     1 = ['move-node-to-workspace 1', 'workspace 1', 'mode main']
     2 = ['move-node-to-workspace 2', 'workspace 2', 'mode main']
     3 = ['move-node-to-workspace 3', 'workspace 3', 'mode main']

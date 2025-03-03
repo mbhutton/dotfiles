@@ -269,6 +269,10 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.mimestream.Mimestream'
     run = 'move-node-to-workspace 2'
 
+[[on-window-detected]]
+    if.app-id = 'com.tinyspeck.slackmacgap'
+    run = 'move-node-to-workspace 2'
+
 ################### 3 IDE
 
 [[on-window-detected]]

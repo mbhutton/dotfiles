@@ -309,6 +309,7 @@ automatically-unhide-macos-hidden-apps = false
     run = 'move-node-to-workspace 7'
 
 ################### N Scratch / Dormant note taking
+# TODO:probably move to planning or to Emacs
 
 [[on-window-detected]]
     if.app-id = 'com.apple.Stickies'

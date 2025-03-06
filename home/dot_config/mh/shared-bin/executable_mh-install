@@ -2,6 +2,10 @@
 # shellcheck disable=SC1091  # Don't follow sources
 
 # Installs core software, taking into account desired state
+#
+# Syntax: <script> [component ...]
+#   If components are passed, installs those components in the given order.
+#   If no components are passed, installs all components listed in configured desired state.
 
 function fail {
   echo "$*" >&2
@@ -35,6 +39,10 @@ COMPONENTS_PATH="${HOME}/.config/mh/desired-state/components"
 COMPONENTS_ARRAY=()
 if [[ -f "$COMPONENTS_PATH" ]]; then
   while IFS='' read -r line; do COMPONENTS_ARRAY+=("$line"); done < <(mh-parse-desired < "$COMPONENTS_PATH")
+fi
+# If argument were passed, treat them as the components to install instead
+if [[ "$#" -gt 0 ]]; then
+  COMPONENTS_ARRAY=("$@")
 fi
 
 hl

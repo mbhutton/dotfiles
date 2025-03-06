@@ -85,6 +85,7 @@ tap "cirruslabs/cli"
 brew "cirruslabs/cli/tart"            # Manage macOS/Linux VMs. Note: full name required to avoid old brew core 'tart'.
 cask "docker"                         # Docker Desktop. Does not work in macOS guest VM
 cask "karabiner-elements"             # Keyboard customizer. Avoid having nested keyboard mappings between host/VM. TODO:configure for tart/UTM windows
+cask "hammerspoon"                    # macOS automation
 # MacOS host section ends
 {{ end }}
 
@@ -98,7 +99,6 @@ cask "alt-tab"                        # Window switching
 {{ if .mh.useGitX -}}
 cask "gitx"                           # Git UI with very legible commit graph
 {{ end -}}
-cask "hammerspoon"                    # macOS automation
 cask "iterm2"                         # Replacement for Terminal.app with more features
 cask "keycastr"                       # Keystroke visualiser to record UI interactions
 cask "jordanbaird-ice"                # Manage menu bar icons

@@ -22,9 +22,9 @@ brew "eget"               # Install prebuilt binaries from GitHub
 brew "fd"                 # Modern alternative to 'find'
 brew "fzf"                # Fuzzy finder
 brew "gh"                 # GitHub CLI, with Copilot
-brew "git"                # Use Homebrew git rather than macOS's, for security fixes
 brew "git-absorb"         # Git workflow tool: "git commit --fixup, but automatic"
 brew "git-delta"          # Modern diff, 'delta' command
+brew "git"                # Use Homebrew git rather than macOS's, for security fixes
 brew "hledger"            # Plain text accounting, inspired by ledger, in Haskell
 brew "hyperfine"          # Benchmarking
 brew "jq"                 # Command-line JSON processor. Used by yazi
@@ -79,13 +79,13 @@ brew "zlib"
 
 {{ if .mh.isMacHost }}
 # MacOS host section starts (packages to skip on virtual machines)
-brew "dive" if false                  # Inspect Docker image layers (Workaround required for local images: https://github.com/wagoodman/dive/issues/360)
-brew "lazydocker"                     # Docker TUI
 tap "cirruslabs/cli"
 brew "cirruslabs/cli/tart"            # Manage macOS/Linux VMs. Note: full name required to avoid old brew core 'tart'.
+brew "dive" if false                  # Inspect Docker image layers (Workaround required for local images: https://github.com/wagoodman/dive/issues/360)
+brew "lazydocker"                     # Docker TUI
 cask "docker"                         # Docker Desktop. Does not work in macOS guest VM
-cask "karabiner-elements"             # Keyboard customizer. Avoid having nested keyboard mappings between host/VM. TODO:configure for tart/UTM windows
 cask "hammerspoon"                    # macOS automation
+cask "karabiner-elements"             # Keyboard customizer. Avoid having nested keyboard mappings between host/VM. TODO:configure for tart/UTM windows
 tap "nikitabobko/tap"
 cask "nikitabobko/tap/aerospace"      # Tiling window manager
 # MacOS host section ends
@@ -102,8 +102,8 @@ cask "alt-tab"                        # Window switching
 cask "gitx"                           # Git UI with very legible commit graph
 {{ end -}}
 cask "iterm2"                         # Replacement for Terminal.app with more features
-cask "keycastr"                       # Keystroke visualiser to record UI interactions
 cask "jordanbaird-ice"                # Manage menu bar icons
+cask "keycastr"                       # Keystroke visualiser to record UI interactions
 cask "shortcat"                       # Easymotion-like macOS GUI navigation
 
 {{ if .mh.isKork }}

@@ -1,0 +1,16 @@
+#!/usr/bin/env -S uv run --refresh --script
+# /// script
+# dependencies = [
+#   "tomlkit>=0.13.2",
+# ]
+# ///
+"""
+Updates the AeroSpace TOML config file based on a template.
+"""
+
+import shutil
+from pathlib import Path
+
+print("Updating AeroSpace config")
+config_dir = Path("~/.config/aerospace").expanduser()
+shutil.copy(config_dir / "mh-aerospace-template.toml", config_dir / "aerospace.toml")

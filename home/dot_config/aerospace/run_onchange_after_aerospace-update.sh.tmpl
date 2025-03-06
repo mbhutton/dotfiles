@@ -1,12 +1,13 @@
 #!/bin/bash
 {{ if .mh.useAeroSpace }}
-# Include checksum of template file as change detection mechanism as recommended by Chezmoi.
+# Include checksums of template and converter script, as the change detection mechanism as recommended by Chezmoi.
 # aerospace.toml hash: {{ include "dot_config/aerospace/mh-aerospace-template.toml" | sha256sum }}
+# converter script hash: {{ include "dot_config/aerospace/executable_mh-update-aerospace-config" | sha256sum }}
 
-echo "AeroSpace config template or this script were updated, so updating AeroSpace config"
-bash mh-update-aerospace-config.sh
+echo "One of AeroSpace config template, converter script, or this script were updated, so updating AeroSpace config"
+./mh-update-aerospace-config
 
-if command -v aerospace >/dev/null 2>&1 && pgrep AeroSpace >/dev/null; then
+if command -v aerospace >/dev/null 2>&1 && pgrep -x AeroSpace >/dev/null; then
   echo "Reloading AeroSpace config"
   aerospace reload-config
 fi

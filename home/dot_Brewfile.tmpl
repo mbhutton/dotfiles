@@ -86,6 +86,8 @@ brew "cirruslabs/cli/tart"            # Manage macOS/Linux VMs. Note: full name 
 cask "docker"                         # Docker Desktop. Does not work in macOS guest VM
 cask "karabiner-elements"             # Keyboard customizer. Avoid having nested keyboard mappings between host/VM. TODO:configure for tart/UTM windows
 cask "hammerspoon"                    # macOS automation
+tap "nikitabobko/tap"
+cask "nikitabobko/tap/aerospace"      # Tiling window manager
 # MacOS host section ends
 {{ end }}
 
@@ -102,8 +104,6 @@ cask "gitx"                           # Git UI with very legible commit graph
 cask "iterm2"                         # Replacement for Terminal.app with more features
 cask "keycastr"                       # Keystroke visualiser to record UI interactions
 cask "jordanbaird-ice"                # Manage menu bar icons
-tap "nikitabobko/tap"
-cask "nikitabobko/tap/aerospace"      # Tiling window manager
 cask "shortcat"                       # Easymotion-like macOS GUI navigation
 
 {{ if .mh.isKork }}

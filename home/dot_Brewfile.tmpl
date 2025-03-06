@@ -86,8 +86,6 @@ brew "lazydocker"                     # Docker TUI
 cask "docker"                         # Docker Desktop. Does not work in macOS guest VM
 cask "hammerspoon"                    # macOS automation
 cask "karabiner-elements"             # Keyboard customizer. Avoid having nested keyboard mappings between host/VM. TODO:configure for tart/UTM windows
-tap "nikitabobko/tap"
-cask "nikitabobko/tap/aerospace"      # Tiling window manager
 # MacOS host section ends
 {{ end }}
 
@@ -105,6 +103,11 @@ cask "iterm2"                         # Replacement for Terminal.app with more f
 cask "jordanbaird-ice"                # Manage menu bar icons
 cask "keycastr"                       # Keystroke visualiser to record UI interactions
 cask "shortcat"                       # Easymotion-like macOS GUI navigation
+
+{{ if .mh.useAeroSpace }}
+tap "nikitabobko/tap"
+cask "nikitabobko/tap/aerospace"      # Tiling window manager
+{{ end }}
 
 {{ if .mh.isKork }}
 cask "rubymine"                       # Ruby/Rails IDE

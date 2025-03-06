@@ -1,0 +1,15 @@
+#!/bin/bash
+{{ if .mh.useAeroSpace }}
+# Include checksum of template file as change detection mechanism as recommended by Chezmoi.
+# aerospace.toml hash: {{ include "dot_config/aerospace/mh-aerospace-template.toml" | sha256sum }}
+
+echo "AeroSpace config template or this script were updated, so updating AeroSpace config"
+bash mh-update-aerospace-config.sh
+
+if command -v aerospace >/dev/null 2>&1 && pgrep AeroSpace >/dev/null; then
+  echo "Reloading AeroSpace config"
+  aerospace reload-config
+fi
+{{ else }}
+# No-op: AeroSpace is not configured to run on this machine
+{{ end }}

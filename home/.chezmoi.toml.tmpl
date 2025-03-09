@@ -9,8 +9,10 @@
 
 {{/* work around unreliable hostname on darwin */}}
 {{- $hostname := .chezmoi.hostname -}}
+{{- $cpu := "unknown" -}}
 {{- if $isMacOS -}}
 {{-   $hostname = output "scutil" "--get" "ComputerName" | trim -}}
+{{-   $cpu = output "sysctl" "-n" "machdep.cpu.brand_string" | trim -}}
 {{- end -}}
 
 {{- $vmDetectCmd := "system_profiler SPHardwareDataType | grep 'Chip:' | grep -q 'Virtual' && echo 'in_VM' || true" -}}
@@ -19,7 +21,7 @@
 
 
 {{- $isMainPersonal := eq $hostname "Kea" -}}
-{{- $isKork := eq $hostname "Weka" -}}
+{{- $isKork := eq $cpu "Apple M3 Max" -}}
 {{- $useNix := $isLinux -}}
 
 [diff]

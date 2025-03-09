@@ -162,3 +162,11 @@ cask "font-source-code-pro"
 # - It conflicts with 'choose-rust', hence leaving it unlinked.
 # - Call it using the 'mh-choose-gui' wrapper defined in this repo.
 brew "choose-gui", link: false
+
+# TODO: Move/update these
+{{ if .mh.isKork }}
+cask "launchbar"                      # Mainly for the clipboard stack. May be superseded by BTT
+brew "git-lfs"                        #
+brew "yarn"
+brew "nginx"
+{{ end }}

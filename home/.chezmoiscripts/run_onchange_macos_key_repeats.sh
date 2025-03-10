@@ -12,7 +12,9 @@ IDE_LIST=(
   "com.jetbrains.intellij"
   "com.jetbrains.pycharm.ce"
   "com.jetbrains.pycharm"
+  "com.jetbrains.rubymine"
   "com.microsoft.VSCode"
+  "com.microsoft.VSCodeInsiders"
 )
 
 for IDE in "${IDE_LIST[@]}"; do

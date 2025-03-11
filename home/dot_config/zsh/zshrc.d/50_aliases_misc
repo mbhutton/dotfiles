@@ -15,3 +15,5 @@ alias rz='exec zsh -i'  # (R)eload (Z)sh
 alias v="bat"
 alias yy=yazi
 
+# EmacsOpen
+alias eo="${HOME}/sw/emacsopen/emacsopen"

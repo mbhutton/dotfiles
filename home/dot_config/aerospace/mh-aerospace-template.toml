@@ -313,6 +313,8 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.google.Chrome'
     run = 'move-node-to-workspace 3'
 
+################### 6 For testing
+
 ################### N Scratch / Dormant note taking
 # TODO:probably move to planning or to Emacs
 
@@ -328,7 +330,7 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.apple.TextEdit'
     run = 'move-node-to-workspace 8'
 
-################### 9 Links (P), Test (W)
+################### 9 Links
 
 [[on-window-detected]]
     if.app-id = 'com.ngocluu.goodlinks'

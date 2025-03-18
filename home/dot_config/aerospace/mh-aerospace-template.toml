@@ -284,10 +284,14 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.microsoft.VSCodeInsiders'
     run = 'move-node-to-workspace 5'
 
-################### 4 Shell
+################### 4 Shell, Files
 
 [[on-window-detected]]
     if.app-id = 'com.googlecode.iterm2'
+    run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.Terminal'
     run = 'move-node-to-workspace 4'
 
 ################### 5 Misc System

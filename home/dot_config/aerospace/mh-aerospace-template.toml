@@ -274,15 +274,15 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.tinyspeck.slackmacgap'
     run = 'move-node-to-workspace 2'
 
-################### 3 IDE
+################### 5 IDE
 
 [[on-window-detected]]
     if.app-id = 'com.microsoft.VSCode'
-    run = 'move-node-to-workspace 3'
+    run = 'move-node-to-workspace 5'
 
 [[on-window-detected]]
     if.app-id = 'com.microsoft.VSCodeInsiders'
-    run = 'move-node-to-workspace 3'
+    run = 'move-node-to-workspace 5'
 
 ################### 4 Shell
 
@@ -303,15 +303,15 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'org.gnu.Emacs'
     run = 'move-node-to-workspace 6'
 
-################### 7 Browsing
+################### 3 Browsing
 
 [[on-window-detected]]
     if.app-id = 'com.apple.Safari'
-    run = 'move-node-to-workspace 7'
+    run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
     if.app-id = 'com.google.Chrome'
-    run = 'move-node-to-workspace 7'
+    run = 'move-node-to-workspace 3'
 
 ################### N Scratch / Dormant note taking
 # TODO:probably move to planning or to Emacs

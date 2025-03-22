@@ -107,6 +107,7 @@ automatically-unhide-macos-hidden-apps = false
     # Focused window in workspace
     alt-semicolon = 'layout floating tiling'
     alt-period = 'fullscreen'
+    alt-quote = 'focus-back-and-forth'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
     alt-h = 'focus left'
@@ -210,6 +211,7 @@ automatically-unhide-macos-hidden-apps = false
     comma = 'layout accordion horizontal vertical'
     semicolon = 'layout floating tiling' # Toggle between floating and tiling layout
     period = 'fullscreen'
+    quote = 'focus-back-and-forth'
 
     h = 'focus left'
     j = 'focus down'

@@ -358,6 +358,10 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.reederapp.5.macOS'
     run = 'move-node-to-workspace 9'
 
+[[on-window-detected]]
+    if.app-id = 'com.ranchero.NetNewsWire-Evergreen'
+    run = 'move-node-to-workspace 9'
+
 ################### 0 Media
 
 [[on-window-detected]]

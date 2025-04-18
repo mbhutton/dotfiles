@@ -339,15 +339,15 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'com.apple.Stickies'
-    run = 'move-node-to-workspace 8'
+    run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.Notes'
-    run = 'move-node-to-workspace 8'
+    run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.TextEdit'
-    run = 'move-node-to-workspace 8'
+    run = 'move-node-to-workspace 1'
 
 ################### 9 Links
 

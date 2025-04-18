@@ -112,10 +112,6 @@ tap "nikitabobko/tap"
 cask "nikitabobko/tap/aerospace"      # Tiling window manager
 {{ end }}
 
-{{ if .mh.isKork }}
-cask "rubymine"                       # Ruby/Rails IDE
-{{ end }}
-
 {{ if .mh.useEmacs }}
 # Emacs section starts
 tap "homebrew/services"                 # To manage the emacs-plus service

@@ -314,6 +314,7 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'com.apple.finder'
+    if.window-title-regex-substring = '^(?!Quick Look).*$' # Prevent "Quick Look" windows being moved.
     run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]

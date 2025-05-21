@@ -14,6 +14,10 @@ git:
   branchLogCmd: 'git log --color=always --decorate --oneline --graph {{ "{{branchName}}" }}'
   allBranchesLogCmd: 'git log --color=always --decorate --oneline --graph --all'
 
+  # Disable auto fetching and forwarding to play better with jj
+  autoFetch: false
+  autoForwardBranches: none
+
 {{ if .mh.useVSCodeInLazyGit -}}
 os:
   editPreset: 'vscode'

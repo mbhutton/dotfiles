@@ -1,0 +1,19 @@
+#!/bin/bash
+# Script to support a custom command in jjui
+# Syntax: <script> <change_id> <operation_id> <file>
+
+[[ $# -eq 3 ]] || exit 1
+
+CHANGE_ID=$1
+OP_ID=$2
+FILE=$3
+
+if [[ "$FILE" != '$file' ]]; then
+    echo "$FILE" | pbcopy
+elif [[ "$OP_ID" != '$operation_id' ]]; then
+    echo "$OP_ID" | pbcopy
+elif [[ "$CHANGE_ID" != '$change_id' ]]; then
+    echo "$CHANGE_ID" | pbcopy
+else
+    exit 1
+fi

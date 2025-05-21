@@ -295,6 +295,10 @@ automatically-unhide-macos-hidden-apps = false
     run = 'move-node-to-workspace 5'
 
 [[on-window-detected]]
+    if.app-id = 'com.jetbrains.rubymine'
+    run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
     if.app-id = 'com.apple.dt.Xcode'
     run = 'move-node-to-workspace 5'
 

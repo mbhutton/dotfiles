@@ -341,7 +341,6 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'com.google.Chrome'
-    if.window-title-regex-substring = '.+' # Prevent "Search Tabs" dialog being moved. It has no title.
     run = 'move-node-to-workspace 3'
 
 ################### 6 For testing

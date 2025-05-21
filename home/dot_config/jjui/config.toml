@@ -1,3 +1,4 @@
 [custom_commands]
 "show change diff" = { key = ["U"], args = ["diff", "-r", "$change_id", "--color", "always"], show = "diff" }
 "copy git commit ID" = { key = ["Y"], args = ["util", "exec", "--", "bash", "-c", "jj log --no-graph -r $change_id --template commit_id | pbcopy" ] }
+"lazygit, then re-import" = { key = ["G"], args = ["util", "exec", "--", "bash", "-c", "lazygit ; jj git import" ], show = "interactive" }

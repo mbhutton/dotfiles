@@ -55,11 +55,7 @@ pgrep -x pueued >/dev/null && [[ -n "$(pueue status --json | jq '.tasks[]')" ]] 
 
 hl
 show_process_count "lazygit" "Lazygit"
-
-# hl
 show_process_count "lazydocker" "Lazydocker"
-
-# hl
 show_process_count "Emacs" "Emacs"
 
 hl

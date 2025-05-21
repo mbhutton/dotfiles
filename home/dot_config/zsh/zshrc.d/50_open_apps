@@ -1,0 +1,9 @@
+# shellcheck shell=bash
+
+# TODO: Make this machine specific, and include things like WorkFlowy, Asana, Messenger etc for personal vs work context
+
+open-todos() { apps=("Notes" "Stickies" "TextEdit" "Things3" "Calendar" "Google Chrome"); for app in "${apps[@]}"; do sleep 0.2 ; open -a "$app"; done; sleep 0.2; ~/sw/emacsopen/emacsopen >/dev/null }
+open-dev() { apps=("Visual Studio Code - Insiders" "RubyMine" "iTerm"); for app in "${apps[@]}"; do sleep 0.2 ; open -a "$app"; done; }
+open-comms() { apps=("Google Chrome" "Mimestream" "Slack"); for app in "${apps[@]}"; do sleep 0.2 ; open -a "$app"; done; }
+open-apps() { open-todos; open-dev; open-comms; }
+alias koa=open-apps

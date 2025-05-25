@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# TODO:Speed (possibly in rust version)
+# - Cache previous known jj and git dirs, to exclude their search paths
+# - Allow to put .notgit files in dirs to exclude them. Alt: a config file and local only config file
+# - Do all the remote ref checking in parallel for each tracked branch
+# - Start working as results come in, including the cached ones, do file search and network tests in parallel
+
+find ~ \
+  -path ~/Library                        -prune -o \
+  -path ~/Music                          -prune -o \
+  -path ~/Pictures                       -prune -o \
+  -path ~/.cargo                         -prune -o \
+  -path ~/.vscode                        -prune -o \
+  -path ~/.docker                        -prune -o \
+  -path ~/.dropbox                       -prune -o \
+  -path ~/.vscode-insiders               -prune -o \
+  -path ~/.vscode-server                 -prune -o \
+  -path ~/.rustup                        -prune -o \
+  -path ~/.ollama                        -prune -o \
+  -path ~/.local/share/nvim              -prune -o \
+  -path ~/.local/share/uv                -prune -o \
+  -path ~/.local/share/mise              -prune -o \
+  -path ~/.local/mh-sw                   -prune -o \
+  -path ~/.config/emacs                  -prune -o \
+  -path ~/.config/emacs/.local           -prune -o \
+  -path ~/.config/emacs/modules          -prune -o \
+  -path ~/.config/zsh/.zprezto/modules   -prune -o \
+  -name '.cache'                         -prune -o \
+  -name 'NEEDS ARCHIVING'                -prune -o \
+  -name '.build'                         -prune -o \
+  -name 'node_modules'                   -prune -o \
+  -name '.npm'                           -prune -o \
+  -name '*.bu'                           -prune -o \
+  -name 'QUARANTINE'                     -prune -o \
+  -name 'Ableton Sets'                   -prune -o \
+  -name 'cache'                          -prune -o \
+  -name 'Steinberg'                      -prune -o \
+  -name 'IK Multimedia'                  -prune -o \
+  -name 'Native Instruments'             -prune -o \
+  -name 'debug'                          -prune -o \
+  -name '.*_cache'                       -prune -o \
+  -name '.venv'                          -prune -o \
+  -name 'DerivedData'                    -prune -o \
+  -name '.DerivedData'                   -prune -o \
+  -name '.jj'                            -prune -exec echo {} \; -o \
+  -name '.git'                           -prune -exec echo {} \; \
+  | sed -e 's/\/\.jj//' -e 's/\/\.git//g' \
+  | sort -u

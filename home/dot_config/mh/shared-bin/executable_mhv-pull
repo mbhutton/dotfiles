@@ -5,7 +5,7 @@ fail () {
   exit 1
 }
 
-[[ -d ".jj" && -d ".git" ]] || fail "No in a git-based jj repo"
+[[ -d ".jj" && -d ".git" ]] || fail "Not in a git-based jj repo"
 
 if [[ -n "$(jj git remote list)" ]]; then
   jj git fetch --all-remotes || fail "jj git fetch failed"

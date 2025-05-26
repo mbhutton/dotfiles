@@ -8,6 +8,7 @@
 
 find ~ \
   -path ~/Library                        -prune -o \
+  -path ~/.Trash                         -prune -o \
   -path ~/Music                          -prune -o \
   -path ~/Pictures                       -prune -o \
   -path ~/.cargo                         -prune -o \

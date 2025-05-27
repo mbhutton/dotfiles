@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Updates the 'ok' tag to the commit associated with the given JJ change ID.
+
+fail() {
+    echo "Error: $1" >&2
+    exit 1
+}
+
+CHANGE_ID="$1"
+[[ "$CHANGE_ID" != '$change_id' ]] || fail "No change ID provided."
+
+# TODO: Check that this construct works: jj failing here must trigger the branch
+# TODO: Check behaviour when change not found
+if ! COMMIT_ID=$(jj log --no-graph -r "$CHANGE_ID" --template commit_id); then
+    fail "Failed to get commit ID for change ID '$CHANGE_ID'."
+fi
+
+git tag --force ok "$COMMIT_ID" \
+|| fail "Failed to update 'ok' tag to commit '$COMMIT_ID', change ID '$CHANGE_ID'."
+
+echo "Updated 'ok' tag to commit '$COMMIT_ID', change ID '$CHANGE_ID'." \

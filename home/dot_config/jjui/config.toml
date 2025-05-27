@@ -3,3 +3,4 @@
 "copy change|op|file" = { key = ["y"], args = ["util", "exec", "mh-jj-copy-change-op-or-file", "$change_id", "$operation_id", "$file"] }
 "copy git commit ID" = { key = ["Y"], args = ["util", "exec", "--", "bash", "-c", "jj log --no-graph -r $change_id --template commit_id | pbcopy" ] }
 "lazygit, then re-import" = { key = ["G"], args = ["util", "exec", "--", "bash", "-c", "lazygit ; jj git import" ], show = "interactive" }
+"ok tag: set here" = { key = ["O"], args = ["util", "exec", "--", "bash", "-c", "mhv-ok-set-to-change $change_id" ] }

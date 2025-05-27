@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# TODO: pull into mhv-each-run command
+# TODO: clarify shell handling
+
+OUTPUT="$( "${@}" 2>&1 )"
+
+if [[ $? -ne 0 ]]; then
+  echo "Command failed: ${*}"
+  exit 1
+fi
+
+if [[ -n "${OUTPUT}" && "${OUTPUT}" != "Nothing changed." ]]; then
+  echo "____________________ Directory: $(pwd)"
+  echo "Command output:"
+  echo "${OUTPUT}"
+fi

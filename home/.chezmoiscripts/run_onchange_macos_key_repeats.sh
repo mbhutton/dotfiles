@@ -8,11 +8,12 @@
 
 IDE_LIST=(
   "com.jetbrains.cwm.guest"
+  "com.jetbrains.CLion"
   "com.jetbrains.intellij.ce"
-  "com.jetbrains.intellij"
-  "com.jetbrains.pycharm.ce"
   "com.jetbrains.pycharm"
   "com.jetbrains.rubymine"
+  "com.jetbrains.rustrover"
+  "com.jetbrains.WebStorm"
   "com.microsoft.VSCode"
   "com.microsoft.VSCodeInsiders"
 )

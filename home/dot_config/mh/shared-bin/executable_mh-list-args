@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Bash development helper to list given arguments in order
+
+i=0
+echo "Listing $# arguments:"
+for arg in "$@"; do
+  echo "$i: >>>$arg<<<"
+  ((i++))
+done
+echo "Done"
+

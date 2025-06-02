@@ -17,8 +17,3 @@ alias yy=yazi
 
 # EmacsOpen
 alias eo="${HOME}/sw/emacsopen/emacsopen"
-
-# MHV
-alias mrss='mhv-each-run mh-run-quiet-or-context git status --short' # Repo show status
-alias mrsu='mhv-each-run mh-run-quiet-or-context git-show-unpushed' # Repo show unpushed
-alias mrf='mhv-each-run mh-run-quiet-or-context mhv-pull' # Repo fetch

@@ -1,0 +1,266 @@
+#!/usr/bin/env python3
+
+import asyncio
+import os
+import subprocess
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+
+MAX_PARALLEL_JOBS = 16
+DEBUG = False
+
+# Interactive (not for parsing) script to run the given shell command
+# in parallel across all found git or JJ repositories in the home directory
+# found by fd.
+#
+# Intended for interactive use, not for parsing.
+#
+# Top level commands:
+# - `p <shell-command>`: Run the command in parallel across all repositories.
+# - `s <shell-command>`: Run the command sequentially across all repositories.
+#
+# The shell command can be expressed as a single string, and multiple arguments
+# will just be concatenated with spaces to pass as a single shell command.
+#
+# Parallel mode will refuse to run if the command contains keywords that suggest
+# a call to a TUI.
+#
+# Sequential mode is more verbose and allows for interactive commands.
+# In the sequential mode, stdin, stdout, and stderr are all connected.
+#
+# In parallel mode, the command is run in the background, and stdout/stderr
+# are printed only if the command fails or produces error output, or produces
+# output other than known jj/git phrases indicating "Nothing changed.".
+
+# Finds all directories in the home directory that are Git or JJ repositories.
+# Symlinks are not followed.
+# Hint: Tune ~/.fdignore for speed
+
+# External dependencies: fd, jj, git, bash, and (in this repo): mhv-pull
+
+# TODO:QA pass including docs, and ruff checks
+# TODO:clean up now dead code via czun on weka
+# TODO:zsh completion
+# TODO:add a 'here' alternative to parallel/sequential, to run at current repo top?
+# TODO:add a quiet option to suppress decorations (and maybe suppress filters too)
+# TODO:maybe try to handle spaces, or shell quoting etc, when needing to pass in args with spaces? bash vs cmd?
+# TODO:consider more explicit etc mr (seq|par) (list|pull|st-l|st-s|shun((bash|cmd) <shell-command> [args...]))
+# TODO:support either a pager, or otherwise read one repo at a time: alt: use Bat
+# TODO:with subcommands calling to other commands (like mhv-pull), add smart ways to check for various levels of dirty
+# TODO:prevent nesting of repos (eg submodules)
+
+
+HOME_DIR = Path.home()
+EXCLUDED_REPOS = [f"{HOME_DIR}/.config/emacs"]
+
+
+@dataclass(frozen=True)
+class CommandResult:
+    """Class to hold the result of a command execution."""
+
+    repo_path: str
+    stdout: str
+    stderr: str
+    returncode: int
+
+
+def fail(msg):
+    """Prints an error message to stderr and exits with code 1."""
+    print(msg, file=sys.stderr)
+    sys.exit(1)
+
+
+def debug(msg):
+    """Prints a debug message to stderr if DEBUG is enabled."""
+    if DEBUG:
+        print(f"DEBUG: {msg}", file=sys.stderr)
+
+
+forbidden_parallel_keywords = (
+    "jjui",
+    "lazygit",
+    "tig",
+)
+
+# Common outputs from git/jj commands that indicate nothing to see here.
+noop_outputs = ("Nothing changed.",)
+
+
+def get_repos_or_fail() -> list[str]:
+    """Returns list of jj/git repository paths."""
+    try:
+        repos_output = subprocess.check_output(
+            [
+                "fd",
+                "--hidden",
+                "--type",
+                "directory",
+                "--prune",
+                r"^\.(git|jj)$",
+                HOME_DIR,
+            ],
+            text=True,
+        )
+    except subprocess.CalledProcessError:
+        fail("Failed to find repositories.")
+    repo_paths = [
+        r.removesuffix(os.sep)
+        .removesuffix(".git")
+        .removesuffix(".jj")
+        .removesuffix(os.sep)
+        for r in repos_output.splitlines()
+        if r
+    ]
+    # Filter, remove duplicates (via set creation), and sort
+    repo_paths = sorted({repo for repo in repo_paths if repo not in EXCLUDED_REPOS})
+    if not repo_paths:
+        fail("No repositories found to run command in.")
+
+    return repo_paths
+
+
+def run_sequential(repo_paths: list[str], shell_command: str):
+    """Runs a shell command in each repository sequentially."""
+    for repo_path in repo_paths:
+        debug(f"Running command in repository: {repo_path}, command: {shell_command}")
+        print(f">> ____________________ Directory: {repo_path}")
+        subprocess.run(
+            shell_command,
+            cwd=repo_path,
+            shell=True,
+            text=True,
+            check=False,
+            executable="/bin/bash",
+        )
+        debug(f"Done running command in repository: {repo_path}")
+
+
+def run_parallel(repo_paths: list[str], shell_command: str):
+    used_forbidden_keywords = [
+        keyword for keyword in forbidden_parallel_keywords if keyword in shell_command
+    ]
+    if used_forbidden_keywords:
+        fail(
+            "Command contains forbidden keywords for parallel execution:\n"
+            ">> " + f"{', '.join(used_forbidden_keywords)}" + "\n"
+            "Please run in sequential mode instead."
+        )
+        return
+
+    async def run_repo(repo_path):
+        async with run_repo.sem:
+            debug(
+                f"Running command in repository: {repo_path}, command: {shell_command}"
+            )
+            process = await asyncio.create_subprocess_shell(
+                shell_command,
+                cwd=repo_path,
+                stdin=None,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
+                executable="/bin/bash",
+            )
+            stdout, stderr = await process.communicate()
+
+            debug(f"Done running command in repository: {repo_path}")
+            return CommandResult(
+                repo_path=repo_path,
+                stdout=stdout.decode(),
+                stderr=stderr.decode(),
+                returncode=process.returncode,
+            )
+
+    run_repo.sem = asyncio.Semaphore(MAX_PARALLEL_JOBS)
+
+    async def parallel_main():
+        return await asyncio.gather(*(run_repo(r) for r in repo_paths))
+
+    process_results = asyncio.run(parallel_main())
+    for result in process_results:
+        if (
+            result.returncode != 0
+            or (result.stderr and result.stderr != "Nothing changed.\n")  # Via mhv-pull
+            or result.stdout
+        ):
+            print(f">> ____________________ Directory: {result.repo_path}")
+            if result.stdout:
+                print(result.stdout)
+            if result.stderr:
+                print(f">> Stderr output>>>99{result.stderr}99<<")
+                print(">> Stderr output:")
+                print("\n>> ".join(result.stderr.splitlines()))
+            if result.returncode != 0:
+                print(f">> Command failed with exit code {result.returncode}")
+
+
+FLAG_PARALLEL = "par"
+FLAG_SEQUENTIAL = "seq"
+FLAG_LIST = "list"
+FLAG_PULL = "pull"
+FLAG_STATUS = "st-s"
+FLAG_SHOW_UNPUSHED = "shun"
+USAGE = f"Usage: mr ({FLAG_LIST}|{FLAG_PULL}|{FLAG_STATUS}|{FLAG_SHOW_UNPUSHED}|({FLAG_PARALLEL}|{FLAG_SEQUENTIAL}) <shell-command> [args...])\n"
+
+
+def main():
+    """Main function to parse arguments and run the command in repositories."""
+    if len(sys.argv) < 2:
+        fail(f"Error: No subcommand provided.\n{USAGE}")
+    subcommand = sys.argv[1]
+    if subcommand not in (
+        FLAG_PARALLEL,
+        FLAG_SEQUENTIAL,
+        FLAG_LIST,
+        FLAG_PULL,
+        FLAG_STATUS,
+        FLAG_SHOW_UNPUSHED,
+    ):
+        fail(f"Unknown subcommand: {subcommand}\n{USAGE}")
+
+    is_shell_command = subcommand in (FLAG_PARALLEL, FLAG_SEQUENTIAL)
+    is_fixed_command = subcommand in (
+        FLAG_LIST,
+        FLAG_PULL,
+        FLAG_STATUS,
+        FLAG_SHOW_UNPUSHED,
+    )
+    if (
+        is_fixed_command
+        and len(sys.argv) != 2
+        or is_shell_command
+        and len(sys.argv) < 3
+    ):
+        fail(f"Error: Invalid number of arguments ({len(sys.argv)}).\n{USAGE}")
+
+    repo_paths = get_repos_or_fail()
+    debug(f"Found {len(repo_paths)} repositories to run command in.")
+
+    if subcommand == FLAG_LIST:
+        for repo in repo_paths:
+            print(repo)
+        return
+
+    if is_shell_command:
+        shell_command = " ".join(sys.argv[2:])
+        is_parallel = subcommand == FLAG_PARALLEL
+    elif subcommand == FLAG_PULL:
+        shell_command = "mhv-pull"
+        is_parallel = True
+    elif subcommand == FLAG_STATUS:
+        shell_command = "git status --short"
+        is_parallel = True
+    elif subcommand == FLAG_SHOW_UNPUSHED:
+        shell_command = "git show-unpushed"
+        is_parallel = True
+    else:
+        raise RuntimeError(f"Programmer error: Unknown subcommand: {subcommand}")
+
+    if is_parallel:
+        run_parallel(repo_paths, shell_command)
+    else:
+        run_sequential(repo_paths, shell_command)
+
+
+if __name__ == "__main__":
+    main()

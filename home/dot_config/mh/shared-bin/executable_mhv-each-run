@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# Run the given shell command, as a single string argument, replacing
-# "{1}" with the name of the git or JJ repo.
-
-mhv-find-repos \
-| rust-parallel --regex '(.*)' --shell "(cd {1}; ${*})"

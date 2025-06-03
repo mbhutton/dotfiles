@@ -2,48 +2,36 @@ gui:
   theme:
     selectedLineBgColor:
       - reverse
-
 git:
   log:
     showGraph: always
-
   paging:
     colorArg: always
     pager: delta --light --paging=never
-
   branchLogCmd: 'git log --color=always --decorate --oneline --graph {{ "{{branchName}}" }}'
-  allBranchesLogCmd: 'git log --color=always --decorate --oneline --graph --all'
-
   # Disable auto fetching and forwarding to play better with jj
   autoFetch: false
   autoForwardBranches: none
-
+  allBranchesLogCmds:
+    - git log --color=always --decorate --oneline --graph --all
 {{ if .mh.useVSCodeInLazyGit -}}
 os:
   editPreset: 'vscode'
-
 {{ end -}}
-
 promptToReturnFromSubprocess: false
-
 customCommands:
   # Ctrl-g (think "go") to run 'just' within repo
   - key: '<c-g>'
     context: 'global'
     command: "just"
-    subprocess: true
     description: "Run 'just' (default target)"
-    stream: true
-
+    output: terminal
   # Ctrl-slash (think "diagonal space") to show selected commit
   - key: '<c-/>'
     context: 'commits'
-    command: "mh-horizontal-line -n 2; \n
-      git show {{ "{{.SelectedLocalCommit.Sha}}" }} ; \n
-      read -sr -n 1 -p 'Press any key...'"
-    subprocess: true
+    command: "mh-horizontal-line -n 2; \n git show {{ "{{.SelectedLocalCommit.Sha}}" }} ; \n read -sr -n 1 -p 'Press any key...'"
     description: "Show selected commit"
-
+    output: terminal
   # Bindings for tig in increasingly narrow scope
   #   Ctrl-4: all branches
   #   Ctrl-5: HEAD branch
@@ -51,19 +39,18 @@ customCommands:
   - key: '<c-4>'
     context: 'global'
     command: "tig -C . --all"
-    subprocess: true
     description: "Open tig --all"
+    output: terminal
   - key: '<c-5>'
     context: 'global'
     command: "tig -C ."
-    subprocess: true
     description: "Open tig HEAD"
+    output: terminal
   - key: '<c-6>'
     context: 'commits'
     command: "tig -C . {{ "{{.SelectedLocalCommit.Sha}}" }}"
-    subprocess: true
     description: "Open tig <selected>"
-
+    output: terminal
   # Ctrl-8 to open repo in GitX (macOS) or tig
   - key: '<c-8>'
     context: 'global'
@@ -72,5 +59,5 @@ customCommands:
 {{- else }}
     command: 'tig -C .'
 {{- end }}
-    subprocess: true
     description: "Open repo in GitX (macOS) or tig"
+    output: terminal

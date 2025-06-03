@@ -1,0 +1,45 @@
+# Note: ~/.fdignore rather than ~/.config/fd/ignore, to use paths relative to $HOME
+
+# Names
+*.bu
+build
+.build
+cache
+.cache
+.*_cache
+debug
+DerivedData
+.DerivedData
+node_modules
+site-packages
+.npm
+.venv
+
+# Paths relative to $HOME
+/.cargo
+/.config/emacs/.local
+/.config/emacs/modules
+/.config/zsh/.zprezto/modules
+/.docker
+/.dropbox
+/.local/mh-sw/mermaid-cli
+/.local/share/mise
+/.local/share/nvim
+/.local/share/uv
+/.ollama
+/.rustup
+/.Trash
+/.vscode
+/.vscode-insiders
+/.vscode-server
+/Library
+
+# Multimedia paths and names
+/Music
+/Pictures
+/Documents/IK Multimedia
+/Documents/Native Instruments
+woodland piano Samples
+Keyscape Installation
+SampleTank 4 MAX Sounds
+

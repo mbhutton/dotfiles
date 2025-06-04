@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+
+# Get args from command line
+from sys import argv
+from os import path
+
+given_repo = argv[1].rstrip("/.jj")
+# TODO: Normalise foo/.jj to foo
+given_repo = given_repo
+print("hi")
+
+# TODO: update from git; ensure all git tracked local branches also have bookmarks
+# LATER: extend it for finding locations (based on a given set list), and finding missing ones
+# LATER: work on multiple at once, possibly using text UI
+#

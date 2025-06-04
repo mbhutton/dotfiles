@@ -39,7 +39,9 @@ function doctor_brew {
     echo "Homebrew reports outdated casks: $(brew outdated --cask --greedy --verbose)"
   fi
 
+  echo "Running Homebrew doctor..." ; echo
   diagnosis="$(brew doctor 2>&1)"
+  echo "Homebrew doctor ran"
 
   read -r -d '' clean_bill_of_health <<'EOF'
 Your system is ready to brew.
@@ -55,9 +57,11 @@ Leaving kegs unlinked can lead to build-trouble and cause formulae that depend o
 those kegs to fail to run properly once built. Run `brew link` on these:
   choose-gui
 EOF
-
+  local python_helper="$HOME"/.config/mh/shared-bin/mh-install.d/filter-brew-doctor.py
   if [[ "$diagnosis" == "$existing_preconditions" || "$diagnosis" == "$clean_bill_of_health" ]]; then
     echo "Homebrew doctor reports no issues"
+  elif command -v python3 >/dev/null && [[ -f "$python_helper" ]]; then
+    echo "$diagnosis" | python3 "$python_helper" || fail "Failed to filter brew doctor output"
   else
     echo "Homebrew doctor reports issues:"
     echo "diagnosis: $diagnosis"

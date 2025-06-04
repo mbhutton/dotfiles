@@ -118,7 +118,7 @@ cask "nikitabobko/tap/aerospace"      # Tiling window manager
 
 {{ if .mh.useEmacs }}
 # Emacs section starts
-tap "homebrew/services"                 # To manage the emacs-plus service
+# tap "homebrew/services"                 # To manage the emacs-plus service
 tap "d12frosted/emacs-plus"
 brew "d12frosted/emacs-plus/emacs-plus@30", args: ["with-elrumo1-icon"]
 
@@ -172,4 +172,5 @@ cask "launchbar"                      # Mainly for the clipboard stack. May be s
 brew "git-lfs"                        #
 brew "yarn"
 brew "nginx"
+brew "postgresql"                     # For (indirectly) Rubocop
 {{ end }}

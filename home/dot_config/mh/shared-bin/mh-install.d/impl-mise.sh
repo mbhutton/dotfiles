@@ -29,7 +29,7 @@ function doctor_mise {
   fi
 
   diagnosis="$(mise doctor --quiet)"
-  if [[ "$diagnosis" == *"No warnings found"* && "$diagnosis" == *"No problems found"* ]]; then
+  if [[ ! "$diagnosis" == *"found:"* && "$diagnosis" == *"No problems found"* ]]; then
     echo "Mise doctor reports no issues"
   else
     echo "Mise doctor reports issues:"

@@ -187,7 +187,6 @@ def run_parallel(repo_paths: list[str], shell_command: str):
             if result.stdout:
                 print(result.stdout)
             if result.stderr:
-                print(f">> Stderr output>>>99{result.stderr}99<<")
                 print(">> Stderr output:")
                 print("\n>> ".join(result.stderr.splitlines()))
             if result.returncode != 0:

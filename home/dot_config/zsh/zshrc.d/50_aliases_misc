@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 alias byebye='sudo shutdown -h now'
 alias f=fd
 

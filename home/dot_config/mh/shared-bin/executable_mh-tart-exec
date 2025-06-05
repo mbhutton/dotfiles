@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# tart-exec: SSH into a running Tart VM with default credentials
+# mh-tart-exec: SSH into a running Tart VM with default credentials
 #
-# Usage: tart-exec <VM name> [command [args...]]
+# Usage: mh-tart-exec <VM name> [command [args...]]
 
 DEFAULT_USER=admin
 DEFAULT_PASSWORD=admin

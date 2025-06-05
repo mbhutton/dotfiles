@@ -62,7 +62,7 @@ for arch in "${DESIRED_PLAY_ARCHS[@]}"; do
 done
 
 draw_line
-if docker-container-exists dot; then
+if mh-docker-container-exists dot; then
   echo "Updating 'dot' container..."
   docker start dot \
   && docker exec -it dot \

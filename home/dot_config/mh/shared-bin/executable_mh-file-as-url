@@ -8,7 +8,7 @@ import pathlib
 import sys
 
 if len(sys.argv) != 2:
-    print("Usage: <file-as-url> <path>", file=sys.stderr)
+    print("Usage: <mh-file-as-url> <path>", file=sys.stderr)
     sys.exit(1)
 
 given_string = sys.argv[1]

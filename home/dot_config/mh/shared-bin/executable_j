@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# j: Command dispatcher for subcommands prefixed with 'j-'.
+# 'j foo' calls 'j-foo'.
+
+function fail {
+  echo "$*" >&2
+  local available_commands
+  available_commands="$(compgen -c j- | sort -u | sed 's/^j-//' | tr '\n' ' ')"
+  echo "Usage: j <command> [args]
+  Available subcommands: ${available_commands}
+" >&2
+  exit 1
+}
+
+subcommand="$1"
+if [[ -z "$subcommand" ]]; then
+  fail "No subcommand provided."
+fi
+real_command="j-${subcommand}"
+command -v "${real_command}" >/dev/null || fail "Unknown subcommand: ${subcommand}"
+
+shift
+exec "$real_command" "$@"
+

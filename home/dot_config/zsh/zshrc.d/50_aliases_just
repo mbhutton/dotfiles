@@ -1,2 +1,2 @@
-alias j=just
+alias jt=just
 alias .j='just --justfile ~/.user.justfile'  # Global targets

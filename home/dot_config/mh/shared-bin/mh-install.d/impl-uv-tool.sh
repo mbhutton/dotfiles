@@ -41,5 +41,5 @@ function install_or_update_uv-tool {
 
 function doctor_uv-tool {
   echo "uv-tool_doctor"
-  # TODO: also show unxpected and missing tools
+  # TODO: also show unexpected and missing tools
 }

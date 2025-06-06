@@ -8,6 +8,7 @@ fail() {
 }
 
 CHANGE_ID="$1"
+# shellcheck disable=SC2016 # '$change_id' is a literal value passed by jjui
 [[ "$CHANGE_ID" != '$change_id' ]] || fail "No change ID provided."
 
 # TODO: Check that this construct works: jj failing here must trigger the branch

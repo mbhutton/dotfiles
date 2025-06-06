@@ -8,5 +8,7 @@ fail () {
 [[ -d ".jj" && -d ".git" ]] || fail "Not in a git-based jj repo"
 
 if [[ -n "$(jj git remote list)" ]]; then
-  jj git fetch --all-remotes || fail "jj git fetch failed"
+  # Note: need to combine stderr and stdout to filter out "Nothing changed." stderr message
+  jj git "$@" fetch --all-remotes 2>&1 | awk '!/Nothing changed./'
+  [[ "${PIPESTATUS[0]}" -eq 0 ]] || fail "jj git fetch failed"
 fi

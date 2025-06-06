@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# TODO: Validate all files in this repo
+#   Run shellcheck or ruff against all chezmoi scripts
+# Somehow handle templates: maybe just for those, check the realized file
+# TODO: tie into chezmoi apply?? or at least into mh-install
+# RULE: python shebang must always point to python3, not python (uv is also ok). `rg 'env python\b'` should empty.
+
+  # TODO:Also include all the known included files for bash checking, eg zsh.d, and mh-install files
+# STOPGAP:
+# TODO: failed stages should mark for failure (exit non-zero) but continue to completion
+
+function fail {
+  echo "$*" >&2
+  exit 1
+}
+
+# TODO: pyrefly
+( (rg -l 'env python' ; fd '\.py') | grep -v run_lints | sort -u | xargs -n 1 uvx pyrefly --color=always check ) || fail "Python pyrefly linting failed"
+
+
+
+# TODO: ty :
+( (rg -l 'env python' ; fd '\.py') | grep -v run_lints | sort -u | CLICOLOR_FORCE=1 xargs -n 1 uvx ty check ) || fail "Python ty linting failed"
+
+
+cspell lint --quiet --color \
+--exclude home/dot_config/nushell/config.nu \
+--exclude home/dot_config/starship.toml \
+--exclude home/dot_config/home-manager/home.nix.tmpl \
+--exclude home/dot_config/broot \
+--exclude 'home/dot_config/zsh/zshrc.d/50_aliases*' \
+.
+
+cd "$HOME/.local/share/chezmoi" || fail "Failed to change directory to chezmoi source"
+( (rg -l 'env python' ; fd '\.py') | grep -v run_lints | sort -u | CLICOLOR_FORCE=1 xargs -n 1 ruff check --quiet ) || fail "Python linting failed"
+rg -l '#\!/bin/bash' | grep -v run_onchange_after_aerospace-update.sh.tmpl | xargs -n 1 shellcheck --color=always
+
+unmanaged_files="$(chezmoi unmanaged)"
+[[ -z "$unmanaged_files" ]] || fail "Unmanaged files found in chezmoi source:\n$unmanaged_files"
+

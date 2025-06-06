@@ -25,7 +25,7 @@ if [[ "$1" == "--cachebust" ]]; then
   [[ $# -eq 2 ]] || fail
   CACHEBUST="$2"
   if [[ "$CACHEBUST" == "default" ]]; then
-    echo "SKIPPING: Not rereshing here because CACHEBUST was left as default value, indicating a devcontainer build."
+    echo "SKIPPING: Not refreshing here because CACHEBUST was left as default value, indicating a devcontainer build."
     exit 0
   fi
 elif [[ "$1" == "--devcontainer" ]]; then

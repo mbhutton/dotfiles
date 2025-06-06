@@ -1,0 +1,12 @@
+#!/bin/bash
+
+function fail {
+  echo "$*" >&2
+  exit 1
+}
+
+command -v just >/dev/null 2>&1 || fail "just command not found"
+just --show lint >/dev/null 2>&1 || exit 0  # No justfile or no lint recipe
+
+just lint
+

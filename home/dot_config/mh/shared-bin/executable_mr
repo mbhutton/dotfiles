@@ -9,6 +9,7 @@ from pathlib import Path
 
 MAX_PARALLEL_JOBS = 16
 DEBUG = False
+H_LINE = "_" * 30
 
 # Interactive (not for parsing) script to run the given shell command
 # in parallel across all found git or JJ repositories in the home directory
@@ -30,8 +31,7 @@ DEBUG = False
 # In the sequential mode, stdin, stdout, and stderr are all connected.
 #
 # In parallel mode, the command is run in the background, and stdout/stderr
-# are printed only if the command fails or produces error output, or produces
-# output other than known jj/git phrases indicating "Nothing changed.".
+# are printed only if the command fails or produces output.
 
 # Finds all directories in the home directory that are Git or JJ repositories.
 # Symlinks are not followed.
@@ -39,18 +39,22 @@ DEBUG = False
 
 # External dependencies: fd, jj, git, bash, and (in this repo): j-pull
 
+# TODO:automatically bind mr foo to mr p j foo, whenever j-foo exists
 # TODO:QA pass including docs, and ruff checks
 # TODO:clean up now dead code via czun on weka
 # TODO:zsh completion
 # TODO:add a 'here' alternative to parallel/sequential, to run at current repo top?
 # TODO:add a quiet option to suppress decorations (and maybe suppress filters too)
 # TODO:maybe try to handle spaces, or shell quoting etc, when needing to pass in args with spaces? bash vs cmd?
-# TODO:consider more explicit etc mr (seq|par) (list|pull|st-l|st-s|shun((bash|cmd) <shell-command> [args...]))
+# TODO:consider more explicit etc mr (s|p) (list|pull|st-l|st-s|shun((bash|cmd) <shell-command> [args...]))
 # TODO:support either a pager, or otherwise read one repo at a time: alt: use Bat
 # TODO:with subcommands calling to other commands (like j-pull), add smart ways to check for various levels of dirty
 # TODO:prevent nesting of repos (eg submodules)
 # TODO:consider always checking for .git+.jj in each repo, failing fast if any missing
-# TODO:move filtering logic (eg the "Nothing changed." check) to the relevant scripts
+# TODO:add j-* commands for all the git ops I want to do
+# TODO:Add -x filter (as very first arg) to filter out repos, e.g. `mr -x code-n,rustlings` todo. and reverse of -j for just
+# TODO:all main commands should support `--color=always` to keep colors in output. look at injecting automatically, if main command. eg all lints
+# TODO:failure in any of the steps should result in exiting with a useful error code. consider 1 for failure in a step, or 2 for failure in this script (or bad args etc)
 
 
 HOME_DIR = Path.home()
@@ -67,10 +71,14 @@ class CommandResult:
     returncode: int
 
 
-def fail(msg):
-    """Prints an error message to stderr and exits with code 1."""
+def fail(msg) -> SystemExit:
+    """Prints an error message to stderr and exits with code 1.
+    Callers can 'raise fail(...)' rather than 'fail(...)' to work around type checking issues.
+    """
     print(msg, file=sys.stderr)
     sys.exit(1)
+    # noinspection PyUnreachableCode
+    return SystemExit(1)
 
 
 def debug(msg):
@@ -84,9 +92,6 @@ forbidden_parallel_keywords = (
     "lazygit",
     "tig",
 )
-
-# Common outputs from git/jj commands that indicate nothing to see here.
-noop_outputs = ("Nothing changed.",)
 
 
 def get_repos_or_fail() -> list[str]:
@@ -105,7 +110,7 @@ def get_repos_or_fail() -> list[str]:
             text=True,
         )
     except subprocess.CalledProcessError:
-        fail("Failed to find repositories.")
+        raise fail("Failed to find repositories.")
     repo_paths = [
         r.removesuffix(os.sep)
         .removesuffix(".git")
@@ -122,20 +127,45 @@ def get_repos_or_fail() -> list[str]:
     return repo_paths
 
 
+class colors:
+    GREEN = "\033[32m"
+    BLUE = "\033[34m"
+    ENDC = "\033[0m"
+
+
+def print_color(text: str, color: str):
+    """Prints the given text in the specified color."""
+    print(f"{color}{text}{colors.ENDC}")
+
+
 def run_sequential(repo_paths: list[str], command_with_args: list[str]):
     """Runs a shell command in each repository sequentially."""
     for repo_path in repo_paths:
         debug(
             f"Running command in repository: {repo_path}, command: {command_with_args}"
         )
-        print(f">> ____________________ Directory: {repo_path}")
-        subprocess.run(
+        print_color(f"{H_LINE}\n{repo_path}", colors.GREEN)
+        process = subprocess.run(
             command_with_args,
             cwd=repo_path,
             text=True,
             check=False,
         )
+        if is_returncode_failure(process.returncode, command_with_args[0]):
+            print(f">> Command failed with exit code {process.returncode}")
         debug(f"Done running command in repository: {repo_path}")
+
+
+COMMANDS_ALLOWING_RETURNCODE_1 = ("rg", "grep")
+
+
+def is_returncode_failure(returncode: int, command: str) -> bool:
+    """Determines if the return code indicates a failure for the given command."""
+    if returncode == 0:
+        return False
+    if command in COMMANDS_ALLOWING_RETURNCODE_1 and returncode == 1:
+        return False
+    return True
 
 
 def run_parallel(repo_paths: list[str], command_and_args: list[str]):
@@ -182,31 +212,41 @@ def run_parallel(repo_paths: list[str], command_and_args: list[str]):
 
     process_results = asyncio.run(parallel_main())
     for result in process_results:
-        if (
-            result.returncode != 0
-            or (result.stderr and result.stderr != "Nothing changed.\n")
-            or result.stdout
-        ):
-            print(f">> ____________________ Directory: {result.repo_path}")
+        is_failure = is_returncode_failure(result.returncode, command_and_args[0])
+        if is_failure or result.stderr or result.stdout:
+            print_color(f"{H_LINE}\n{result.repo_path}", colors.GREEN)
             if result.stdout:
                 print(result.stdout)
             if result.stderr:
                 print(">> Stderr output:")
                 print("\n>> ".join(result.stderr.splitlines()))
-            if result.returncode != 0:
+            if is_failure:
                 print(f">> Command failed with exit code {result.returncode}")
 
 
-FLAG_PARALLEL = "par"
-FLAG_SEQUENTIAL = "seq"
+FLAG_PARALLEL = "p"
+FLAG_SEQUENTIAL = "s"
 FLAG_LIST = "list"
 
 ALIASES = {
-    "pull": [FLAG_PARALLEL, "j-pull"],
+    "pull": [FLAG_PARALLEL, "j-pull", "--color=always"],
     "st-s": [FLAG_PARALLEL, "git", "status", "--short"],
     "st-l": [FLAG_PARALLEL, "git", "status"],
-    "shun": [FLAG_PARALLEL, "git", "j-shun"],
+    "shun": [FLAG_PARALLEL, "j-shun"],
+    "lint": [FLAG_PARALLEL, "j-lint"],
+    "rg": [FLAG_PARALLEL, "rg", "--color=always"],
+    "todo": [
+        FLAG_PARALLEL,
+        "rg",
+        "--color=always",
+        "--hidden",
+        "--ignore-case",
+        "todo|fixme|hack",
+    ],
+    "fd": [FLAG_PARALLEL, "fd"],
+    "ju": [FLAG_SEQUENTIAL, "bash", "-c", "read -n 1 -s -p 'Press any key...' ; jjui"],
 }
+
 
 ALIAS_DESCRIPTIONS = "\n    ".join(
     [f"mr {alias} * => mr " + " ".join(ALIASES[alias]) + " *" for alias in ALIASES]

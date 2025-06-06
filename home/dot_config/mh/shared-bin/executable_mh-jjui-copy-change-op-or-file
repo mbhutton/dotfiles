@@ -8,6 +8,7 @@ CHANGE_ID=$1
 OP_ID=$2
 FILE=$3
 
+# shellcheck disable=SC2016 # '$file' etc are literal values passed by jjui
 if [[ "$FILE" != '$file' ]]; then
     echo "$FILE" | pbcopy
 elif [[ "$OP_ID" != '$operation_id' ]]; then

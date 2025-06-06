@@ -9,5 +9,5 @@
 if [[ -z $(/usr/bin/env zsh -c 'echo -n') ]]; then
   eval "$(mh-chezmoi-prompt shell_init)"
 else
-  echo "mh-chezmoi-prompt not loaded, as non-interative shell prints unexpected output" >&2
+  echo "mh-chezmoi-prompt not loaded, as non-interactive shell prints unexpected output" >&2
 fi

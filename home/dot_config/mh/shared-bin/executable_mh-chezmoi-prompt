@@ -20,7 +20,7 @@
 #       if [[ -z $(/usr/bin/env zsh -c 'echo -n') ]]; then
 #         eval "$(mh-chezmoi-prompt shell_init)"
 #       else
-#         echo "mh-chezmoi-prompt not loaded, as non-interative shell prints unexpected output" >&2
+#         echo "mh-chezmoi-prompt not loaded, as non-interactive shell prints unexpected output" >&2
 #       fi
 #
 # See show_syntax function below for usage.
@@ -103,7 +103,7 @@ function starship_prompt {
   head_sha="$(cat "$source_dir/.git/refs/heads/$current_branch")"
 
   # Show a status indicator if chezmoi has been applied since zsh was loaded,
-  # and a terse error if shell not initialised properly.
+  # and a terse error if shell not initialized properly.
   local last_applied
 
   if [[ -z "$MH_CHEZMOI_LOADED_VERSION" ]]; then

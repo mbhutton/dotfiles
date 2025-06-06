@@ -12,7 +12,7 @@ alias gse="${aliases[grep]:-grep} -E"  # (s)ensitive (e)xtended
 alias lj='mh-list-vms-containers-sessions-jobs'
 
 alias npx='npx --no-install'  # Guard against accidental global installs
-alias rz='exec zsh -i'  # (R)eload (Z)sh
+alias rz='exec zsh -i'  # *Reload *Zsh
 alias v="bat"
 alias yy=yazi
 

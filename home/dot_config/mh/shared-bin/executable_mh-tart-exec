@@ -4,8 +4,8 @@
 #
 # Usage: mh-tart-exec <VM name> [command [args...]]
 
-DEFAULT_USER=admin
-DEFAULT_PASSWORD=admin
+DEFAULT_USER="admin"
+DEFAULT_PASSWORD="admin"
 
 function fail {
   echo "$*" >&2

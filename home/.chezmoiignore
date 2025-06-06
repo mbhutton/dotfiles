@@ -13,6 +13,7 @@
 .config/zsh/.zsh_sessions
 .cache
 .dropbox
+.emacs.keyfreq
 .irb_history                 # Ruby REPL history
 .lesshst                     # 'less' history
 .local/share                 # XDG_DATA_HOME
@@ -22,28 +23,49 @@
 .sqlite_history
 .Trash
 .viminfo
+.vscode                      # Managed by VS Code
+.vscode-insiders             # Managed by VS Code
+git
+org
 
 # Configuration managed by these dotfiles and/or Chezmoi
+.config/aerospace/aerospace.toml
 .config/zsh/.zprezto         # Managed as an mh-install component
 .config/chezmoi/chezmoi.toml # Populated by chezmoi init
 .config/chezmoi/chezmoistate.boltdb
 
+# Configuration managed using VCS (git and jujutu):
+.config/doom
+.config/emacs
+.config/nvim
+
 # Configuration and state managed by other tools:
 {{ if eq .chezmoi.os "darwin" }}
 .CFUserTextEncoding          # Managed well enough by macOS
+.config/steinberg-download-assistant
 .userchain                   # Managed by SampleTank
+Library
 {{ end }}
 .cargo                       # Managed by Rust toolchain
 .config/broot/launcher
 .config/crossnote            # Related to Markdown Preview Enhanced VS Code extension
+.config/github-copilot
+.config/iterm2
 .config/jgit                 # Let JetBrains manage this Java Git config
 .config/karabiner/assets
 .config/karabiner/automatic_backups
+.cups                        # Printer related
+.docker
 .gk                          # Managed by Git Lens VS Code extension (gk for GitKraken)
+.gnupg
+.ollama
 .npm                         # Managed by node.js
-.rustup                      # Managed by Rust toolchain
+.rustup
+.swiftpm
 .tart
+.wget-hsts
 .vscode-server
+.yarnrc
 
 # macOS document and media folders
 {{ if eq .chezmoi.os "darwin" }}
@@ -51,6 +73,7 @@ Desktop
 Documents
 Downloads
 Dropbox
+Exclude
 MAUD
 Movies
 Music

@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # shellcheck shell=bash
 
-# Tests the chezmoi source configration against the local state,
+# Tests the chezmoi source configuration against the local state,
 # displays differences if any, and applies changes on user confirmation.
 
 if chezmoi verify; then

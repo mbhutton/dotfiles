@@ -15,6 +15,7 @@ brew "bottom"             # Modern 'top', 'btm' command
 brew "broot"              # Efficient directory navigation. 'br' then type search then 'opt+enter' to cd
 brew "chezmoi"            # Dot files manager to bootstrap and manage dev environment
 brew "choose-rust"        # Modern cut/awk. 'choose 0; choose 1..3'
+brew "cspell"             # Spell checking for code
 brew "dua-cli"            # Disk usage analyzer: 'dua' binary. Alt: 'yazi' then ',S'. 'dua i' for interactive
 brew "duf"                # Modern 'df'
 brew "dust"               # Modern 'du'
@@ -25,16 +26,17 @@ brew "gh"                 # GitHub CLI, with Copilot
 brew "git-absorb"         # Git workflow tool: "git commit --fixup, but automatic"
 brew "git-delta"          # Modern diff, 'delta' command
 brew "git"                # Use Homebrew git rather than macOS's, for security fixes
+brew "glow"               # Show markdown documents on text terminals
 brew "hledger"            # Plain text accounting, inspired by ledger, in Haskell
 brew "tidy-html5"         # Modern version of 'tidy', clean up and pretty print HTML/XHTML/XML
 brew "hyperfine"          # Benchmarking
-brew "jj"                 # DVCS
+brew "jj"                 # Great version control
 brew "jjui"               # jj TUI
 brew "jq"                 # Command-line JSON processor. Used by yazi
 brew "just"               # Simple task runner. Used within git projects, including dotfiles
 brew "lazygit"            # Efficient Git TUI
 brew "lsd"                # Modern 'ls'
-brew "mdcat"              # Show markdown documents on text terminals
+brew "lua-language-server"
 brew "neovim"             # Modern 'vim'. Also (formerly) used from VS Code as backend
 brew "nushell"            # Modern shell with structured data pipelines. Alt to 'jq'
 brew "ollama"             # Run LLMs locally
@@ -52,7 +54,7 @@ brew "starship"           # Terminal prompt
 brew "stylua"             # Formatter for Lua code
 brew "swift-format"       # Formatter for Swift language
 brew "tig"                # Git TUI
-brew "tlrc"               # Rust client for tldr (help pages for CLI tools)
+brew "tlrc"               # Help pages for CLI tools
 brew "tmux"               # Terminal multiplexer
 brew "uv"                 # Python package and project manager
 brew "wget"               # Required by mason.nvim
@@ -106,8 +108,8 @@ cask "gitx"                           # Git UI with very legible commit graph
 {{ end -}}
 cask "iterm2"                         # Replacement for Terminal.app with more features
 cask "jordanbaird-ice"                # Manage menu bar icons
-cask "keycastr"                       # Keystroke visualiser to record UI interactions
-cask "shortcat"                       # Easymotion-like macOS GUI navigation
+cask "keycastr"                       # Keystroke visualizer to record UI interactions
+cask "shortcat"                       # EasyMotion-like macOS GUI navigation
 
 {{ if .mh.useAeroSpace }}
 tap "nikitabobko/tap"

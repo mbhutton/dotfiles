@@ -23,7 +23,7 @@ fail() {
 }
 
 git rev-parse --show-toplevel >/dev/null || fail "Current directory $(pwd) is not in a git repo"
-repo_name="$(basename $(git rev-parse --show-toplevel))"
+repo_name="$(basename "$(git rev-parse --show-toplevel)" )"
 
 # Syntax: log_if_non_empty <log prefix> <command output>
 log_if_non_empty() {

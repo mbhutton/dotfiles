@@ -7,11 +7,14 @@ _default:
 test_and_apply:
   mh-chezmoi-test-and-apply
 
+lint:
+  @./run_lints
+
 # Git workflows...
 
 alias gw := git_workflow
 
-# Regraft branches
+# Re-graft branches
 git_workflow:
   mh-git-workflow-rebase-dotfiles
 

@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+
+"""
+TODO: For this python based approach, pass in the templates from this script as a large string, rather than requiring config in jj itself.
+
+Rules:
+- TODO: must be exactly one of main@origin or master@origin, as trunk, and no 'trunk' tag or branch
+- TODO: trunk must be tracked, ie local checkout, and
+- TODO: no 'ok' branch (should be a tag)
+- TODO: can only be branches, not tags: trunk, dev, machine, off
+- TODO: can only be tags, not branches: ok, read, _dev4off
+- TODO: LATER: no 'ok' tag either (just use trunk)
+- TODO: if 'ok' tag, must be downstream of trunk
+- TODO: no branches should be conflicted
+- TODO: head should be downstream of trunk->dev->machine
+- TODO: head should be empty: no content and no name
+- TODO: trunk->dev->machine
+- TODO: off: dev->off
+- TODO: if not a fork, can enforce more thing, like justfile with lint, etc
+        gh repo view "$(git remote get-url origin)" --json isFork --jq '.isFork'
+        include: has CI workflow, has justfile with qa, lint, test
+- TODO: can also run lint and qa right, maybe separate from this though
+"""
+import os
+import subprocess
+import sys
+
+
+def fail(msg) -> SystemExit:
+    """Prints an error message to stderr and exits with code 1.
+    Callers can 'raise fail(...)' rather than 'fail(...)' to work around type checking issues.
+    """
+    print(msg, file=sys.stderr)
+    sys.exit(1)
+    # noinspection PyUnreachableCode
+    return SystemExit(1)
+
+
+def call_command_or_fail(command: list[str], failure_message: str) -> str:
+    if not command:
+        raise fail("Command list cannot be empty.")
+    if not failure_message:
+        raise fail("Failure message cannot be empty.")
+    try:
+        result = subprocess.run(command, check=True, text=True, capture_output=True)
+        return result.stdout.strip()
+    except subprocess.CalledProcessError:
+        raise fail(failure_message)
+
+
+def get_repo_home_dir() -> str:
+    repo_dir = call_command_or_fail(
+        ["git", "rev-parse", "--show-toplevel"], "Not inside a git repository."
+    )
+    if not repo_dir:
+        raise fail("No repository home directory found.")
+    if not os.path.isdir(repo_dir):
+        raise fail(f"Repository home directory does not exist: {repo_dir}")
+    if not os.path.isdir(os.path.join(repo_dir, ".git")):
+        raise fail(
+            f"Repository home directory is not a valid git repository: {repo_dir}"
+        )
+    if not os.path.isdir(os.path.join(repo_dir, ".jj")):
+        raise fail(
+            f"Repository home directory is not a valid jj repository: {repo_dir}"
+        )
+    return repo_dir
+
+
+def get_local_tags() -> list[str]:
+    return call_command_or_fail(
+        ["git", "tag", "--list"], "Failed to get local tags."
+    ).splitlines()
+
+
+def get_local_branches() -> list[str]:
+    return call_command_or_fail(
+        ["git", "branch", "--format=%(refname:short)"], "Failed to get local branches."
+    ).splitlines()
+
+
+if __name__ == "__main__":
+    print(f"Repository home directory: {get_repo_home_dir()}")
+    print(f"Local branches: {get_local_branches()}")
+    print(f"Local tags: {get_local_tags()}")

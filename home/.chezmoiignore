@@ -38,6 +38,7 @@ org
 .config/doom
 .config/emacs
 .config/nvim
+.hammerspoon
 
 # Configuration and state managed by other tools:
 {{ if eq .chezmoi.os "darwin" }}

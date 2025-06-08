@@ -1,0 +1,114 @@
+#!/usr/bin/env python3
+
+"""Open common applications by group."""
+
+# pylint: disable=missing-function-docstring
+
+import argparse
+import os
+import subprocess
+import sys
+import time
+
+EMACS_OPEN_SCRIPT = "~/sw/emacsopen/emacsopen"
+
+IS_WEKA = os.path.exists(os.path.expanduser("~/.mh-flag-weka"))
+IS_PERSONAL = not IS_WEKA
+
+CALENDAR_APP = "Calendar" if IS_WEKA else "Fantastical"
+BROWSER_APP = "Google Chrome" if IS_WEKA else "Safari"
+
+
+def open_apps(apps):
+    """Open each application in the given list with a slight delay."""
+    for app in apps:
+        try:
+            subprocess.run(["open", "-a", app], check=True)
+            time.sleep(0.2)
+        except subprocess.CalledProcessError:
+            ...  # Note: 'open -a' already prints an error if app not found
+
+
+def open_emacs():
+    emacsopen = os.path.expanduser(EMACS_OPEN_SCRIPT)
+    if os.path.exists(emacsopen):
+        subprocess.run(
+            [emacsopen],
+            check=True,
+        )
+    else:
+        print(f"Emacs open script not found: {emacsopen}")
+
+
+def open_todos():
+    apps = ["Notes", "Stickies", "TextEdit", "Things3", BROWSER_APP, CALENDAR_APP]
+    if IS_PERSONAL:
+        open_url("https://workflowy.com/")
+    if IS_WEKA:
+        apps.append("Asana")
+    open_apps(apps)
+
+
+def open_dev():
+    dev_apps = ["Visual Studio Code - Insiders", "RubyMine", "iTerm"]
+    open_apps(dev_apps)
+    open_url("https://github.com/issues/assigned")
+    open_url("https://github.com/pulls")
+
+
+def open_comms():
+    comms_apps = ["Mimestream", "Slack", BROWSER_APP]
+    if IS_PERSONAL:
+        comms_apps += [
+            "Messages",
+            "Messenger",
+            "WhatsApp",
+        ]
+        open_url("https://www.facebook.com/notifications")
+
+    open_apps(comms_apps)
+
+
+def open_all():
+    open_todos()
+    open_dev()
+    open_comms()
+
+
+def open_url(url: str):
+    """Open a URL in the default browser."""
+    subprocess.run(["open", url], check=True)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Open groups of apps.")
+    choices = ["todos", "dev", "comms", "all"]
+    default = "all"
+    assert default in choices
+    parser.add_argument(
+        "group",
+        nargs="?",  # TODO:revisit this
+        default=default,
+        choices=choices,
+        help=f"Which app group to open: {', '.join(choices)} (default={default})",
+    )
+    args = parser.parse_args()
+
+    if args.group == "todos":
+        open_todos()
+    elif args.group == "dev":
+        open_dev()
+    elif args.group == "comms":
+        open_comms()
+    elif args.group == "all":
+        open_all()
+    else:
+        print(f"Unknown group: {args.group}. Available options: {', '.join(choices)}")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    if sys.platform != "darwin":
+        print("This script is intended for macOS only.")
+        sys.exit(1)
+    main()

@@ -4,3 +4,8 @@
 "copy git commit ID" = { key = ["Y"], args = ["util", "exec", "--", "bash", "-c", "jj log --no-graph -r $change_id --template commit_id | pbcopy" ] }
 "lazygit, then re-import" = { key = ["G"], args = ["util", "exec", "--", "bash", "-c", "lazygit ; jj git import" ], show = "interactive" }
 "ok tag: set here" = { key = ["O"], args = ["util", "exec", "--", "bash", "-c", "mh-jjui-ok-set-to-change $change_id" ] }
+
+[preview]
+show_at_start = true
+width_percentage = 60.0
+width_increment_percentage = 10.0

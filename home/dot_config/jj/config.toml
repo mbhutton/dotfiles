@@ -1,0 +1,11 @@
+[template-aliases]
+'show_with_file_status' = '''
+concat(
+  builtin_log_detailed,
+  diff.summary(),
+  "\n",
+)
+'''
+
+[templates]
+show = 'show_with_file_status'

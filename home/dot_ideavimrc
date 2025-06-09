@@ -1,3 +1,4 @@
 set clipboard+=unnamed
 
 Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-surround'

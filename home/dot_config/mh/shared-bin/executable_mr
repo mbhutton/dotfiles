@@ -229,12 +229,14 @@ FLAG_SEQUENTIAL = "s"
 FLAG_LIST = "list"
 
 ALIASES = {
-    "pull": [FLAG_PARALLEL, "j-pull", "--color=always"],
-    "st-s": [FLAG_PARALLEL, "git", "status", "--short"],
-    "st-l": [FLAG_PARALLEL, "git", "status"],
-    "shun": [FLAG_PARALLEL, "j-shun"],
+    "fd": [FLAG_PARALLEL, "fd"],
+    "ju": [FLAG_SEQUENTIAL, "bash", "-c", "read -n 1 -s -p 'Press any key...' ; jjui"],
     "lint": [FLAG_PARALLEL, "j-lint"],
+    "pull": [FLAG_PARALLEL, "j-pull", "--color=always"],
     "rg": [FLAG_PARALLEL, "rg", "--color=always"],
+    "shun": [FLAG_PARALLEL, "j-shun"],
+    "st-l": [FLAG_PARALLEL, "git", "status"],
+    "st-s": [FLAG_PARALLEL, "git", "status", "--short"],
     "todo": [
         FLAG_PARALLEL,
         "rg",
@@ -243,8 +245,6 @@ ALIASES = {
         "--ignore-case",
         "todo|fixme|hack",
     ],
-    "fd": [FLAG_PARALLEL, "fd"],
-    "ju": [FLAG_SEQUENTIAL, "bash", "-c", "read -n 1 -s -p 'Press any key...' ; jjui"],
 }
 
 

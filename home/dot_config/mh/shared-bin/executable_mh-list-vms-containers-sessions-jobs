@@ -29,6 +29,12 @@ hl
 echo Docker:
 docker ps -a | grep -Ev '^CONTAINER'
 
+if command -v container >/dev/null; then
+  hl
+  echo "Containers (Apple):"
+  container list --all
+fi
+
 hl
 echo Codespaces:
 gh codespace list | cat

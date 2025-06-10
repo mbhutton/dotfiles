@@ -252,7 +252,10 @@ ALIAS_DESCRIPTIONS = "\n    ".join(
     [f"mr {alias} * => mr " + " ".join(ALIASES[alias]) + " *" for alias in ALIASES]
 )
 USAGE = f"""
-Usage: mr (<ALIAS> [args...]|({FLAG_PARALLEL}|{FLAG_SEQUENTIAL}) <command> [args...])\n
+Usage: mr (<ALIAS> [args...]|({FLAG_PARALLEL}|{FLAG_SEQUENTIAL}) <command> [args...])
+
+    {FLAG_PARALLEL} <command> [args...]: Run the command in parallel across all repositories.
+    {FLAG_SEQUENTIAL} <command> [args...]: Run the command sequentially across all repositories.
 
 Examples:
     mr {FLAG_PARALLEL} git status

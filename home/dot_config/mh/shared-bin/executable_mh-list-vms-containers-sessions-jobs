@@ -27,6 +27,13 @@ function show_process_count {
 # TODO: Audit, make it more complete, and improve output. And test! And make it allow to have tools missing
 # TODO: Elide empty sections, e.g. if no VMs or containers are running elide that entry
 # TODO: Add support for args to show subsets of jobs
+
+hl
+show_process_count "jjui" "JJ UI"
+show_process_count "lazygit" "Lazygit"
+show_process_count "lazydocker" "Lazydocker"
+show_process_count "Emacs" "Emacs"
+
 hl
 echo Docker:
 docker ps -a | grep -Ev '^CONTAINER'
@@ -60,11 +67,5 @@ pgrep -x tmux >/dev/null && tmux ls
 hl
 echo Pueue jobs:
 pgrep -x pueued >/dev/null && [[ -n "$(pueue status --json | jq '.tasks[]')" ]] && pueue status
-
-hl
-show_process_count "jjui" "JJ UI"
-show_process_count "lazygit" "Lazygit"
-show_process_count "lazydocker" "Lazydocker"
-show_process_count "Emacs" "Emacs"
 
 hl

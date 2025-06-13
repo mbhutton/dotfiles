@@ -1,29 +1,154 @@
 #!/usr/bin/env python3
 
+from dataclasses import dataclass
+from typing import Union
+
 """
 TODO: For this python based approach, pass in the templates from this script as a large string, rather than requiring config in jj itself.
 
 Rules:
+- TODO: go through revsets page and template page pulling out what to look at (esp commitID and changeID, bookmarks, tags, and 'useful revsets')
+- TODO: only interesting commits are: roots, heads, working copy, git head, @, fork points, tags, bookmarks, conflicted
 - TODO: must be exactly one of main@origin or master@origin, as trunk, and no 'trunk' tag or branch
+- TODO: check on the same full graph used as default for jj log (must include all tracked branches)
 - TODO: trunk must be tracked, ie local checkout, and
 - TODO: no 'ok' branch (should be a tag)
+- TODO: consider registering every tracked branch and local tag re its relationship to others
 - TODO: can only be branches, not tags: trunk, dev, machine, off
 - TODO: can only be tags, not branches: ok, read, _dev4off
 - TODO: LATER: no 'ok' tag either (just use trunk)
 - TODO: if 'ok' tag, must be downstream of trunk
 - TODO: no branches should be conflicted
 - TODO: head should be downstream of trunk->dev->machine
+- TODO: assert that remote branches with same local name are tracked, and have upstream set on git side (and similar for partial states)
+- TODO: tracked branches must be at same spot as their remote counterparts
+- TODO: trunk must be tracked
+- TODO: changes and commits must not be in conflict
+- TODO: changes must have exactly one commit
+- TODO: both .git and .jj must be present in the repository home directory
+- TODO: cache results based on oplog so that next check is free if nothing has changed
+- TODO: cache recent DAGs to check against
 - TODO: head should be empty: no content and no name
+- TODO: head should be on top of a bookmark
+- TODO: where head meets the next branch, should be a bookmark
+- TODO: after a pull, the DAG should be unchanged
 - TODO: trunk->dev->machine
 - TODO: off: dev->off
 - TODO: if not a fork, can enforce more thing, like justfile with lint, etc
         gh repo view "$(git remote get-url origin)" --json isFork --jq '.isFork'
         include: has CI workflow, has justfile with qa, lint, test
 - TODO: can also run lint and qa right, maybe separate from this though
+- TODO: possibly integrate with starship
+- TODO: jj: check and show should know and show about branch / bookmark tracking on local and remote jj and git sides
+- TODO: Trunk should always be tracked, and remains immutable
+- TODO: Main must remain flat
+- TODO: Stricter rules for my own repositories, like no 'ok' tag, no 'ok' branch, no 'trunk' tag, no 'trunk' branch, etc
+- TODO: If dev, must always be downstream of main
+- TODO: If ok tag, must be downstream of main
+- TODO: Could have eg weka_of_dev, or weka is always dev
+- TODO: Dev shouldn't get too far away from ok and main in both time and steps
+- TODO: j-pull should integrate with this command, possibly failing a pull before or after
 """
 import os
 import subprocess
 import sys
+
+
+@dataclass
+class Commit:
+    commit_id: str
+    change_id: str
+    parent_commit_ids: list[str]
+
+    # TODO: pull in all of https://github.com/jj-vcs/jj/blob/main/docs/templates.md#commit-type
+    # TODO: pull in all of https://github.com/jj-vcs/jj/blob/main/docs/templates.md#commitref-type
+
+    """
+    commit ref:
+
+
+    commit type:
+
+
+
+Commit type
+
+This type cannot be printed. The following methods are defined.
+
+.description() -> String
+.trailers() -> List<Trailer>
+.change_id() -> ChangeId
+.commit_id() -> CommitId
+.parents() -> List<Commit>
+.author() -> Signature
+.committer() -> Signature
+.signature() -> Option<CryptographicSignature>
+.mine() -> Boolean: Commits where the author's email matches the email of the current user.
+.working_copies() -> String: For multi-workspace repository, indicate working-copy commit as <workspace name>@.
+.current_working_copy() -> Boolean: True for the working-copy commit of the current workspace.
+.bookmarks() -> List<CommitRef>: Local and remote bookmarks pointing to the commit. A tracking remote bookmark will be included only if its target is different from the local one.
+.local_bookmarks() -> List<CommitRef>: All local bookmarks pointing to the commit.
+.remote_bookmarks() -> List<CommitRef>: All remote bookmarks pointing to the commit.
+.tags() -> List<CommitRef>
+.git_refs() -> List<CommitRef>
+.git_head() -> Boolean: True for the Git HEAD commit.
+.divergent() -> Boolean: True if the commit's change id corresponds to multiple visible commits.
+.hidden() -> Boolean: True if the commit is not visible (a.k.a. abandoned).
+.immutable() -> Boolean: True if the commit is included in the set of immutable commits.
+.contained_in(revset: String) -> Boolean: True if the commit is included in the provided revset.
+.conflict() -> Boolean: True if the commit contains merge conflicts.
+.empty() -> Boolean: True if the commit modifies no files.
+.diff([files: String]) -> TreeDiff: Changes from the parents within the files expression. All files are compared by default, but it is likely to change in future version to respect the command line path arguments.
+.root() -> Boolean: True if the commit is the root commit.
+
+    CommitRef type
+
+The following methods are defined.
+
+.name() -> RefSymbol: Local bookmark or tag name.
+.remote() -> Option<RefSymbol>: Remote name if this is a remote ref.
+.present() -> Boolean: True if the ref points to any commit.
+.conflict() -> Boolean: True if the bookmark or tag is conflicted.
+.normal_target() -> Option<Commit>: Target commit if the ref is not conflicted and points to a commit.
+.removed_targets() -> List<Commit>: Old target commits if conflicted.
+.added_targets() -> List<Commit>: New target commits. The list usually contains one "normal" target.
+.tracked() -> Boolean: True if the ref is tracked by a local ref. The local ref might have been deleted (but not pushed yet.)
+.tracking_present() -> Boolean: True if the ref is tracked by a local ref, and if the local ref points to any commit.
+.tracking_ahead_count() -> SizeHint: Number of commits ahead of the tracking local ref.
+.tracking_behind_count() -> SizeHint: Number of commits behind of the tracking local ref.
+    """
+
+    is_conflicted: bool
+    is_empty: bool
+    has_description: bool
+
+    # Parent commits, matching order of parent_commit_ids, Nothing if parent not in graph
+    cached_parent_refs: list[Union["Commit", None]] = None
+
+    def has_ancestor(self, other: "Commit") -> bool:
+        """Check if this commit has the given commit as an ancestor."""
+        if self.commit_id == other.commit_id:
+            return True
+        for parent in self.cached_parent_refs or []:
+            if parent and parent.has_ancestor(other):
+                return True
+        return False
+
+
+@dataclass
+class CommitGraph:
+    commits_by_id: dict[str, Commit]
+
+
+def populate_commit_graph(commits: list[Commit]) -> CommitGraph:
+    commits_by_id = {c.commit_id: c for c in commits}
+
+    for commit in commits:
+        commit.cached_parent_refs = [
+            commits_by_id.get(parent_id) for parent_id in commit.parent_commit_ids
+        ]
+
+    return CommitGraph(commits_by_id=commits_by_id)
 
 
 def fail(msg) -> SystemExit:

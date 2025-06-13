@@ -13,5 +13,7 @@ function install_or_update_lint {
 }
 
 function doctor_lint {
-  mr lint
+  # mr lint # TODO:reconsider this for now, and it can push update info out of scrollback buffer
+  #           TODO:alt: count how many lines of lint errors instead?
+  true
 }

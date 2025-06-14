@@ -1,4 +1,15 @@
 [template-aliases]
+'json_string_field(key, value)' = '"\"" ++ key ++ "\": " ++ value.escape_json() ++ ",\n"'
+
+'json_commit_hash' = '''
+concat(
+  "{\n",
+  json_string_field("change_id",change_id.normal_hex()),
+  json_string_field("commit_id",stringify(commit_id)),
+  "}\n",
+)
+'''
+
 'show_with_file_status' = '''
 concat(
   builtin_log_detailed,

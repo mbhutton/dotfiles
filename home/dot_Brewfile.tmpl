@@ -91,7 +91,7 @@ tap "cirruslabs/cli"
 brew "cirruslabs/cli/tart"            # Manage macOS/Linux VMs. Note: full name required to avoid old brew core 'tart'.
 brew "dive" if false                  # Inspect Docker image layers (Workaround required for local images: https://github.com/wagoodman/dive/issues/360)
 brew "lazydocker"                     # Docker TUI
-cask "docker"                         # Docker Desktop. Does not work in macOS guest VM
+cask "docker-desktop"                 # Docker Desktop. Does not work in macOS guest VM
 cask "hammerspoon"                    # macOS automation
 cask "karabiner-elements"             # Keyboard customizer. Avoid having nested keyboard mappings between host/VM. TODO:configure for tart/UTM windows
 cask "mouseless"                      # Grid based mouse control via keyboard

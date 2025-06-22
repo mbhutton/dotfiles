@@ -1,3 +1,6 @@
+[revset-aliases]
+'w/m' = 'was/master::master'
+
 [template-aliases]
 'json_string_field(key, value)' = '"\"" ++ key ++ "\": " ++ value.escape_json() ++ ",\n"'
 

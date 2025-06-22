@@ -52,8 +52,14 @@ def open_todos():
 def open_dev():
     dev_apps = ["Visual Studio Code - Insiders", "RubyMine", "iTerm"]
     open_apps(dev_apps)
-    open_url("https://github.com/issues/assigned")
-    open_url("https://github.com/pulls")
+    for url in [
+        "https://github.com/issues/assigned",
+        "https://github.com/pulls",
+        "https://github.com/pulls/assigned",
+        "https://github.com/pulls/mentioned",
+        "https://github.com/pulls/review-requested",
+    ]:
+        open_url(url)
 
 
 def open_comms():

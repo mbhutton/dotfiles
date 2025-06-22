@@ -35,6 +35,7 @@ function doctor_brew {
     return 0
   fi
   # shellcheck disable=SC2143
+  # TODO: avoid double call
   if [[ -n "$(brew outdated --cask --greedy --verbose | grep -v '(latest) != latest')" ]]; then
     echo "Homebrew reports outdated casks: $(brew outdated --cask --greedy --verbose)"
   fi

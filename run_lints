@@ -15,6 +15,11 @@ function fail {
   exit 1
 }
 
+# TODO: More pytest tests withing the classes themselves
+echo "Running pytest tests..."
+( (rg -l 'def test_' ) | grep -v run_lints | sort -u | xargs -n 1 uvx pytest -q ) || fail "Pytest tests failed"
+
+
 # TODO: pyrefly
 ( (rg -l 'env python' ; fd '\.py') | grep -v run_lints | sort -u | xargs -n 1 uvx pyrefly --color=always check ) || fail "Python pyrefly linting failed"
 

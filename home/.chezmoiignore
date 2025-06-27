@@ -1,4 +1,5 @@
 # Volatile state:
+**/__pycache__
 {{ if eq .chezmoi.os "darwin" }}
 **/.DS_Store
 {{ end }}

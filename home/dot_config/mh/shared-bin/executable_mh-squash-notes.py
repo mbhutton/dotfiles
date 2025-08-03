@@ -98,6 +98,7 @@ def test_squash_lines():
     E=Empty, C=Content, S=Separator"""
 
     test_cases = [
+        # TODO: Be sure to cover what I'd write as rewrite rules
         ("EECCECSS", "SCCECS"),
         ("CECS", "SCECS"),
         ("EEEECEEEE", "SCS"),

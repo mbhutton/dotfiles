@@ -1,5 +1,11 @@
+[revsets]
+'log' = 'normies | okays'
+
+
 [revset-aliases]
 'w/m' = 'was/master::master'
+'normies' = 'present(@) | ancestors(immutable_heads().., 2) | present(trunk())'
+'okays' = 'bookmarks(exact:ok) | bookmarks(exact:bu-ok) | tags(exact:ok)'
 
 [template-aliases]
 'json_string_field(key, value)' = '"\"" ++ key ++ "\": " ++ value.escape_json() ++ ",\n"'

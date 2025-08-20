@@ -41,7 +41,15 @@ def open_emacs():
 
 
 def open_todos():
-    apps = ["Notes", "Stickies", "TextEdit", "Things3", BROWSER_APP, CALENDAR_APP]
+    apps = [
+        "Notes",
+        "Stickies",
+        "TextEdit",
+        "Things3",
+        "Obsidian",
+        BROWSER_APP,
+        CALENDAR_APP,
+    ]
     if IS_PERSONAL:
         open_url("https://workflowy.com/")
     if IS_WEKA:

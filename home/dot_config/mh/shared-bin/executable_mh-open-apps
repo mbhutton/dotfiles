@@ -95,6 +95,7 @@ def open_all():
     open_todos()
     open_dev()
     open_comms()
+    open_emacs()
 
 
 def open_url(url: str):

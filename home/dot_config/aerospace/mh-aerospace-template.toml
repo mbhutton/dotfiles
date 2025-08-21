@@ -370,6 +370,10 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'md.obsidian'
     run = 'move-node-to-workspace 1'
 
+[[on-window-detected]]
+    if.app-id = 'notion.id'
+    run = 'move-node-to-workspace 1'
+
 ################### 9 Links
 
 [[on-window-detected]]

@@ -46,7 +46,6 @@ def open_todos():
         "Stickies",
         "TextEdit",
         "Things3",
-        "Obsidian",
         BROWSER_APP,
         CALENDAR_APP,
     ]

@@ -48,6 +48,6 @@
     useNetNewsWire = {{ $isMainPersonal }}
     useRuby = {{ true }}
     useRustlings = {{ $isMainPersonal }}
-    useThings = {{ $isMainPersonal }}
+    useThings = {{ or $isMainPersonal $isKork }}
     useVSCodeInLazyGit = {{ $isMacHost }}
     useYtDlp = {{ $isMainPersonal }}

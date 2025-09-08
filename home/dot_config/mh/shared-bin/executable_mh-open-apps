@@ -66,7 +66,9 @@ def open_todos():
 
 
 def open_dev():
-    dev_apps = ["Visual Studio Code - Insiders", "PyCharm", "RubyMine", "iTerm"]
+    dev_apps = ["RubyMine", "iTerm"]
+    if IS_PERSONAL:
+        dev_apps += ["Visual Studio Code - Insiders", "PyCharm"]
     open_apps(dev_apps)
     for url in [
         "https://github.com/issues/assigned",

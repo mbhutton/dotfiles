@@ -51,7 +51,7 @@ def open_todos():
         CALENDAR_APP,
     ]
     if IS_PERSONAL:
-        open_url("https://workflowy.com/")
+        apps.append("WorkFlowy")
     if IS_WEKA:
         apps.append("Asana")
     open_apps(apps)

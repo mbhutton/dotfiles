@@ -55,7 +55,14 @@ def open_todos():
         apps.append("WorkFlowy")
     if IS_WEKA:
         apps.append("Asana")
+
     open_apps(apps)
+    open_url("obsidian://open?vault=code-vault")
+
+    if IS_PERSONAL:
+        open_url("obsidian://open?vault=private-vault")
+    if IS_WEKA:
+        open_url("obsidian://open?vault=kork-vault")
 
 
 def open_dev():

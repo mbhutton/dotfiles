@@ -51,6 +51,7 @@ def open_todos():
         CALENDAR_APP,
     ]
     if IS_PERSONAL:
+        apps.append("Claude")
         apps.append("WorkFlowy")
     if IS_WEKA:
         apps.append("Asana")

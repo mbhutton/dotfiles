@@ -333,12 +333,6 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.apple.ScreenContinuity'
     run = 'move-node-to-workspace 5'
 
-################### 1 Emacs
-
-[[on-window-detected]]
-    if.app-id = 'org.gnu.Emacs'
-    run = 'move-node-to-workspace 1'
-
 ################### 3 Browsing
 
 [[on-window-detected]]
@@ -373,6 +367,12 @@ automatically-unhide-macos-hidden-apps = false
 [[on-window-detected]]
     if.app-id = 'notion.id'
     run = 'move-node-to-workspace 1'
+
+################### 8 Emacs
+
+[[on-window-detected]]
+    if.app-id = 'org.gnu.Emacs'
+    run = 'move-node-to-workspace 8'
 
 ################### 9 Links
 

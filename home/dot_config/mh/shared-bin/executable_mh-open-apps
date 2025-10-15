@@ -45,11 +45,11 @@ def open_todos():
         "Notes",
         "Stickies",
         "TextEdit",
-        "Things3",
         BROWSER_APP,
         CALENDAR_APP,
     ]
     if IS_PERSONAL:
+        apps.append("Things3")
         apps.append("Claude")
         apps.append("WorkFlowy")
     if IS_WEKA:

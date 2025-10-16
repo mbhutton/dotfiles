@@ -362,6 +362,11 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'md.obsidian'
+    if.window-title-regex-substring = 'code-vault - Obsidian v'
+    run = 'move-node-to-workspace 8'
+
+[[on-window-detected]]
+    if.app-id = 'md.obsidian'
     run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]

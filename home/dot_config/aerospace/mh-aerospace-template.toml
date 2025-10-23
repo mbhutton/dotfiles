@@ -343,8 +343,6 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.google.Chrome'
     run = 'move-node-to-workspace 3'
 
-################### 6 For testing
-
 ################### N Scratch / Dormant note taking
 # TODO:probably move to planning or to Emacs
 
@@ -369,17 +367,13 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'md.obsidian'
     run = 'move-node-to-workspace 1'
 
-[[on-window-detected]]
-    if.app-id = 'notion.id'
-    run = 'move-node-to-workspace 1'
-
-################### 8 Emacs
+################### 6 Emacs
 
 [[on-window-detected]]
     if.app-id = 'org.gnu.Emacs'
-    run = 'move-node-to-workspace 8'
+    run = 'move-node-to-workspace 6'
 
-################### 9 Links
+################### 9 Links (P), Notion (K)
 
 [[on-window-detected]]
     if.app-id = 'com.ngocluu.goodlinks'
@@ -391,6 +385,10 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'com.ranchero.NetNewsWire-Evergreen'
+    run = 'move-node-to-workspace 9'
+
+[[on-window-detected]]
+    if.app-id = 'notion.id'
     run = 'move-node-to-workspace 9'
 
 ################### 0 Media

@@ -15,7 +15,7 @@ EMACS_OPEN_SCRIPT = "~/sw/emacsopen/emacsopen"
 IS_WEKA = os.path.exists(os.path.expanduser("~/.mh-flag-weka"))
 IS_PERSONAL = not IS_WEKA
 
-CALENDAR_APP = "Calendar" if IS_WEKA else "Fantastical"
+CALENDAR_APP = "Fantastical"
 BROWSER_APP = "Google Chrome" if IS_WEKA else "Safari"
 
 

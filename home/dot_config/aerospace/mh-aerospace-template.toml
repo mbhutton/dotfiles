@@ -349,6 +349,10 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.google.Chrome'
     run = 'move-node-to-workspace 3'
 
+[[on-window-detected]]
+    if.app-id = 'notion.id'
+    run = 'move-node-to-workspace 3'
+
 ################### N Scratch / Dormant note taking
 # TODO:probably move to planning or to Emacs
 
@@ -391,10 +395,6 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'com.ranchero.NetNewsWire-Evergreen'
-    run = 'move-node-to-workspace 9'
-
-[[on-window-detected]]
-    if.app-id = 'notion.id'
     run = 'move-node-to-workspace 9'
 
 ################### 0 Media

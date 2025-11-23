@@ -57,8 +57,10 @@ if [[ -d "$UTM_VM_DIR" && -n "$(find "$UTM_VM_DIR" -name '*.utm')" ]]; then
 fi
 
 hl
-echo Tart VMs:
-tart list | grep -E '^local'
+if command -v tart >/dev/null; then
+  echo Tart VMs:
+  tart list | grep -E '^local'
+fi
 
 hl
 echo Tmux sessions:

@@ -24,7 +24,7 @@ function install_or_update_brew {
   echo "Syncing Homebrew packages using Brewfile..." ; echo
   [[ -f "${HOME}/.Brewfile" ]] || fail "Brewfile not found: ${HOME}/.Brewfile"
   brew update || fail "Failed to update Homebrew"
-  brew bundle install --quiet --cleanup --global || fail "Failed to install Homebrew packages using Brewfile"
+  brew bundle install --quiet --force-cleanup --global || fail "Failed to install Homebrew packages using Brewfile"
   brew upgrade || fail "Failed to upgrade Homebrew packages"
   [[ -z "$(brew outdated)" ]] || fail "Brew reported outdated packages after upgrading"
 }

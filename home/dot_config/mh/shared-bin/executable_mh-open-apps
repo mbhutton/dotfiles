@@ -53,6 +53,7 @@ def open_todos():
         apps.append("Claude")
         apps.append("WorkFlowy")
     if IS_WEKA:
+        apps.append("Linear")
         apps.append("Notion")
 
     open_apps(apps)

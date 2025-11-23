@@ -88,7 +88,9 @@ brew "zlib"
 {{ if .mh.isMacHost }}
 # MacOS host section starts (packages to skip on virtual machines)
 tap "cirruslabs/cli"
-brew "cirruslabs/cli/tart"            # Manage macOS/Linux VMs. Note: full name required to avoid old brew core 'tart'.
+brew "cirruslabs/cli/tart", trusted: true     # Manage macOS/Linux VMs. Note: full name required to avoid old brew core 'tart'.
+brew "cirruslabs/cli/softnet", trusted: true  # Required by above
+
 brew "dive" if false                  # Inspect Docker image layers (Workaround required for local images: https://github.com/wagoodman/dive/issues/360)
 brew "lazydocker"                     # Docker TUI
 cask "docker-desktop"                 # Docker Desktop. Does not work in macOS guest VM

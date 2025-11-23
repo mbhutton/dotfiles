@@ -377,12 +377,6 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'md.obsidian'
     run = 'move-node-to-workspace 1'
 
-################### 6 Emacs
-
-[[on-window-detected]]
-    if.app-id = 'org.gnu.Emacs'
-    run = 'move-node-to-workspace 6'
-
 ################### 9 Links (P), Notion (K)
 
 [[on-window-detected]]

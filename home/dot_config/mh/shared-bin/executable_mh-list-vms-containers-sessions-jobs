@@ -32,7 +32,7 @@ hl
 show_process_count "jjui" "JJ UI"
 show_process_count "lazygit" "Lazygit"
 show_process_count "lazydocker" "Lazydocker"
-show_process_count "Emacs" "Emacs"
+# show_process_count "Emacs" "Emacs"
 
 hl
 echo Docker:

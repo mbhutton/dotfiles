@@ -117,7 +117,7 @@ cask "obsidian"                       # PKM
 
 {{ if .mh.useAeroSpace }}
 tap "nikitabobko/tap"
-cask "nikitabobko/tap/aerospace"      # Tiling window manager
+cask "nikitabobko/tap/aerospace", trusted: true # Tiling window manager
 {{ end }}
 
 {{ if .mh.useEmacs }}

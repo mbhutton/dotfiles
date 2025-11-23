@@ -342,6 +342,11 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'com.google.Chrome'
+    if.window-title-regex-substring = 'Google Chrome - .* \([a-z]+.demo.[a-z]+.com\)'
+    run = 'move-node-to-workspace 6'
+
+[[on-window-detected]]
+    if.app-id = 'com.google.Chrome'
     run = 'move-node-to-workspace 3'
 
 ################### N Scratch / Dormant note taking

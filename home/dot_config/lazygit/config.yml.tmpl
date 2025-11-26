@@ -5,9 +5,9 @@ gui:
 git:
   log:
     showGraph: always
-  paging:
-    colorArg: always
-    pager: delta --light --paging=never
+  pagers:
+    - colorArg: always
+      pager: delta --light --paging=never
   branchLogCmd: 'git log --color=always --decorate --oneline --graph {{ "{{branchName}}" }}'
   # Disable auto fetching and forwarding to play better with jj
   autoFetch: false

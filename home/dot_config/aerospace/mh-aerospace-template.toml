@@ -274,7 +274,8 @@ automatically-unhide-macos-hidden-apps = false
     run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
-    if.app-id = 'com.facebook.archon' # Messenger
+    # Messenger. Note: this is likely unstable across machines
+    if.app-id = 'com.apple.Safari.WebApp.24CA1D6D-C8B1-4341-BFC7-33B90B0FAFED'
     run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]

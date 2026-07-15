@@ -93,10 +93,16 @@ def open_comms():
     open_apps(comms_apps)
 
 
-def open_music_practice():
-    practice_apps = ["GarageBand", "Music"]
+def open_music():
+    music_apps = ["GarageBand", "Music"]
+    if IS_PERSONAL:
+        music_apps += [
+            "Dorico 6",
+            "forScore",
+            "iReal Pro",
+        ]
 
-    open_apps(practice_apps)
+    open_apps(music_apps)
 
 
 def open_all():
@@ -104,7 +110,7 @@ def open_all():
     open_dev()
     open_comms()
     # open_emacs()
-    open_music_practice()
+    open_music()
 
 
 def open_url(url: str):
@@ -114,7 +120,7 @@ def open_url(url: str):
 
 def main():
     parser = argparse.ArgumentParser(description="Open groups of apps.")
-    choices = ["todos", "dev", "comms", "all"]
+    choices = ["todos", "dev", "comms", "music", "all"]
     default = "all"
     assert default in choices
     parser.add_argument(
@@ -132,6 +138,8 @@ def main():
         open_dev()
     elif args.group == "comms":
         open_comms()
+    elif args.group == "music":
+        open_music()
     elif args.group == "all":
         open_all()
     else:

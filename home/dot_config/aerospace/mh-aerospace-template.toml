@@ -354,6 +354,10 @@ automatically-unhide-macos-hidden-apps = false
     run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
+    if.app-id = 'com.microsoft.edgemac'
+    run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
     if.app-id = 'notion.id'
     run = 'move-node-to-workspace 3'
 
@@ -380,6 +384,36 @@ automatically-unhide-macos-hidden-apps = false
 [[on-window-detected]]
     if.app-id = 'md.obsidian'
     run = 'move-node-to-workspace 1'
+
+################### 7 Updates and System
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.AppStore'
+    run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.systempreferences'
+    run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+    if.app-id = 'com.docker.docker'
+    run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+    if.app-id = 'com.electron.dockerdesktop'
+    run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+    if.app-id = 'io.kandji.Self-Service'
+    run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.ActivityMonitor'
+    run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
+    if.app-id = 'org.hammerspoon.Hammerspoon'
+    run = 'move-node-to-workspace 7'
 
 ################### 9 Links (P)
 

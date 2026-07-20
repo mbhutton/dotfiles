@@ -267,10 +267,6 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.culturedcode.ThingsMac'
     run = 'move-node-to-workspace 1'
 
-[[on-window-detected]]
-    if.app-id = 'com.linear'
-    run = 'move-node-to-workspace 1'
-
 ################### 2 Comms
 
 [[on-window-detected]]
@@ -359,6 +355,10 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'notion.id'
+    run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+    if.app-id = 'com.linear'
     run = 'move-node-to-workspace 3'
 
 ################### N Scratch / Dormant note taking

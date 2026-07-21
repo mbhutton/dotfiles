@@ -1,11 +1,138 @@
 [custom_commands]
 "show change diff" = { key = ["U"], args = ["diff", "-r", "$change_id", "--color", "always"], show = "diff" }
+
+#[[actions]]
+#name = "show-change-diff"
+#lua = '''
+#local out = jj("diff", "-r", context.change_id(), "--color", "always")
+#diff.show(out)
+#'''
+#
+#[[bindings]]
+#action = "show-change-diff"
+#key = "U"
+#scope = "revisions"
+#desc = "show change diff"
+#
+
 "copy change|op|file" = { key = ["y"], args = ["util", "exec", "mh-jjui-copy-change-op-or-file", "$change_id", "$operation_id", "$file"] }
+
+## Copy the most specific context value available: file > operation id > change id.
+## (Reimplements the old mh-jjui-copy-change-op-or-file helper, which relied on the
+## removed literal "$file"/"$operation_id" placeholder substitution.)
+#[[actions]]
+#name = "copy-change-op-file"
+#lua = '''
+#local file = context.file()
+#local op = context.operation_id()
+#local change = context.change_id()
+#if file and file ~= "" then
+#  copy_to_clipboard(file)
+#  flash("copied file path")
+#elseif op and op ~= "" then
+#  copy_to_clipboard(op)
+#  flash("copied operation id")
+#elseif change and change ~= "" then
+#  copy_to_clipboard(change)
+#  flash("copied change id")
+#end
+#'''
+#
+#[[bindings]]
+#action = "copy-change-op-file"
+#key = "y"
+#scope = "revisions"
+#desc = "copy change|op|file"
+#
+#[[bindings]]
+#action = "copy-change-op-file"
+#key = "y"
+#scope = "revisions.details"
+#desc = "copy change|op|file"
+#
+#[[bindings]]
+#action = "copy-change-op-file"
+#key = "y"
+#scope = "oplog"
+#desc = "copy change|op|file"
+#
+
 "copy git commit ID" = { key = ["Y"], args = ["util", "exec", "--", "bash", "-c", "jj log --no-graph -r $change_id --template commit_id | pbcopy" ] }
+
+#[[actions]]
+#name = "copy-git-commit-id"
+#lua = '''
+#local out = jj("log", "--no-graph", "-r", context.change_id(), "--template", "commit_id")
+#copy_to_clipboard(out)
+#flash("copied git commit id")
+#'''
+#
+#[[bindings]]
+#action = "copy-git-commit-id"
+#key = "Y"
+#scope = "revisions"
+#desc = "copy git commit ID"
+#
+
 "lazygit, then re-import" = { key = ["G"], args = ["util", "exec", "--", "bash", "-c", "lazygit ; jj git import" ], show = "interactive" }
+
+#[[actions]]
+#name = "lazygit-reimport"
+#lua = '''
+#jj_interactive("util", "exec", "--", "bash", "-c", "lazygit ; jj git import")
+#revisions.refresh()
+#'''
+#
+#[[bindings]]
+#action = "lazygit-reimport"
+#key = "G"
+#scope = "revisions"
+#desc = "lazygit, then re-import"
+
 "ok tag: set here" = { key = ["O"], args = ["util", "exec", "--", "bash", "-c", "mh-jjui-ok-set-to-change $change_id" ] }
+
+#[[actions]]
+#name = "ok-tag-set-here"
+#lua = '''
+#jj_async("util", "exec", "mh-jjui-ok-set-to-change", context.change_id())
+#revisions.refresh()
+#'''
+#
+#[[bindings]]
+#action = "ok-tag-set-here"
+#key = "O"
+#scope = "revisions"
+#desc = "ok tag: set here"
+
 "new change after" = { key = ["N"], args = ["new", "--after", "$change_id"] }
+
+#[[actions]]
+#name = "new-change-after"
+#lua = '''
+#jj_async("new", "--after", context.change_id())
+#revisions.refresh()
+#'''
+#
+#[[bindings]]
+#action = "new-change-after"
+#key = "N"
+#scope = "revisions"
+#desc = "new change after"
+
 "fix (absorb into parent)" = { key = ["F"], args = ["squash", "--use-destination-message", "--revision", "$change_id" ] }
+
+#[[actions]]
+#name = "fix-absorb-into-parent"
+#lua = '''
+#jj_async("squash", "--use-destination-message", "--revision", context.change_id())
+#revisions.refresh()
+#'''
+#
+#[[bindings]]
+#action = "fix-absorb-into-parent"
+#key = "F"
+#scope = "revisions"
+#desc = "fix (absorb into parent)"
 
 [preview]
 show_at_start = true

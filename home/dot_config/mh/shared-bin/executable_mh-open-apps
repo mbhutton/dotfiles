@@ -69,11 +69,17 @@ def open_dev():
     if IS_PERSONAL:
         dev_apps += ["Visual Studio Code - Insiders", "PyCharm"]
     open_apps(dev_apps)
-    for url in [
-        "https://github.com/pulls/inbox",
-        "https://github.com/pulls/involves",
-    ]:
-        open_url(url)
+    if IS_WEKA:
+        for url in [
+            "https://github.com/pulls/inbox",
+            "https://github.com/pulls/involves?q=involves%3A%40me+state%3Aopen+sort%3Aupdated-desc+org%3AKamiHQ",
+        ]:
+            open_url(url)
+    if IS_PERSONAL:
+        for url in [
+            "https://github.com/pulls/involves?q=involves%3A%40me+state%3Aopen+sort%3Aupdated-desc+-org%3AKamiHQ",
+        ]:
+            open_url(url)
 
 
 def open_comms():

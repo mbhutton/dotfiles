@@ -54,7 +54,6 @@ def open_todos():
         apps.append("WorkFlowy")
     if IS_WEKA:
         apps.append("Linear")
-        apps.append("Notion")
 
     open_apps(apps)
     open_url("obsidian://open?vault=code-vault")

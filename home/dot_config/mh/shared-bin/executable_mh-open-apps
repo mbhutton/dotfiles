@@ -102,6 +102,7 @@ def open_music():
             "Dorico 6",
             "forScore",
             "iReal Pro",
+            "RealPlay",
         ]
 
     open_apps(music_apps)

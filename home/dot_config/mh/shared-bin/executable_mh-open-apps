@@ -70,11 +70,8 @@ def open_dev():
         dev_apps += ["Visual Studio Code - Insiders", "PyCharm"]
     open_apps(dev_apps)
     for url in [
-        "https://github.com/issues/assigned",
         "https://github.com/pulls/inbox",
-        "https://github.com/pulls/assigned",
         "https://github.com/pulls/involves",
-        "https://github.com/pulls/reviews",
     ]:
         open_url(url)
 

@@ -59,6 +59,8 @@ def open_todos():
     if IS_PERSONAL:
         open_url("obsidian://open?vault=private-vault")
     if IS_WEKA:
+        open_url("https://linear.app/kamihq/my-issues")
+        open_url("https://www.notion.so/kamiapp/EMPTY-17aa3ed0d3f1809c8b79d3dd78fad0a5")
         open_url("obsidian://open?vault=kork-vault")
 
 

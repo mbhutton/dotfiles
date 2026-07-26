@@ -52,8 +52,6 @@ def open_todos():
         apps.append("Things3")
         apps.append("Claude")
         apps.append("WorkFlowy")
-    if IS_WEKA:
-        apps.append("Linear")
 
     open_apps(apps)
     open_url("obsidian://open?vault=code-vault")

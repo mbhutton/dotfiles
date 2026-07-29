@@ -77,10 +77,7 @@ def open_dev():
 
     open_apps(dev_apps)
     if IS_WEKA:
-        for url in [
-            "https://github.com/pulls/inbox",
-            "https://github.com/pulls/involves?q=involves%3A%40me+state%3Aopen+sort%3Aupdated-desc+org%3AKamiHQ",
-        ]:
+        for url in []:
             open_url(url)
     if IS_PERSONAL:
         for url in [

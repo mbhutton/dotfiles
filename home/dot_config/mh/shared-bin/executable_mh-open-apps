@@ -42,11 +42,11 @@ def open_emacs():
 
 def open_todos():
     apps = [
+        "Things3",
         BROWSER_APP,
         CALENDAR_APP,
     ]
     if IS_PERSONAL:
-        apps.append("Things3")
         apps.append("Claude")
         apps.append("WorkFlowy")
 

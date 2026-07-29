@@ -36,8 +36,6 @@ org
 .config/chezmoi/chezmoistate.boltdb
 
 # Configuration managed using VCS (git and jujutu):
-.config/doom
-.config/emacs
 .config/nvim
 .hammerspoon
 

@@ -47,6 +47,7 @@ def open_todos():
     ]
     if IS_PERSONAL:
         apps.append("Things3")
+        apps.append("Claude")
         apps.append("WorkFlowy")
 
     open_apps(apps)

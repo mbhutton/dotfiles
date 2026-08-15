@@ -1,0 +1,153 @@
+#!/usr/bin/env bash
+#
+# layout-workspace-1.sh -- deterministically arrange AeroSpace workspace 1 as:
+#
+#   +----------------+----------------+---------------------------+
+#   | Obsidian       | Things 3       | accordion:                |
+#   | (personal      |                |   WorkFlowy               |
+#   |  vault)        |                |   Fantastical             |
+#   |                |                |   Obsidian (code-vault)   |
+#   +----------------+----------------+---------------------------+
+#
+# The layout is rebuilt from scratch every run, so the result does not depend on
+# the current arrangement. The script never changes the focused window or the
+# visible workspace, which makes it safe for AeroSpace to call at startup.
+#
+# Usage:
+#   layout-workspace-1.sh                # arrange whatever is running right now
+#   layout-workspace-1.sh --wait [SECS]  # poll until every app has a window, then
+#                                        #   arrange (default 90s; for startup)
+#   layout-workspace-1.sh -v             # also print the resulting tree
+#
+# Windows in workspace 1 that are not listed below (Notes, Stickies, TextEdit,
+# ... per the on-window-detected rules) are left alone as plain tiles to the
+# right of the accordion.
+
+set -uo pipefail
+
+WORKSPACE=1
+
+# Left-to-right order. One entry per window:
+#     <app-bundle-id>;<title must match this ERE>;<title must NOT match this ERE>
+# Both title patterns are optional; they disambiguate the two Obsidian windows.
+LEFT_TO_RIGHT=(
+    'md.obsidian;;code-vault'                   # Obsidian, the non-code vault
+    'com.culturedcode.ThingsMac;;'              # Things 3
+    'com.workflowy.desktop;;'                   # WorkFlowy           -.
+    'com.flexibits.fantastical2.mac;;'          # Fantastical          |- accordion
+    'md.obsidian;code-vault;'                   # Obsidian, code-vault -'
+)
+
+# How many of the rightmost entries above are stacked into one accordion.
+ACCORDION_COUNT=3
+
+################################################################################
+
+WAIT_SECS=0
+VERBOSE=0
+
+while (( $# )); do
+    case $1 in
+        --wait)
+            WAIT_SECS=90
+            if [[ ${2-} =~ ^[0-9]+$ ]]; then WAIT_SECS=$2; shift; fi
+            ;;
+        -v|--verbose) VERBOSE=1 ;;
+        -h|--help) sed -n '2,30p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+        *) echo "$(basename "$0"): unknown argument '$1'" >&2; exit 2 ;;
+    esac
+    shift
+done
+
+command -v aerospace >/dev/null || { echo "aerospace not found in PATH" >&2; exit 1; }
+
+# Most aerospace commands exit non-zero on a no-op (already leftmost, already
+# tiles, ...), which is expected here.
+aero() { aerospace "$@" >/dev/null 2>&1; }
+
+# Fills IDS (one entry per LEFT_TO_RIGHT slot, empty when not running) and
+# MISSING (descriptions of the unresolved slots).
+IDS=()
+MISSING=()
+resolve() {
+    local snapshot spec bundle include exclude id used=' '
+    snapshot=$(aerospace list-windows --all \
+        --format '%{window-id}%{tab}%{app-bundle-id}%{tab}%{window-title}' 2>/dev/null)
+    IDS=(); MISSING=()
+    for spec in "${LEFT_TO_RIGHT[@]}"; do
+        IFS=';' read -r bundle include exclude <<<"$spec"
+        id=$(awk -F'\t' -v b="$bundle" -v inc="$include" -v exc="$exclude" -v used="$used" '
+            $2 != b                     { next }
+            inc != "" && $3 !~ inc      { next }
+            exc != "" && $3 ~  exc      { next }
+            index(used, " " $1 " ")     { next }   # already claimed by an earlier slot
+                                        { print $1; exit }
+        ' <<<"$snapshot")
+        IDS+=("$id")
+        if [[ -n $id ]]; then used+="$id "; else MISSING+=("$bundle${include:+ ~ $include}"); fi
+    done
+}
+
+if (( WAIT_SECS )); then
+    deadline=$(( SECONDS + WAIT_SECS ))
+    while :; do
+        resolve
+        (( ${#MISSING[@]} == 0 )) && break
+        (( SECONDS >= deadline )) && break
+        sleep 2
+    done
+else
+    resolve
+fi
+
+present=()
+for id in "${IDS[@]}"; do [[ -n $id ]] && present+=("$id"); done
+if (( ${#present[@]} == 0 )); then
+    echo "$(basename "$0"): none of the configured windows are open; nothing to do" >&2
+    exit 0
+fi
+(( ${#MISSING[@]} )) && printf '%s: not running, skipped: %s\n' \
+    "$(basename "$0")" "$(IFS=', '; echo "${MISSING[*]}")" >&2
+
+# 1. Make sure every window is on the workspace.
+for id in "${present[@]}"; do aero move-node-to-workspace --window-id "$id" "$WORKSPACE"; done
+
+# 2. Start from a flat row.
+aero flatten-workspace-tree --workspace "$WORKSPACE"
+aero layout --workspace "$WORKSPACE" --root tiles horizontal
+
+# 3. Order the row: shove each window as far left as it goes, rightmost first.
+#    AeroSpace exposes no way to read the tree order, so build it instead.
+total=$(aerospace list-windows --workspace "$WORKSPACE" --count 2>/dev/null)
+[[ $total =~ ^[0-9]+$ ]] || total=${#present[@]}
+for (( i = ${#present[@]} - 1; i >= 0; i-- )); do
+    for (( n = 1; n < total; n++ )); do
+        aero move --window-id "${present[i]}" \
+            --boundaries workspace --boundaries-action stop left
+    done
+done
+
+# 4. Stack the rightmost ACCORDION_COUNT windows into one accordion container.
+#    It has to be a *vertical* accordion: with
+#    enable-normalization-opposite-orientation-for-nested-containers, making it
+#    horizontal flips the root container to vertical and wrecks the row.
+accordion=()
+for (( i = ${#LEFT_TO_RIGHT[@]} - ACCORDION_COUNT; i < ${#LEFT_TO_RIGHT[@]}; i++ )); do
+    (( i >= 0 )) && [[ -n ${IDS[i]} ]] && accordion+=("${IDS[i]}")
+done
+if (( ${#accordion[@]} >= 2 )); then
+    aero join-with --window-id "${accordion[1]}" left      # pair the first two
+    for (( i = 2; i < ${#accordion[@]}; i++ )); do         # move the rest in
+        aero move --window-id "${accordion[i]}" \
+            --boundaries workspace --boundaries-action stop left
+    done
+    aero layout --window-id "${accordion[0]}" accordion vertical
+fi
+
+if (( VERBOSE )); then
+    printf 'workspace %s root=%s\n' "$WORKSPACE" \
+        "$(aerospace list-windows --workspace "$WORKSPACE" \
+            --format '%{workspace-root-container-layout}' | head -1)"
+    aerospace list-windows --workspace "$WORKSPACE" \
+        --format '  %{window-parent-container-layout}%{tab}%{app-name}%{tab}%{window-title}'
+fi

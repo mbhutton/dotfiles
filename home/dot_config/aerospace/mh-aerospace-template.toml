@@ -190,7 +190,12 @@ automatically-unhide-macos-hidden-apps = false
 [mode.hyper.binding]
     #######################################################
     # Special bindings: Only in this hyper mode
-    esc = ['reload-config', 'mode main']
+    esc = [
+        'reload-config',
+        'run-callback --for-every-window on-window-detected',
+        'exec-and-forget ~/.config/mh/shared-bin/mh-layout-workspace-1',
+        'mode main',
+    ]
 
     ctrl-h = 'join-with left'
     ctrl-j = 'join-with down'

@@ -424,7 +424,7 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'org.hammerspoon.Hammerspoon'
     run = 'move-node-to-workspace 7'
 
-################### 9 Links (P)
+################### 9 Links (P) and AI chat
 
 [[on-window-detected]]
     if.app-id = 'com.ngocluu.goodlinks'
@@ -436,6 +436,10 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
     if.app-id = 'com.ranchero.NetNewsWire-Evergreen'
+    run = 'move-node-to-workspace 9'
+
+[[on-window-detected]]
+    if.app-id = 'com.anthropic.claudefordesktop'
     run = 'move-node-to-workspace 9'
 
 ################### 0 Media

@@ -79,7 +79,7 @@ def open_dev():
 
 
 def open_comms():
-    comms_apps = ["Mimestream", "Slack", BROWSER_APP]
+    comms_apps = ["Mimestream", BROWSER_APP]
     if IS_PERSONAL:
         comms_apps += [
             "Messages",
@@ -87,6 +87,10 @@ def open_comms():
             "WhatsApp",
         ]
         open_url("https://www.facebook.com/notifications")
+    if IS_WEKA:
+        comms_apps += [
+            "Slack",
+        ]
 
     open_apps(comms_apps)
 

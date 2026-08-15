@@ -103,6 +103,7 @@ def open_music():
             "forScore",
             "iReal Pro",
             "RealPlay",
+            "VoiceMemos",
         ]
 
     open_apps(music_apps)

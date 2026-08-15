@@ -42,9 +42,6 @@ def open_emacs():
 
 def open_todos():
     apps = [
-        "Notes",
-        "Stickies",
-        "TextEdit",
         BROWSER_APP,
         CALENDAR_APP,
     ]

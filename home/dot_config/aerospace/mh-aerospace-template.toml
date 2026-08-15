@@ -362,6 +362,14 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.microsoft.edgemac'
     run = 'move-node-to-workspace 3'
 
+[[on-window-detected]]
+    if.app-id = 'com.apple.Numbers'
+    run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.Pages'
+    run = 'move-node-to-workspace 3'
+
 ################### N Scratch / Dormant note taking
 # TODO:probably move to planning or to Emacs
 

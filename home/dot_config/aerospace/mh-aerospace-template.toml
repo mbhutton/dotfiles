@@ -445,6 +445,10 @@ automatically-unhide-macos-hidden-apps = false
 ################### 0 Media
 
 [[on-window-detected]]
+    if.app-id = 'com.apple.VoiceMemos'
+    run = 'move-node-to-workspace 0'
+
+[[on-window-detected]]
     if.app-id = 'com.steinberg.dorico6'
     run = 'move-node-to-workspace 0'
 

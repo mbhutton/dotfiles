@@ -272,6 +272,10 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.culturedcode.ThingsMac'
     run = 'move-node-to-workspace 1'
 
+[[on-window-detected]]
+    if.app-id = 'com.workflowy.desktop'
+    run = 'move-node-to-workspace 1'
+
 ################### 2 Comms
 
 [[on-window-detected]]

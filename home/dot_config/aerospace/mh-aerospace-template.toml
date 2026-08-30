@@ -295,6 +295,10 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'net.whatsapp.WhatsApp'
     run = 'move-node-to-workspace 2'
 
+[[on-window-detected]]
+    if.app-id = 'com.apple.MobileSMS'
+    run = 'move-node-to-workspace 2'
+
 ################### 5 IDE
 
 [[on-window-detected]]

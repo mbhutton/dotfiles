@@ -62,9 +62,21 @@ def open_todos():
 
 
 def open_dev():
-    dev_apps = ["RubyMine", "iTerm"]
+    dev_apps = [
+        "iTerm",
+        "Visual Studio Code",
+    ]
     if IS_PERSONAL:
-        dev_apps += ["Visual Studio Code - Insiders", "PyCharm"]
+        dev_apps += [
+            "Claude",
+        ]
+    if IS_WEKA:
+        dev_apps += [
+            "Cursor",
+            "Docker Desktop",
+            "RubyMine",
+        ]
+
     open_apps(dev_apps)
     if IS_WEKA:
         for url in [

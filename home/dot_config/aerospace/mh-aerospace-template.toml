@@ -299,6 +299,11 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.apple.MobileSMS'
     run = 'move-node-to-workspace 2'
 
+# iPhone mirroring
+[[on-window-detected]]
+    if.app-id = 'com.apple.ScreenContinuity'
+    run = 'move-node-to-workspace 2'
+
 ################### 5 IDE
 
 [[on-window-detected]]
@@ -339,13 +344,6 @@ automatically-unhide-macos-hidden-apps = false
 [[on-window-detected]]
     if.app-id = 'com.apple.Preview'
     run = 'move-node-to-workspace 4'
-
-################### 5 Misc System
-
-# iPhone mirroring
-[[on-window-detected]]
-    if.app-id = 'com.apple.ScreenContinuity'
-    run = 'move-node-to-workspace 5'
 
 ################### 3 Browsing
 

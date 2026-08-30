@@ -97,12 +97,14 @@ def open_comms():
 
 
 def open_music():
-    music_apps = ["GarageBand", "Music"]
+    music_apps = []
     if IS_PERSONAL:
         music_apps += [
             "Dorico 6",
             "forScore",
+            "GarageBand",
             "iReal Pro",
+            "Music",
             "RealPlay",
             "VoiceMemos",
         ]

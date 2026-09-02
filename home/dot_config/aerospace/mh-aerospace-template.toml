@@ -330,6 +330,10 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.anthropic.claudefordesktop'
     run = 'move-node-to-workspace 5'
 
+[[on-window-detected]]
+    if.app-id = 'com.todesktop.230313mzl4w4u92' # Cursor
+    run = 'move-node-to-workspace 5'
+
 ################### 4 Shell, Files
 
 [[on-window-detected]]

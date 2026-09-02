@@ -22,6 +22,7 @@
                                             "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
                                             "com.microsoft.VSCodeInsiders",
+                                            "com.todesktop.230313mzl4w4u92",
                                             "org.gnu.Emacs"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -49,6 +50,7 @@
                                             "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
                                             "com.microsoft.VSCodeInsiders",
+                                            "com.todesktop.230313mzl4w4u92",
                                             "org.gnu.Emacs"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -76,6 +78,7 @@
                                             "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
                                             "com.microsoft.VSCodeInsiders",
+                                            "com.todesktop.230313mzl4w4u92",
                                             "org.gnu.Emacs"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -103,6 +106,7 @@
                                             "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
                                             "com.microsoft.VSCodeInsiders",
+                                            "com.todesktop.230313mzl4w4u92",
                                             "org.gnu.Emacs"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -130,6 +134,7 @@
                                             "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
                                             "com.microsoft.VSCodeInsiders",
+                                            "com.todesktop.230313mzl4w4u92",
                                             "org.gnu.Emacs"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -157,6 +162,7 @@
                                             "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
                                             "com.microsoft.VSCodeInsiders",
+                                            "com.todesktop.230313mzl4w4u92",
                                             "org.gnu.Emacs"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -184,6 +190,7 @@
                                             "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
                                             "com.microsoft.VSCodeInsiders",
+                                            "com.todesktop.230313mzl4w4u92",
                                             "org.gnu.Emacs"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -211,6 +218,7 @@
                                             "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
                                             "com.microsoft.VSCodeInsiders",
+                                            "com.todesktop.230313mzl4w4u92",
                                             "org.gnu.Emacs"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -238,6 +246,7 @@
                                             "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
                                             "com.microsoft.VSCodeInsiders",
+                                            "com.todesktop.230313mzl4w4u92",
                                             "org.gnu.Emacs"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -266,6 +275,8 @@
                                             "com.microsoft.VSCode",
                                             "com.microsoft.VSCodeInsiders",
                                             "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92",
+
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -292,6 +303,7 @@
                                             "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
                                             "com.microsoft.VSCodeInsiders",
+                                            "com.todesktop.230313mzl4w4u92",
                                             "org.gnu.Emacs"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -319,6 +331,7 @@
                                             "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
                                             "com.microsoft.VSCodeInsiders",
+                                            "com.todesktop.230313mzl4w4u92",
                                             "org.gnu.Emacs"
                                         ],
                                         "type": "frontmost_application_unless"

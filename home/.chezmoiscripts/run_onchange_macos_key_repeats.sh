@@ -16,6 +16,7 @@ IDE_LIST=(
   "com.jetbrains.WebStorm"
   "com.microsoft.VSCode"
   "com.microsoft.VSCodeInsiders"
+  "com.todesktop.230313mzl4w4u92" # Cursor
 )
 
 for IDE in "${IDE_LIST[@]}"; do

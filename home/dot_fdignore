@@ -27,6 +27,7 @@ site-packages
 /.local/share/mise
 /.local/share/nvim
 /.local/share/uv
+/.local/share/pnpm
 /.ollama
 /.rustup
 /.Trash

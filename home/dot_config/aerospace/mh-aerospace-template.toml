@@ -326,9 +326,10 @@ automatically-unhide-macos-hidden-apps = false
     if.app-id = 'com.apple.shortcuts'
     run = 'move-node-to-workspace 5'
 
-[[on-window-detected]]
-    if.app-id = 'com.apple.WorkflowKit.ShortcutsViewService'
-    run = 'move-node-to-workspace 5'
+# Shortcuts app input
+# [[on-window-detected]]
+#     if.app-id = 'com.apple.WorkflowKit.ShortcutsViewService'
+#     run = 'move-node-to-workspace 5'
 
 [[on-window-detected]]
     if.app-id = 'com.apple.dt.Xcode'

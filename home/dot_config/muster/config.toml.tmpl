@@ -1,0 +1,41 @@
+# muster configuration.
+#
+# Every configured vault is checked against the filesystem on each run, whether
+# or not the search being run names it, so this file describes THIS machine.
+
+default-search = "has-things"
+
+# A vault's name must match its folder name: it is what Obsidian calls the
+# vault, and is used to open notes in it.
+[[vaults]]
+name = "code-vault"
+path = "~/org/code-vault"
+
+{{- if .mh.isKork }}
+name = "kork-vault"
+path = "~/org/kork-vault"
+exclude = ["9 K Archive"]
+{{- else }}
+[[vaults]]
+name = "private-vault"
+path = "~/org/private-vault"
+{{ end -}}
+
+[searches.with-vaults]
+abstract = true
+vaults = [
+  "code-vault",
+{{- if .mh.isKork }}
+  "kork-vault"
+{{- else }}
+  "private-vault"
+{{ end -}}
+]
+
+# Notes carrying at least one Things3 link, in every vault.
+# 'has' matches on the property regardless of its value; 'open' is what gets
+# opened alongside the note itself.
+[searches.has-things]
+inherit = ["with-vaults"]
+has = ["things-link"]
+open = ["things-link"]

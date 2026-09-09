@@ -11,15 +11,15 @@ default-search = "has-things"
 name = "code-vault"
 path = "~/org/code-vault"
 
+[[vaults]]
 {{- if .mh.isKork }}
 name = "kork-vault"
 path = "~/org/kork-vault"
 exclude = ["9 K Archive"]
-{{- else }}
-[[vaults]]
+{{ else }}
 name = "private-vault"
 path = "~/org/private-vault"
-{{ end -}}
+{{ end }}
 
 [searches.with-vaults]
 abstract = true
@@ -27,7 +27,7 @@ vaults = [
   "code-vault",
 {{- if .mh.isKork }}
   "kork-vault"
-{{- else }}
+{{ else }}
   "private-vault"
 {{ end -}}
 ]

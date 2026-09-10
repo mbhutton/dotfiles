@@ -74,7 +74,6 @@ def open_dev():
         dev_apps += [
             "Cursor",
             "Docker Desktop",
-            "RubyMine",
         ]
 
     open_apps(dev_apps)

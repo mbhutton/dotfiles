@@ -17,6 +17,7 @@ IDE_LIST=(
   "com.microsoft.VSCode"
   "com.microsoft.VSCodeInsiders"
   "com.todesktop.230313mzl4w4u92" # Cursor
+  "md.obsidian"
 )
 
 for IDE in "${IDE_LIST[@]}"; do

@@ -13,17 +13,8 @@
                                         "bundle_identifiers": [
                                             "com.apple.Terminal",
                                             "com.googlecode.iterm2",
-                                            "com.jetbrains.cwm.guest",
-                                            "com.jetbrains.CLion",
-                                            "com.jetbrains.intellij.ce",
-                                            "com.jetbrains.pycharm",
-                                            "com.jetbrains.rubymine",
-                                            "com.jetbrains.rustrover",
-                                            "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
-                                            "com.microsoft.VSCodeInsiders",
-                                            "com.todesktop.230313mzl4w4u92",
-                                            "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -41,17 +32,8 @@
                                         "bundle_identifiers": [
                                             "com.apple.Terminal",
                                             "com.googlecode.iterm2",
-                                            "com.jetbrains.cwm.guest",
-                                            "com.jetbrains.CLion",
-                                            "com.jetbrains.intellij.ce",
-                                            "com.jetbrains.pycharm",
-                                            "com.jetbrains.rubymine",
-                                            "com.jetbrains.rustrover",
-                                            "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
-                                            "com.microsoft.VSCodeInsiders",
-                                            "com.todesktop.230313mzl4w4u92",
-                                            "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -69,17 +51,8 @@
                                         "bundle_identifiers": [
                                             "com.apple.Terminal",
                                             "com.googlecode.iterm2",
-                                            "com.jetbrains.cwm.guest",
-                                            "com.jetbrains.CLion",
-                                            "com.jetbrains.intellij.ce",
-                                            "com.jetbrains.pycharm",
-                                            "com.jetbrains.rubymine",
-                                            "com.jetbrains.rustrover",
-                                            "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
-                                            "com.microsoft.VSCodeInsiders",
-                                            "com.todesktop.230313mzl4w4u92",
-                                            "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -97,17 +70,8 @@
                                         "bundle_identifiers": [
                                             "com.apple.Terminal",
                                             "com.googlecode.iterm2",
-                                            "com.jetbrains.cwm.guest",
-                                            "com.jetbrains.CLion",
-                                            "com.jetbrains.intellij.ce",
-                                            "com.jetbrains.pycharm",
-                                            "com.jetbrains.rubymine",
-                                            "com.jetbrains.rustrover",
-                                            "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
-                                            "com.microsoft.VSCodeInsiders",
-                                            "com.todesktop.230313mzl4w4u92",
-                                            "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -125,17 +89,8 @@
                                         "bundle_identifiers": [
                                             "com.apple.Terminal",
                                             "com.googlecode.iterm2",
-                                            "com.jetbrains.cwm.guest",
-                                            "com.jetbrains.CLion",
-                                            "com.jetbrains.intellij.ce",
-                                            "com.jetbrains.pycharm",
-                                            "com.jetbrains.rubymine",
-                                            "com.jetbrains.rustrover",
-                                            "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
-                                            "com.microsoft.VSCodeInsiders",
-                                            "com.todesktop.230313mzl4w4u92",
-                                            "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -153,17 +108,8 @@
                                         "bundle_identifiers": [
                                             "com.apple.Terminal",
                                             "com.googlecode.iterm2",
-                                            "com.jetbrains.cwm.guest",
-                                            "com.jetbrains.CLion",
-                                            "com.jetbrains.intellij.ce",
-                                            "com.jetbrains.pycharm",
-                                            "com.jetbrains.rubymine",
-                                            "com.jetbrains.rustrover",
-                                            "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
-                                            "com.microsoft.VSCodeInsiders",
-                                            "com.todesktop.230313mzl4w4u92",
-                                            "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -181,17 +127,8 @@
                                         "bundle_identifiers": [
                                             "com.apple.Terminal",
                                             "com.googlecode.iterm2",
-                                            "com.jetbrains.cwm.guest",
-                                            "com.jetbrains.CLion",
-                                            "com.jetbrains.intellij.ce",
-                                            "com.jetbrains.pycharm",
-                                            "com.jetbrains.rubymine",
-                                            "com.jetbrains.rustrover",
-                                            "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
-                                            "com.microsoft.VSCodeInsiders",
-                                            "com.todesktop.230313mzl4w4u92",
-                                            "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -209,17 +146,8 @@
                                         "bundle_identifiers": [
                                             "com.apple.Terminal",
                                             "com.googlecode.iterm2",
-                                            "com.jetbrains.cwm.guest",
-                                            "com.jetbrains.CLion",
-                                            "com.jetbrains.intellij.ce",
-                                            "com.jetbrains.pycharm",
-                                            "com.jetbrains.rubymine",
-                                            "com.jetbrains.rustrover",
-                                            "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
-                                            "com.microsoft.VSCodeInsiders",
-                                            "com.todesktop.230313mzl4w4u92",
-                                            "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -237,17 +165,8 @@
                                         "bundle_identifiers": [
                                             "com.apple.Terminal",
                                             "com.googlecode.iterm2",
-                                            "com.jetbrains.cwm.guest",
-                                            "com.jetbrains.CLion",
-                                            "com.jetbrains.intellij.ce",
-                                            "com.jetbrains.pycharm",
-                                            "com.jetbrains.rubymine",
-                                            "com.jetbrains.rustrover",
-                                            "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
-                                            "com.microsoft.VSCodeInsiders",
-                                            "com.todesktop.230313mzl4w4u92",
-                                            "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -265,17 +184,8 @@
                                         "bundle_identifiers": [
                                             "com.apple.Terminal",
                                             "com.googlecode.iterm2",
-                                            "com.jetbrains.cwm.guest",
-                                            "com.jetbrains.CLion",
-                                            "com.jetbrains.intellij.ce",
-                                            "com.jetbrains.pycharm",
-                                            "com.jetbrains.rubymine",
-                                            "com.jetbrains.rustrover",
-                                            "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
-                                            "com.microsoft.VSCodeInsiders",
-                                            "com.todesktop.230313mzl4w4u92",
-                                            "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92"
 
                                         ],
                                         "type": "frontmost_application_unless"
@@ -294,17 +204,8 @@
                                         "bundle_identifiers": [
                                             "com.apple.Terminal",
                                             "com.googlecode.iterm2",
-                                            "com.jetbrains.cwm.guest",
-                                            "com.jetbrains.CLion",
-                                            "com.jetbrains.intellij.ce",
-                                            "com.jetbrains.pycharm",
-                                            "com.jetbrains.rubymine",
-                                            "com.jetbrains.rustrover",
-                                            "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
-                                            "com.microsoft.VSCodeInsiders",
-                                            "com.todesktop.230313mzl4w4u92",
-                                            "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -322,17 +223,8 @@
                                         "bundle_identifiers": [
                                             "com.apple.Terminal",
                                             "com.googlecode.iterm2",
-                                            "com.jetbrains.cwm.guest",
-                                            "com.jetbrains.CLion",
-                                            "com.jetbrains.intellij.ce",
-                                            "com.jetbrains.pycharm",
-                                            "com.jetbrains.rubymine",
-                                            "com.jetbrains.rustrover",
-                                            "com.jetbrains.WebStorm",
                                             "com.microsoft.VSCode",
-                                            "com.microsoft.VSCodeInsiders",
-                                            "com.todesktop.230313mzl4w4u92",
-                                            "org.gnu.Emacs"
+                                            "com.todesktop.230313mzl4w4u92"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }

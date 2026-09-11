@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Allow key repeats for Vim motions in VSCode and JetBrains IDEs,
+# Allow key repeats for Vim motions in apps with a Vim mode,
 # e.g. to support holing down `j` to move the cursor down multiple lines.
 
 # Only continue if macOS

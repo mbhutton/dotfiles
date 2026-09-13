@@ -24,10 +24,10 @@ path = "~/org/private-vault"
 [searches.with-vaults]
 abstract = true
 vaults = [
-  "code-vault",
 {{- if .mh.isKork }}
   "kork-vault"
 {{ else }}
+  "code-vault",
   "private-vault"
 {{ end -}}
 ]

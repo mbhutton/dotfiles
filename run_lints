@@ -15,7 +15,7 @@ function fail {
   exit 1
 }
 
-# TODO: More pytest tests withing the classes themselves
+# TODO: More pytest tests within the classes themselves
 echo "Running pytest tests..."
 ( (rg -l 'def test_' ) | grep -v run_lints | sort -u | xargs -n 1 uvx pytest -q ) || fail "Pytest tests failed"
 

@@ -357,6 +357,10 @@ automatically-unhide-macos-hidden-apps = false
     run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
+    if.app-id = 'com.robotanz.Purple-Tree'
+    run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
     if.app-id = 'com.apple.Preview'
     run = 'move-node-to-workspace 4'
 

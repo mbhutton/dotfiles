@@ -1,0 +1,16 @@
+[obsidian]
+vaults = [
+  "~/org/code-vault/",
+{{- if .mh.isKork }}
+  "~/org/kork-vault/"
+{{ else }}
+  "~/org/private-vault/"
+{{ end }}
+]
+
+{{- if .mh.isMainPersonal }}
+[workflowy]
+joined = 2015-03-14T00:00:00Z
+backups = "~/Library/CloudStorage/Dropbox/Apps/WorkFlowy/Data"
+
+{{ end }}

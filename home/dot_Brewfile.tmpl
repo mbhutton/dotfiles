@@ -41,7 +41,6 @@ brew "lua-language-server"
 brew "m1ddc"              # For display monitor source switching
 brew "neovim"             # Modern 'vim'. Also (formerly) used from VS Code as backend
 brew "nushell"            # Modern shell with structured data pipelines. Alt to 'jq'
-brew "ollama"             # Run LLMs locally
 brew "pandoc"             # Format converter. Used in linkshift
 brew "pueue"              # Manage long running processes
 brew "ripgrep"            # Modern 'grep'. Note: required by LazyVim `opt.grepprg`
@@ -84,6 +83,10 @@ brew "pkg-config"
 brew "readline"
 brew "zlib"
 # Ruby building section ends
+{{ end }}
+
+{{ if .mh.isMainPersonal }}
+brew "ollama"             # Run LLMs locally
 {{ end }}
 
 {{ if .mh.isMacHost }}
